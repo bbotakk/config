@@ -58,19 +58,19 @@ This config implements powerful keybindings to make the workflow maximally fast.
 Using Alt inside Applications in order to minimize conflict with existing shortcuts.
 | mod +  | what                             |
 |--------+----------------------------------|
-| j, k   | tab/splits cylcling/navigation   |
-| =, -   | resize                           |
+| j/k    | tab/splits cylcling/navigation   |
+| =/-    | resize                           |
 | x      | filexplorer                      |
 | e      | editor                           |
 | t      | terminal                         |
 | f      | find                             |
-| /      | search                           |
+| slash  | search                           |
 | Return | run                              |
 | s      | split window                     |
 | q      | close split/tab/program          |
 | v      | viewer (document/reading/output) |
 | ;      | run command                      |
-| u, d   | scroll up/down (half page)       |
+| u/d    | scroll up/down (half page)       |
 | h      | help                             |
 | space  | leader-key system.               |
 
