@@ -35,6 +35,16 @@ let-env MANPAGER = 'bat'
 let-env PAGER = "bat"
 let-env BAT_THEME = "Solarized (light)"
 
+
+# get juicy custom completions from fish shell into nushell until it supports it natively
+let fish_completer = {|spans|
+    fish --command $'complete "--do-complete=($spans | str join " ")"'
+    | str trim
+    | split row "\n"
+    | each { |line| $line | split column "\t" value description }
+    | flatten
+}
+
 # The default config record. This is where much of your global configuration is setup.
 let-env config = {
 	show_banner: false # true or false to enable or disable the welcome banner at startup
@@ -111,7 +121,7 @@ let-env config = {
 		external: {
 			enable: true # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up my be very slow
 			max_results: 100 # setting it lower can improve completion performance at the cost of omitting some options
-			completer: null # check 'carapace_completer' above as an example
+			completer: $fish_completer # check 'carapace_completer' above as an example
 		}
 	}
 
@@ -222,7 +232,6 @@ let-env config = {
 				| each {|it| {value: $it.name description: $it.usage}}
 			}
 		}
-		
 	 ]
     
     # to view available keybindings: `keybindings list`
@@ -266,7 +275,7 @@ let-env config = {
 			event: {send: menupageprevious}
 		}
 
-		{name: commands_menu
+		{name: commands_with_description
 			modifier: alt
 			keycode: Enter
 			mode: [emacs, vi_normal, vi_insert]

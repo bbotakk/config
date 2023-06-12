@@ -4643,3 +4643,5 @@ git commit -am 'sync'; git push
 git commit -am 'sync'; git push --set-upstream origin master
 git push --help
 git push  -h | bat
+git commit -am 'sync'; git push --set-upstream origin master -f
+dnfs carpace

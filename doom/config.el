@@ -85,12 +85,14 @@
   )
 
 (map!
-   :nvm "C-u" 'bo/page-up
-   :nvm "C-d" 'bo/page-down
-   :nvm "C-o" 'bo/jump-backward
-   :nvm "C-i" 'bo/jump-forward
-   :nvm "Q"   'evil-execute-last-recorded-macro
-   :nvm "U"   'evil-redo
+   :nvm "C-u"   'bo/page-up
+   :nvm "C-d"   'bo/page-down
+   :nvm "C-o"   'bo/jump-backward
+   :nvm "C-i"   'bo/jump-forward
+   :nvm "n"     'bo/next-match
+   :nvm "N"     'bo/prev-match
+   :nvm "Q"     'evil-execute-last-recorded-macro
+   :nvm "U"     'evil-redo
   )
 
 (map! :map dired-mode-map
@@ -185,10 +187,23 @@ Prompt for a choice."
                  ((equal prefix '(4)) "%m-%d-%Y")
                  ((equal prefix '(16)) "%Y-%m-%d"))))
     (insert (format-time-string format))))
+
 (defun bo/quit-window ()
   (interactive)
   (evil-quit)
   (balance-windows)
+)
+
+(defun bo/next-match ()
+  (interactive)
+  (evil-ex-search-next 1)
+  (evil-scroll-line-to-center nil)
+)
+
+(defun bo/prev-match ()
+  (interactive)
+  (evil-ex-search-previous 1)
+  (evil-scroll-line-to-center nil)
 )
 
 (ivy-posframe-mode t)
