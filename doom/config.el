@@ -36,39 +36,45 @@
       +global-word-wrap-mode t
       rainbow-mode t
       org-num-mode t
+      evil-want-abbrev-expand-on-insert-exit nil ;; will add relative line jumps to jumplist
       )
 
 (setq doom-leader-key "SPC"
-      doom-localleader-key ",")
+      doom-localleader-key ",") ;; hit <spc> twice
 
 (map! :leader
-    "t l" 'doom/toggle-line-numbers
-    "t H" 'global-hl-line-mode
-    "t t" 'toggle-truncate-lines
-    "t C" 'global-company-mode
-    "t e" 'counsel-load-theme
-    "t S" 'toggle-line-spacing
-    "t n" 'org-num-mode
-    "t d" 'peep-dired
-    "t D" 'dired-view-file
-    "i t" 'bo/insert-todays-date
-    "i T" 'bo/insert-any-date
-    ;;remove unused
-    "'" nil
-    "`" nil
-    "." nil
-    "," nil
-    "SPC" nil
-    "/" nil
-    ":" nil
-    )
+      (:prefix "t"
+               "l" 'doom/toggle-line-numbers
+               "H" 'global-hl-line-mode
+               "t" 'toggle-truncate-lines
+               "C" 'global-company-mode
+               "e" 'counsel-load-theme
+               "S" 'toggle-line-spacing
+               "n" 'org-num-mode
+               "d" 'peep-dired
+               "D" 'dired-view-file
+               "t" 'user/insert-todays-date
+               )
+      (:prefix "i"
+               "d" 'user/insert-any-date
+               "D" 'user/insert-todays-date
+               )
+      ;;remove unused
+      "'" nil
+      "`" nil
+      "." nil
+      "," nil
+      "SPC" nil
+      "/" nil
+      ":" nil
+      )
 
 (map!
   :map  'override
   :nvi "M-j" 'evil-window-prev
   :nvi "M-k" 'evil-window-next
   :nvi "M-s" 'evil-window-vsplit
-  :nvi "M-q" 'bo/quit-window
+  :nvi "M-q" 'user/quit-window
   :nvi "M-x" 'dired-jump
   :nvi "M-f" 'counsel-fzf
   :nvi "M-r" 'counsel-recentf
@@ -85,14 +91,15 @@
   )
 
 (map!
-   :nvm "C-u"   'bo/page-up
-   :nvm "C-d"   'bo/page-down
-   :nvm "C-o"   'bo/jump-backward
-   :nvm "C-i"   'bo/jump-forward
-   :nvm "n"     'bo/next-match
-   :nvm "N"     'bo/prev-match
+   :nvm "C-u"   'user/page-up
+   :nvm "C-d"   'user/page-down
+   :nvm "C-o"   'user/jump-backward
+   :nvm "C-i"   'user/jump-forward
+   :nvm "n"     'user/next-match
+   :nvm "N"     'user/prev-match
    :nvm "Q"     'evil-execute-last-recorded-macro
    :nvm "U"     'evil-redo
+
   )
 
 (map! :map dired-mode-map
@@ -116,7 +123,7 @@
       :n "y" #'dired-copy-filenamecopy-filename-as-kill
       :n "z" #'dired-do-compress
       :n "." #'dired-omit-mode
-      :n "o" #'bo/dired-order
+      :n "o" #'user/dired-order
       :n "s" #'dired-toggle-sudo)
 
 (map! :map peep-dired-mode-map
@@ -125,7 +132,7 @@
 
 (add-hook 'peep-dired-hook 'evil-normalize-keymaps)
 
-(defun bo/dired-order()
+(defun user/dired-order()
   "Sort dired dir listing in different ways.
 Prompt for a choice."
   (interactive)
@@ -139,48 +146,48 @@ Prompt for a choice."
      (t (error "logic error 09535" )))
     (dired-sort-other xarg )))
 
-(defun bo/next-match ()
+(defun user/next-match ()
   (interactive)
   (evil-ex-search-next)
   (evil-scroll-line-to-center nil)
   )
 
-(defun bo/previous-match ()
+(defun user/previous-match ()
   (interactive)
   (evil-ex-search-previous)
   (evil-scroll-line-to-center nil)
   )
 
-(defun bo/page-up ()
+(defun user/page-up ()
   (interactive)
   (evil-scroll-page-up 1)
   (evil-scroll-line-to-center nil)
   )
 
-(defun bo/page-down ()
+(defun user/page-down ()
   (interactive)
   (evil-scroll-page-down 1)
   (evil-scroll-line-to-center nil)
   )
 
-(defun bo/jump-backward ()
+(defun user/jump-backward ()
   (interactive)
   (evil-jump-backward 1)
   (evil-scroll-line-to-center nil)
   )
 
-(defun bo/jump-forward ()
+(defun user/jump-forward ()
   (interactive)
   (evil-jump-forward 1)
   (evil-scroll-line-to-center nil)
   )
 
-(defun bo/insert-any-date (date)
+(defun user/insert-any-date (date)
   "Insert DATE using the current locale."
   (interactive (list (calendar-read-date)))
   (insert (calendar-date-string date)))
 
-(defun bo/insert-todays-date (prefix)
+(defun user/insert-todays-date (prefix)
   (interactive "P")
   (let ((format (cond
                  ((not prefix) "%A, %B %d, %Y")
@@ -188,23 +195,23 @@ Prompt for a choice."
                  ((equal prefix '(16)) "%Y-%m-%d"))))
     (insert (format-time-string format))))
 
-(defun bo/quit-window ()
+(defun user/quit-window ()
   (interactive)
   (evil-quit)
   (balance-windows)
-)
+  )
 
-(defun bo/next-match ()
+(defun user/next-match ()
   (interactive)
   (evil-ex-search-next 1)
   (evil-scroll-line-to-center nil)
-)
+  )
 
-(defun bo/prev-match ()
+(defun user/prev-match ()
   (interactive)
   (evil-ex-search-previous 1)
   (evil-scroll-line-to-center nil)
-)
+  )
 
 (ivy-posframe-mode t)
 (setq ivy-posframe-display-functions-alist
