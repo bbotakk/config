@@ -4640,3 +4640,6 @@ git remote -v
 git status
 git git commit -am 'sync'; git push
 git commit -am 'sync'; git push
+git commit -am 'sync'; git push --set-upstream origin master
+git push --help
+git push  -h | bat
