@@ -1,9 +1,10 @@
----
-title: Functional and efficiency focused computing workflow
-author: bo 
-date: 16.05.2023
----
+#+title:  Functional and efficiency focused computing workflow
+#+author: bo
+#+date:   16.05.2023
 
+#+BEGIN_QUOTE
+functional and efficiency focused computing workflow
+#+end_quote
 
 * philosophy
 - this config aims at making the workflow the most effective, while being as bare metal as possible, avoiding bloat and focusing on speed and amount of computational steps. (no headaches, no unexpected behavior, minimal mental overhead). 
@@ -17,8 +18,10 @@ date: 16.05.2023
  - in applications it eliminates stack splitting and only uses side-by-side splits (less overhead and more consistency and readability). Wide-aspect ratio monitors are not designed for stacked splits. 
 - to the author it is also very important that the software used is stable, secure and reliable. Being able to run it for years without it breaking or bugging. This is why secure and fast languages such as rust are preferred. 
 
-> “It may looks ridiculous to the outside observer, but it’s about eliminating that invisible barrier between you and the tool that you’re using,” 
-> - Ethan Schoonover
+#+begin_quote
+It may looks ridiculous to the outside observer, but it’s about eliminating that invisible barrier between you and the tool that you’re using,”
+-- Ethan Schoonover
+#+end_quote
 
 * distro: fedora (i3 spin)
 - fedora is used because this config is aimed at someone that wants to be productive. This means that the setup cannot break and change all the time. A secure, minimal and fast distro is needed. 
@@ -53,21 +56,23 @@ This config implements powerful keybindings to make the workflow maximally fast.
 
 * keybindings
 Using Alt inside Applications in order to minimize conflict with existing shortcuts.
- - Mod j/k       tab/splits cylcling/navigation
- - mod =/-       resize
- - mod x         filexplorer
- - mod e         editor
- - mod t         terminal
- - mod f         find
- - Mod slash     search
- - mod Return    run
- - mod s         split window
- - mod q         close split/tab/program
- - mod v         viewer (document/reading/output)
- - mod ;         run command
- - mod u/d       scroll up/down (half page)
- - mod h         help
- - mod space     leader-key system.
+| mod +  | what                             |
+|--------+----------------------------------|
+| j/k    | tab/splits cylcling/navigation   |
+| =/-    | resize                           |
+| x      | filexplorer                      |
+| e      | editor                           |
+| t      | terminal                         |
+| f      | find                             |
+| slash  | search                           |
+| Return | run                              |
+| s      | split window                     |
+| q      | close split/tab/program          |
+| v      | viewer (document/reading/output) |
+| ;      | run command                      |
+| u/d    | scroll up/down (half page)       |
+| h      | help                             |
+| space  | leader-key system.               |
 
 * installation
  1. Install all packages and dependencies in the `packages` script. (run the script if on fedora)
