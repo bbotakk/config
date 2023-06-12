@@ -130,7 +130,6 @@ bindsym $mod+a          exec "~/.config/scripts/focus gui Clementine clementine"
 bindsym $mod+shift+a    exec "~/.config/scripts/focus tui pulsemixer alsamixer" 
 bindsym $mod+m          exec "~/.config/scripts/focus gui mpv mpv" 
 bindsym $mod+c          exec "~/.config/scripts/focus tui bc 'bc -l'" 
-bindsym $mod+shift+c    exec "~/.config/scripts/focus gui Qalculate-gtk qalculate-gtk" 
 bindsym $mod+o          exec "~/.config/scripts/focus gui obs 'flatpak run com.obsproject.Studio'"
 bindsym $mod+p          exec "~/.config/scripts/focus tui htop htop" 
 

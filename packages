@@ -2,7 +2,7 @@
 
 # packages
 sudo dnf -y upgrade
-sudo dnf -y --allowerasing install tldr i3 i3status i3lock qalculate-gtk bc alacritty zathura zathura-pdf-mupdf arandr htop mpv curl libtool xset flameshot ripgrep fzf rofi light xclip xdg-utils xdotool wmctrl cmake sxiv fd-find npm bat unclutter firefox pavucontrol pamix pasystray polybar ffmpeg-free syncthing clementine playerctl keepassxc blueman lxappearance git gcc gcc-g++ make pkgconfig libX11-devel libXtst-devel libXi-devel texlive-scheme-basic latexmk cargo flatpak xautolock autofs emacs
+sudo dnf -y --allowerasing install tldr i3 i3status i3lock bc alacritty zathura zathura-pdf-mupdf arandr htop mpv curl libtool xset flameshot ripgrep fzf rofi light xclip xdg-utils xdotool wmctrl cmake sxiv fd-find npm bat unclutter firefox pavucontrol pamix pasystray polybar ffmpeg-free syncthing clementine playerctl keepassxc blueman lxappearance git gcc gcc-g++ make pkgconfig libX11-devel libXtst-devel libXi-devel texlive-scheme-basic latexmk cargo flatpak xautolock autofs emacs
 
 mv -f '~/.config/emacs' '~/.config/emacs_old'
 git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
