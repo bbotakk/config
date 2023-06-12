@@ -36,7 +36,6 @@
       +global-word-wrap-mode t
       rainbow-mode t
       org-num-mode t
-      evil-want-abbrev-expand-on-insert-exit nil ;; will add relative line jumps to jumplist
       )
 
 (setq doom-leader-key "SPC"
@@ -74,7 +73,7 @@
   :nvi "M-j" 'evil-window-prev
   :nvi "M-k" 'evil-window-next
   :nvi "M-s" 'evil-window-vsplit
-  :nvi "M-q" 'user/quit-window
+  :nvi "M-q" 'user/save-quit
   :nvi "M-x" 'dired-jump
   :nvi "M-f" 'counsel-fzf
   :nvi "M-r" 'counsel-recentf
@@ -195,9 +194,9 @@ Prompt for a choice."
                  ((equal prefix '(16)) "%Y-%m-%d"))))
     (insert (format-time-string format))))
 
-(defun user/quit-window ()
+(defun user/save-quit ()
   (interactive)
-  (evil-quit)
+  (evil-save-modified-and-close nil)
   (balance-windows)
   )
 
