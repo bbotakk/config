@@ -1,0 +1,14 @@
+#!/usr/bin/env nu
+
+def main [] {
+    let monitors = (xrandr -q | lines | where {str contains " connected"} | split column " " | get column1)
+    let on = ($monitors | str join "\n" | rofi -dmenu -multi-select -p "Displays: ")
+    let off = ($monitors | where {|i| not ($i in $on)})
+    
+    for m in $on {
+        xrandr --output $m --auto
+    }
+    for m in $off {
+        xrandr --output $m --off
+    }
+}

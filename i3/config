@@ -1,0 +1,201 @@
+# run apps & scripts on startup
+exec --no-startup-id "~/.config/scripts/startup"
+
+# Options
+workspace_auto_back_and_forth no
+workspace_layout tabbed 
+force_focus_wrapping no
+default_orientation horizontal
+default_border pixel 2
+hide_edge_borders smart
+title_align left
+font pango: Iosevka Nerd Font 8
+for_window [all] title_window_icon yes; move container to workspace 1; workspace 1
+for_window [urgent="latest"] focus
+
+### assign workspaces to outputs; not used since i run this config on multiple different monitor setups and machines.
+# @home:
+# workspace 1 output DP-1-1
+# workspace 2 output DP-1-2
+# workspace 3 output DP-1-3
+# @work:
+workspace 1 output DP-1
+workspace 2 output eDP-1
+
+
+# solarized light
+set $backg  #F2E6CE 
+set $foreg  #657b83 
+set $main 	#268bd2
+set $gray 	#93a1a1
+set $yellow #b58900
+set $orange #cb4b16
+set $red 	#dc322f
+set $purple #6c71c4
+set $blue 	#268bd2
+set $cyan 	#2aa198
+set $green 	#859900
+
+# solarized dark
+# set $backg  #002b36 
+# set $foreg  #657b83 
+# set $main 	#268bd2
+# set $gray 	#93a1a1
+# set $yellow #b58900
+# set $orange #cb4b16
+# set $red 	#dc322f
+# set $purple #6c71c4
+# set $blue 	#268bd2
+# set $cyan 	#2aa198
+# set $green 	#859900
+
+# using polybar instead... | but comment out if you do not want to use polybar
+# bar {
+#   mode dock
+#   position bottom
+#   separator_symbol " | "
+#   # status_command i3status
+#   # tray_output primary
+#   colors {
+#     background $backg
+#     statusline $foreg 
+#     separator  $foreg
+#     # class             border  backg   text
+#     focused_workspace   $main   $main   $backg
+#     inactive_workspace  $backg  $backg  $foreg
+#     active_workspace    $backg  $backg  $foreg
+#     urgent_workspace    $red    $red    $backg
+#     binding_mode        $main   $main   $backg
+#     }
+# }
+
+# class                 border  backg   text    indicator child
+client.focused          $main   $main   $backg  $foreg    $main
+client.focused_inactive $gray   $gray   $backg  $backg    $backg
+client.unfocused        $backg  $backg  $foreg  $backg    $backg
+client.urgent           $red    $red    $backg  $backg    $backg
+client.placeholder      $backg  $backg  $foreg  $backg    $backg
+client.background       $backg
+
+# Mod4 -> Super; Mod1 -> Alt
+set $mod Mod4
+floating_modifier $mod
+
+# system management
+# xbacklight doesnt work for my hardware... if it works for you, then change use the commented lines instead
+bindsym XF86MonBrightnessDown   exec "sudo light -U 2"
+bindsym XF86MonBrightnessUp     exec "sudo light -A 2"
+# bindsym XF86MonBrightnessUp     exec "sudo xbacklight +2"
+# bindsym XF86MonBrightnessDown   exec "sudo xbacklight -2"
+bindsym $mod+bracketright       exec "playerctl next"
+bindsym $mod+bracketleft        exec "playerctl previous"
+bindsym $mod+backslash          exec "playerctl play-pause"
+bindsym $mod+equal              exec "pactl set-sink-volume @DEFAULT_SINK@ +2%"
+bindsym $mod+minus              exec "pactl set-sink-volume @DEFAULT_SINK@ -2%"
+bindsym XF86AudioPlay           exec "playerctl play"
+bindsym XF86AudioPause          exec "playerctl pause"
+bindsym XF86AudioNext           exec "playerctl next"
+bindsym XF86AudioPrev           exec "playerctl previous"
+bindsym XF86AudioRaiseVolume    exec "pactl set-sink-volume @DEFAULT_SINK@ +2%"
+bindsym XF86AudioLowerVolume    exec "pactl set-sink-volume @DEFAULT_SINK@ -2%"
+bindsym XF86AudioMute           exec "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+
+# core window management (consistent shortcuts with vim and terminal...)
+bindsym $mod+j          focus prev
+bindsym $mod+shift+j    move left
+bindsym $mod+k          focus next
+bindsym $mod+shift+k    move right
+bindsym $mod+q          kill
+bindsym $mod+s          layout toggle splith tabbed
+bindsym $mod+Left       resize grow width 10 px 
+bindsym $mod+Right      resize shrink width 10 px
+bindsym $mod+Return     exec "rofi -show drun"
+bindsym $mod+semicolon  exec "rofi -show run"
+bindsym $mod+f          exec "rofi -show window"
+
+# workspace bindings
+bindsym $mod+Tab        move workspace to output next;
+bindsym $mod+1          move container to workspace 1; workspace 1
+bindsym $mod+2          move container to workspace 2; workspace 2
+bindsym $mod+3          move container to workspace 3; workspace 3
+
+# launch/focus programs: (consistent shortcuts with vim and terminal...)
+bindsym $mod+t          exec "~/.config/scripts/focus -s tui terminal "
+bindsym $mod+v          exec "~/.config/scripts/focus gui zathura zathura" 
+bindsym $mod+e          exec "~/.config/scripts/focus gui emacs 'emacsclient -c'"
+bindsym $mod+b          exec "~/.config/scripts/focus gui firefox firefox"
+bindsym $mod+x          exec "~/.config/scripts/focus tui lf lf" 
+bindsym $mod+shift+x    exec "~/.config/scripts/focus gui Thunar thunar" 
+bindsym $mod+a          exec "~/.config/scripts/focus gui Clementine clementine" 
+bindsym $mod+shift+a    exec "~/.config/scripts/focus tui pulsemixer alsamixer" 
+bindsym $mod+m          exec "~/.config/scripts/focus gui mpv mpv" 
+bindsym $mod+c          exec "~/.config/scripts/focus tui bc 'bc -l'" 
+bindsym $mod+shift+c    exec "~/.config/scripts/focus gui Qalculate-gtk qalculate-gtk" 
+bindsym $mod+o          exec "~/.config/scripts/focus gui obs 'flatpak run com.obsproject.Studio'"
+bindsym $mod+p          exec "~/.config/scripts/focus tui htop htop" 
+
+# system bindings
+bindsym XF86Display     exec "i3lock -e --color F2E6CE; systemctl suspend"
+bindsym XF86Lock        exec "i3lock -e --color F2E6CE; systemctl suspend"
+bindsym Print           exec "flameshot gui"
+bindsym $mod+shift+p    exec "flameshot gui"
+bindsym $mod+space      mode "$leader"
+
+# leader system
+set $leader <leader> reBoot / Suspend / Lock / Poweroff / Exit / Restart-i3 / +Help / +Outputs / +Keyboard / +Timer
+mode "$leader" {
+    bindsym r           exec "i3-msg restart";                                  mode "default"
+    bindsym e           exec "i3-msg exit";                                     mode "default"
+    bindsym b           exec "systemctl reboot";                                mode "default"
+    bindsym s           exec "i3lock -e --color F2E6CE; systemctl suspend";     mode "default"
+    bindsym l           exec "i3lock -e --color F2E6CE; xset dpms force off";   mode "default"
+    bindsym p           exec "systemctl poweroff";                              mode "default"
+    bindsym o           mode "$outputselect"
+    bindsym h           mode "$help"
+    bindsym k           mode "$keyboard"
+    bindsym t           mode "$timer"
+    bindsym a           mode "$appearance"
+    bindsym Escape      mode "default"
+}
+
+
+# laptop users: quickly switch screen arrangements when connecting to external outputs. running the remaps script after, bc usually a external keyboard is connected/disconnected, meaning mappings need to be reloaded.
+set $outputselect <outputselect> Arandr / 1 thinkpad_home
+mode "$outputselect" {
+    bindsym t           exec "~/.screenlayout/thinkpad_home.sh; ~/.config/scripts/startup";      mode "default"
+    bindsym a           exec "~/.config/scripts/focus gui Arandr arandr";                        mode "default"
+    bindsym Escape      mode "default"
+}
+
+set $help <help> Readme / I3_config 
+mode "$help" {
+    bindsym r           exec "bash -c alacritty -e less ~/.config/readme.md &"; mode "default"
+    bindsym i           exec "bash -c alacritty -e less ~/.config/i3/config &"; mode "default"
+    bindsym Escape      mode "default"
+}
+
+set $keyboard <keyboard> Dvorak / Ch / Us
+mode "$keyboard" {
+    bindsym d           exec "setxkbmap us dvorak"; mode "default"
+    bindsym c           exec "setxkbmap ch";                                  mode "default"
+    bindsym u           exec "setxkbmap us";                                  mode "default"
+    bindsym Escape      mode "default"
+}
+
+# productivity timer in the statusbar
+set $timer <time> stopWatch / Interval 60/5 / ^Interval 30/5 / [1] timer 15min / [2] timer 30 min / [3] timer 45min / [4] timer 1h / [5] timer 1.5h / [6] timer 2h / [7] timer 3h / [8] timer 4h / Stop 
+mode "$timer" {
+    bindsym w           exec "~/.config/scripts/timer start stopwatch";             mode "default"
+    bindsym i           exec "~/.config/scripts/timer start interval 60min 5min";   mode "default"
+    bindsym shift+i     exec "~/.config/scripts/timer start interval 30min 5min";   mode "default"
+    bindsym 1           exec "~/.config/scripts/timer start timer 15min";           mode "default"
+    bindsym 2           exec "~/.config/scripts/timer start timer 30min";           mode "default"
+    bindsym 3           exec "~/.config/scripts/timer start timer 45min";           mode "default"
+    bindsym 4           exec "~/.config/scripts/timer start timer 1hr";             mode "default"
+    bindsym 5           exec "~/.config/scripts/timer start timer 1.5hr";           mode "default"
+    bindsym 6           exec "~/.config/scripts/timer start timer 2hr";             mode "default"
+    bindsym 7           exec "~/.config/scripts/timer start timer 3hr";             mode "default"
+    bindsym 8           exec "~/.config/scripts/timer start timer 4hr";             mode "default"
+    bindsym s           exec "~/.config/scripts/timer stop";                        mode "default"
+    bindsym Escape      mode "default"
+}

@@ -1,0 +1,43 @@
+#!/usr/bin/env nu
+
+# This script will focus the window if it exists, if not it will launch it. For the tui which has the name terminal it will spawn it into a zellij-background session to be able to keep programs running in the background (if term window is closed and then reopened, the session will get reattached). For other tui programs this will launch the program not in a zellij session in order not to hog memory in the background if the program is closed but not used anymore.
+# 
+# Examples:
+#     focus tui htop 'htop --tree'
+#     focus tui -s terminal
+#     focus gui Firefox firefox
+def main [
+    --session(-s) # run the TUI in a persistent zellij session...
+    type: string, # what type of program {gui | tui}
+    name: string, # define the <Window class> or session name of the terminal session
+    command: string = "" # The command that will launch the program. (default: cmd-line)
+    ] {
+
+    match $type {
+        "gui" => {try {wmctrl -xa $name} catch {$"($command) &" | bash}},
+        "tui" => {
+            try {wmctrl -xa $name} catch {
+                if $session {
+                    sessionize $name $command
+                } else {
+                    alacritty --class $name --title $name -e $command
+                }
+            }
+        },
+        _ => {print "err: wrong usage, specify `tui` or `gui`"},
+    }
+    wmctrl -xa $name
+}
+
+def sessionize [name: string, command: string] {
+    if not (zellij list-sessions | lines | any {|i| $i =~ $name}) {
+        $"alacritty --class ($name) --title ($name) -e zellij -l ~/.config/zellij/layout.kdl -s ($name) &"
+        | bash # needs to be async in order not to wait for process to finish
+        sleep 500ms # wait because zellij only accepts cli control if a terminal window is open with it.
+        if $command {
+            zellij -s $name action write-chars $command
+        }
+    } else {
+        alacritty --class $name --title $name -e zellij attach $name
+    }
+}

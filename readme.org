@@ -1,0 +1,74 @@
+---
+title: Functional and efficiency focused computing workflow
+author: bo 
+date: 16.05.2023
+---
+
+
+* philosophy
+- this config aims at making the workflow the most effective, while being as bare metal as possible, avoiding bloat and focusing on speed and amount of computational steps. (no headaches, no unexpected behavior, minimal mental overhead). 
+- this system is 100% centered at keyboard usage and aims to unify all navigational commands across the terminal, editor, browser, window manager and other possible applications. 
+- using the mouse for non creative, non graphical usages is inefficient and creates mental overhead. Having to look at where you wan to go, and then correlating hand eye until the button, then clicking it, takes way more mental capacity and computational steps than neccessary and can be nagated by using the keyboard and having the same actions always on the same keys.
+- this system is designed to be a workstation. It is the opposite of a beautiful GUI experience that aims to be visually pleasing. 
+    - No effects, no fancy animations. 
+    - no icons. Keep it plain text, concise and readable in most cases icons make readability worse. Instead use proper formatting and limit yourself to typeable characters.
+    - colorscheme: solarized colorscheme (light/dark). As it was intensively designed and tested to achieve the best visibilty while maintaining low eye strain. What makes it so unique is that the colours were choseen based on researched measures and backtested over 6 months until ther were "1000% perfect". It offers the most effective and consistent readability in both dark and light mode. It may look ugly but the functionality it brings is unmatched by any other colorscheme. A light theme is used (99% of the time) because it offers best readability in the daylight (which is the time it is being used most) and offers a creamy smooth look not straining the eyes. If desired there is the option to change to solarized dark in each config that implements Solarized.
+    - font: Iosevka: Designed for editor and terminal usage and the preparation of technical documents. Its slim shape and minimal ligatures allow for more condense and compactness of the of code which enhances readability and allows for smaller sizes. These values are especially important on large datasets.
+ - in applications it eliminates stack splitting and only uses side-by-side splits (less overhead and more consistency and readability). Wide-aspect ratio monitors are not designed for stacked splits. 
+- to the author it is also very important that the software used is stable, secure and reliable. Being able to run it for years without it breaking or bugging. This is why secure and fast languages such as rust are preferred. 
+
+> “It may looks ridiculous to the outside observer, but it’s about eliminating that invisible barrier between you and the tool that you’re using,” 
+> - Ethan Schoonover
+
+* distro: fedora (i3 spin)
+- fedora is used because this config is aimed at someone that wants to be productive. This means that the setup cannot break and change all the time. A secure, minimal and fast distro is needed. 
+
+
+* windowmanager: i3
+ - the windowmanager follows the philosopy of eliminating mental overhead and the neccessety to arrange windows or layouts. The solution to this is a singular, maximized window workflow.
+ - the windowmanagement is finetuned to automate the workflow as much as possible. It tries to make accessing an app as efficient as possible and always consistent (you do not have to cycle back and forth through the apps to get to the one you are thinking of. Instead the app is always bound to the same keybind, no matter where you are.)
+
+
+* shell: nushell
+I believe that a POSIX compliant shell has numerous flaws:
+ - incredibly error prone and unsafe behavior
+ - hard to read and understand
+ - demonic regex string manipulation patterns that will break on the slightest input data change.
+ - they are practically unscaleable
+ - anything a little more complex logic is practically not possible.
+ - support for practically no datatypes
+ - unintuitive syntax and controlflow
+
+This is why the shell of choice and in which i see the future is nushell, even if it has a learning curve and requires a more structured and less hacky approach to scripting. But once learned it smoothly bridges the gap between compiled highly efficient languages such as rust or C and the interactive nature of a shell.
+This config implements powerful keybindings to make the workflow maximally fast.
+
+
+* terminal: alacritty, zellij (multiplexer)
+ - the all terminal applications are started as zellij sessions -> thus closing the terminal window has no effect on the program, bc when you open another terminal, it will attach right back into the session allowing you to continue where left off. this is done because nothing sucks more than loosing your work and having to start over again. 
+ - additionally it allows you to ssh into your machine from anywhere and attach to these running clients seamlessly and keep processes alive when done.
+
+
+* editor: neovim
+ - the neovim setup aims to be easy to understand and extend/change in the future with more plugins.
+
+* keybindings
+Using Alt inside Applications in order to minimize conflict with existing shortcuts.
+ - Mod j/k       tab/splits cylcling/navigation
+ - mod =/-       resize
+ - mod x         filexplorer
+ - mod e         editor
+ - mod t         terminal
+ - mod f         find
+ - Mod slash     search
+ - mod Return    run
+ - mod s         split window
+ - mod q         close split/tab/program
+ - mod v         viewer (document/reading/output)
+ - mod ;         run command
+ - mod u/d       scroll up/down (half page)
+ - mod h         help
+ - mod space     leader-key system.
+
+* installation
+ 1. Install all packages and dependencies in the `packages` script. (run the script if on fedora)
+ 2. Run the commands listed in the `commands` (but beware, some opinionated and possibly unsafe changes made that you might not want)

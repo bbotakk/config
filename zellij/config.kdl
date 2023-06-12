@@ -1,0 +1,81 @@
+on_force_close "detach"
+simplified_ui true
+default_shell "nu"
+pane_frames false
+auto_layout true
+copy_clipboard "system"
+copy_on_select true
+scrollback_editor "emacsclient -c"
+mirror_session true
+default_mode "normal"
+mouse_mode true
+scroll_buffer_size 10000
+
+// copy_command "xclip -selection clipboard" // x11
+// copy_command "wl-copy"                    // wayland
+
+// keymaps are consistent with i3, zathura and vim
+keybinds clear-defaults=true {
+    normal {
+        bind "Alt d" "PageDown" { HalfPageScrollDown; }
+        bind "Alt u" "PageUp" { HalfPageScrollUp; }
+        bind "Alt =" { Resize "Increase"; }
+        bind "Alt -" { Resize "Decrease"; }
+        bind "Alt k" { FocusNextPane; }
+        bind "Alt j" { FocusPreviousPane; }
+        bind "Alt s" { NewPane; }
+        bind "Alt q" { CloseFocus; }
+        bind "Alt Q" { Quit; }
+        bind "Alt v" { EditScrollback; SwitchToMode "Normal"; }
+        bind "Alt /" { SwitchToMode "EnterSearch"; SearchInput 0; }
+    }
+
+    search {
+        bind "Esc" "Ctrl c" { ScrollToBottom; SwitchToMode "Normal"; }
+        bind "j" "Down" { ScrollDown; }
+        bind "k" "Up" { ScrollUp; }
+        bind "d" "Ctrl d" "PageDown" { HalfPageScrollDown; }
+        bind "u" "Ctrl u" "PageUp" { HalfPageScrollUp; }
+        bind "n" { Search "down"; }
+        bind "N" { Search "up"; }
+        bind "c" { SearchToggleOption "CaseSensitivity"; }
+        bind "w" { SearchToggleOption "Wrap"; }
+        bind "o" { SearchToggleOption "WholeWord"; }
+    }
+
+    entersearch {
+        bind "Ctrl c" "Esc" { SwitchToMode "search"; }
+        bind "Enter" { SwitchToMode "Search"; }
+    }
+}
+
+layout {
+    cwd "" // keep cwd on split
+    swap_tiled_layout {
+        tab max_panes=2 {
+            pane split_direction="vertical" {
+                pane
+                pane
+            }
+        }
+        tab max_panes=3 {
+            pane split_direction="vertical" {
+                pane
+                pane
+                pane
+            }
+        }
+        tab max_panes=4 {
+            pane split_direction="vertical" {
+                pane split_direction="horizontal" {
+                    pane
+                    pane
+                }
+                pane split_direction="horizontal" {
+                    pane
+                    pane
+                }
+            }
+        }
+    }
+}

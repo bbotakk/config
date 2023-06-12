@@ -1,0 +1,165 @@
+#! /usr/bin/env nu
+
+use std 
+
+# This super simple program is essentially a wrapper on sleep and notify-send to create
+# timers. It was written to show off the potential and readablility that nushell offers. 
+# No black magic wizardry using bash and patched together regex abortions.
+# Standard use cases are to start a timer, then let it run in
+# the background, ending once the timer runs out or the stop command is run. You can pause
+# and restart as a normal shell program, using CTRL+Z, `%`, `fg`, `bg`.
+# 
+# Examples:
+#     timer start timer 1hr            starts a timer of 1 hour.
+#     timer start timer 45min          starts a timer of 45 minutes.
+#     timer start timer 120sec         starts a timer of 2 minutes.
+#     timer start interval 60min 5min  starts a interval timer with 60min of work and then a 5min break, running until interrupted by user.
+#     timer start stopwatch            starts the stopwatch
+#     timer stop                       stops running time
+#     timer check                      this output can be used in a statusbar to show the timer status.
+def main [
+    --minutes (-m),             # Update the timer each second instead of each minute.
+    --quiet (-q),               # No notifysend notifications
+    --verbose (-v),             # Notify timer status each minute
+    action: string,             # What to do: {start | stop | check}
+    mode?: string = timer,      # What kind of timer to start {timer | interval | stopwatch}.
+    duration?: duration,        # Set the duration for timer/s.
+    break?: duration,           # Set the duration for the break in an interval timer.
+     ] {
+    let buffer = /tmp/timerbuffer
+
+    if $action == 'start'  {
+        if $mode == 'timer'  {
+            timer $buffer $minutes $quiet $verbose $duration
+        } else if $mode == 'interval'  {interval $buffer $minutes $quiet $verbose $duration $break
+        } else if $mode == 'stopwatch'  {stopwatch $buffer $minutes $quiet $verbose }
+    } else if $action == 'stop'  {
+        if ($buffer | path exists) {
+            let mode = (cat $buffer | split words | get 0 | str join)
+            let remaining = (cat $buffer | split row ' ' | skip 1 | str join ' ')
+            notify $quiet $"($mode) was stopped by user at: ($remaining)"
+            rm $buffer
+        } else {notify $quiet "no timer"}
+    } else if $action == 'check'  {
+        if ($buffer | path exists)  {cat $buffer
+        } else {notify $quiet "no timer"}
+    }
+}
+
+
+def notify [ 
+    quiet: bool, 
+    message: string,
+    ] {
+    print $message
+    if not $quiet {notify-send 'timer' $message}
+}
+
+
+def timer [ 
+    buffer: path,
+    minutes: bool,
+    quiet: bool,
+    verbose: bool,
+    duration: duration,
+    ] {
+    if  ($duration | is-empty) {
+        print "error: specify a duration"
+        exit 1
+    }
+    mut countdown = $duration
+    notify $quiet $"timer: ($duration) started!"
+    touch $buffer
+
+    while $countdown > 0sec {
+        if ($buffer | path exists) {
+            $"timer: ($countdown)" | save -f $buffer
+            if $verbose {notify $quiet $"timer: ($countdown)"}
+        } else {return} # if timer was interrupted by user => return => no output 
+
+        if not $minutes {
+            sleep 1sec
+            $countdown -= 1sec
+        } else {
+            sleep 1min
+            $countdown -= 1min
+        }
+    }
+
+    notify $quiet $"timer: ($duration) finished!"
+    rm $buffer
+}
+
+
+def interval [
+    buffer: path
+    minutes:bool,
+    quiet: bool,
+    verbose: bool,
+    work: duration,
+    break: duration
+     ] {
+    if  ($work | is-empty) or ($break | is-empty) {
+        print "error: specify a duration for work and break"
+        exit 1
+    }
+    mut session = "work"
+    mut duration = $work
+    mut counter = 1
+    touch $buffer
+    
+    while true { # gets returned when file is removed by user}
+        notify $quiet $"($session)[($counter)]: ($duration) started!"
+
+        while $duration > 0sec  {
+            if ($buffer | path exists) {
+                $"($session)[($counter)]: ($duration)" | save -f $buffer
+                if $verbose {notify $quiet $"(session)[($counter)]: ($duration) started!"}
+            } else {return} # if timer was interrupted by user => return => no output
+
+            if not $minutes {
+                sleep 1sec
+                $duration -= 1sec
+            } else {
+                sleep 1min
+                $duration -= 1min
+            }
+        }
+
+        if $session == "work"  {
+            notify $quiet $"($session)[($counter)]: ($work) finished!"
+            $duration = $break
+            $session = "break"
+            $counter += 1
+        } else {
+            notify $quiet $"($session): ($break) finished!"
+            $duration = $work
+            $session = "work"
+        }
+    }
+}
+
+
+def stopwatch [
+    buffer: path,
+    minutes: bool,
+    quiet: bool,
+    verbose: bool,
+    ] {
+    notify $quiet "Stopwatch started!"
+    mut duration = 0min
+    touch $buffer
+
+    while ($buffer | path exists) {
+        $"stopwatch: ($duration)" | save -f $buffer
+        if $verbose {notify $quiet $"stopwatch: ($duration)"}
+
+        if not $minutes {
+            sleep 1sec
+            $duration += 1sec
+        } else {
+            sleep 1min
+            $duration += 1min
+        }
+    }
+}

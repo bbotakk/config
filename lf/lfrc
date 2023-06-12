@@ -1,0 +1,89 @@
+# options
+set shell bash
+# set ifs "\n"
+set scrolloff 10
+# set icons
+set period 1
+set hiddenfiles ".*:*.aux:*.log:*.bbl:*.bcf:*.blg:*.run.xml"
+set autoquit true
+set scrolloff 10
+set incsearch
+set smartcase
+set preview
+set dircounts
+set drawbox
+set mouse
+set relativenumber
+set tabstop 4
+
+cmd copy_filename  ${{
+    echo "$f" | tr ' ' '\n' | xclip -selection clipboard 
+}}
+
+cmd fzf_goto ${{
+    dir="$(fd --hidden -td | fzf --reverse )"
+    cmd="cd $cmd"
+    lf -remote "send $id $cmd"
+}}
+
+
+cmd extract ${{
+  case "$f" in
+      *.zip) unzip "$f" ;;
+      *.tar.gz) tar -xzvf "$f" ;;
+      *.tar.bz2) tar -xjvf "$f" ;;
+      *.tar) tar -xvf "$f" ;;
+      *.rar) unrar "$f" ;;
+      *) echo "Unsupported format" ;;
+  esac
+}}
+
+cmd open ${{
+    case "$f" in
+        *.xopp)  xournalpp "$f"   ;;
+        *.odt|*.docx)  libreoffice "$f"  ;;
+        *.pptx)  libreoffice "$f"  ;;
+        *.pdf)  zathura "$f"  ;;
+        *.ipynb)  jupyter notebook "$f"  ;;
+        *.png|*.jpg|*.*.heic)  sxiv "$f"  ;;
+        *.mp4|*.avi|*.mkv)  mpv "$f"  ;;
+        *)  emacsclient -nw "$f"  ;;
+    esac
+}}
+
+
+# remove some default mappings
+map y
+map e
+map x
+map d
+map g
+
+map <enter> open
+map <esc> clear
+map zh set hidden!
+map . set hidden!
+map <tab> :toggle;down
+map <backtab> :toggle;up
+map yy copy
+map yn copy_filename
+map d delete
+map x cut
+map <a-f> fzf_goto
+map e extract
+map af push :$emacs -a "" -c<space>
+map ad push :$mkdir<space>
+map X push :$chmod<space>+x<space>
+
+#parent dir nav
+map [ push hkl
+map ] push hjl
+
+# Global bookmarks (i use this config un multiple different machines which run the identical conifig and have all files synced -> thus i need same bookmarks across all machines
+map gg top --
+map gD cd ~/Downloads
+map gc cd ~/.config
+map gh cd ~/
+map gC cd ~/Code
+map gN cd ~/Notes
+map gi cd ~/Documents/ethz/computerscience

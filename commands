@@ -1,0 +1,23 @@
+#!/usr/bin/bash
+
+sudo chsh -s /usr/bin/nu root
+chsh -s /usr/bin/nu
+
+mkdir ~/.themes ~/.fonts
+
+# config files
+mv --backup --force --verbose -- * ~/.config
+
+# give executeable permission to scripts
+fd . ~/.config/scripts -tf -x chmod +x {}
+ 
+# create symlinks for files located in `~/`
+sudo cp -r ~/.config/fonts ~/.fonts
+sudo cp -r ~/.config/themes  /usr/share/themes/
+
+# daemons
+sudo systemctl enable sshd
+
+echo "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee "/etc/sudoers.d/$USER" # never prompt for passwd at sudo again
+
+# TODO in gui: set Font (Iosevka Nerd Font) systemwide in obsidian, firefox & lxappearance 

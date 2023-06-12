@@ -1,0 +1,14 @@
+configuration {	 
+	display-window: "Window ";
+	display-drun: "Launch ";
+	display-run: "Run ";
+	display-clipboard: "Clipboard ";
+	modi: "drun,window,run";
+	location: 0;
+	font: "Iosevka Nerd Font 10";
+	show-icons: true;
+	icon-theme: "Adwaita";
+	terminal: "alacritty";
+}
+
+@theme "solarized.rasi"

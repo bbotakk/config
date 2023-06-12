@@ -1,0 +1,66 @@
+// default layout
+layout {
+    cwd "" // keep cwd on split
+    swap_tiled_layout {
+        tab max_panes=2 {
+            pane split_direction="vertical" {
+                pane
+                pane
+            }
+        }
+        tab max_panes=3 {
+            pane split_direction="vertical" {
+                pane
+                pane
+                pane
+            }
+        }
+        tab max_panes=4 {
+            pane split_direction="vertical" {
+                pane split_direction="horizontal" {
+                    pane
+                    pane
+                }
+                pane split_direction="horizontal" {
+                    pane
+                    pane
+                }
+            }
+        }
+    }
+}
+
+keybinds clear-defaults=true {
+    // using shift modifier ontop of alt in order not to conflict with vim and tui programs
+    normal {
+        bind "Alt D" "PageDown" { HalfPageScrollDown; }
+        bind "Alt U" "PageUp" { HalfPageScrollUp; }
+        bind "Alt =" { Resize "Increase"; }
+        bind "Alt -" { Resize "Decrease"; }
+        bind "Alt K" { FocusNextPane; }
+        bind "Alt J" { FocusPreviousPane; }
+        bind "Alt S" { NewPane; }
+        bind "Alt Q" { CloseFocus; }
+        bind "Alt Z" { Quit; }
+        bind "Alt V" { EditScrollback; SwitchToMode "Normal"; }
+        bind "Alt ?" { SwitchToMode "EnterSearch"; SearchInput 0; }
+    }
+
+    search {
+        bind "Esc" "Ctrl c" { ScrollToBottom; SwitchToMode "Normal"; }
+        bind "j" "Down" { ScrollDown; }
+        bind "k" "Up" { ScrollUp; }
+        bind "d" "Ctrl d" "PageDown" { HalfPageScrollDown; }
+        bind "u" "Ctrl u" "PageUp" { HalfPageScrollUp; }
+        bind "n" { Search "down"; }
+        bind "N" { Search "up"; }
+        bind "c" { SearchToggleOption "CaseSensitivity"; }
+        bind "w" { SearchToggleOption "Wrap"; }
+        bind "o" { SearchToggleOption "WholeWord"; }
+    }
+
+    entersearch {
+        bind "Ctrl c" "Esc" { SwitchToMode "search"; }
+        bind "Enter" { SwitchToMode "Search"; }
+    }
+}

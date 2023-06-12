@@ -1,0 +1,20 @@
+#! /usr/bin/env nu
+
+# this is a command to automate the mounting of usb's and harddrives
+def main [] {
+    let $dir = "~/tmp"
+    mkdir -v $dir
+    let disks = (
+    sudo fdisk -l 
+    | lines 
+    | skip until {|x| $x =~ 'Device'} 
+    | take until {|x| $x == ''} 
+    | split column -r \s\s* 
+    | headers
+    )
+    print $disks
+    let choice = (input $"Choose Disk #: " | into int)
+    $disks | get $choice
+
+    # mount ($disks.Device | get $choice) $dir
+}

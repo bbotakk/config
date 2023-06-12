@@ -1,0 +1,9 @@
+#! /usr/bin/env nu
+
+def main [] {
+    do -i {killall -q polybar}
+
+    for monitor in (xrandr --listactivemonitors | lines | skip 1 | split column " "| get column6 ) {
+        $"MONITOR=($monitor) polybar --reload main &>/dev/null &" | bash # use bash to launch async command for the time being since nu doesn't support it yet...
+   }
+}

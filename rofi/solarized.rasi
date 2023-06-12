@@ -1,0 +1,117 @@
+*{
+    //solarized dark
+    //backg:  #002b36;
+    //foreg:  #657b83;
+    //main: 	#268bd2;
+    //gray: 	#93a1a1;
+    //yellow: #b58900;
+    //orange: #cb4b16;
+    //red: 	#dc322f;
+    //purple: #6c71c4;
+    //blue: 	#268bd2;
+    //cyan: 	#2aa198;
+    //green: 	#859900;
+
+    //solarized light
+    backg:  #F2E6CE;
+    foreg:  #657b83;
+    main: 	#268bd2;
+    gray: 	#93a1a1;
+    yellow: #b58900;
+    orange: #cb4b16;
+    red: 	#dc322f;
+    purple: #6c71c4;
+    blue: 	#268bd2;
+    cyan: 	#2aa198;
+    green: 	#859900;
+
+	background-color: @backg;
+}
+
+window {
+	width: 55%;
+	orientation: vertical;
+}
+
+mainbox {
+	border: 2px;
+	border-color: @main;
+	padding: 0;
+	children: [inputbar, wrapper-mode-switcher, listview];
+}
+
+listview {
+	columns: 2;
+	lines: 10;
+	padding: 8 0;
+	fixed-height: 0;
+	fixed-columns: 0;
+	fixed-lines: 0;
+	border: 2px;
+}
+
+inputbar {
+  spacing: 0;
+  padding: 1px ;
+}
+
+entry {
+	placeholder: "Type here";
+	text-color: @foreg;
+	padding: 10 10 0 0;
+	margin: 0 -2 0 0;
+}
+
+prompt {
+	text-color: @green;
+	padding: 10 6 0 10;
+	margin: 0 -2 0 0;
+}
+
+wrapper-mode-switcher {
+    orientation: horizontal;
+
+    expand: false;
+    spacing: 0;
+    children: [mode-switcher];
+}
+
+mode-switcher {
+    border: 0px;
+    spacing: 0px;
+    expand: true;
+}
+
+button {
+    padding: 2px;
+    border: 0px 0px 2px ;
+	text-color: @gray;
+}
+button selected.normal {
+  text-color: @main;
+  background-color: @backg;
+
+  border: 2px 2px 0px ;
+}
+
+element {
+	padding: 4 12;
+	text-color: @foreg;
+}
+
+element selected {
+	background-color: @main;
+	text-color: @backg;
+}
+
+element-text {
+	background-color: inherit;
+	text-color: inherit;
+}
+
+element-icon {
+	size: 25 px;
+	background-color: inherit;
+	padding: 0 6 0 0;
+	alignment: vertical;
+}

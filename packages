@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+# packages
+sudo dnf -y upgrade
+sudo dnf -y --allowerasing install tldr i3 i3status i3lock qalculate-gtk bc alacritty zathura zathura-pdf-mupdf arandr htop mpv curl libtool xset flameshot ripgrep fzf rofi light xclip xdg-utils xdotool wmctrl cmake sxiv fd-find npm bat unclutter firefox pavucontrol pamix pasystray polybar ffmpeg-free syncthing clementine playerctl keepassxc blueman lxappearance git gcc gcc-g++ make pkgconfig libX11-devel libXtst-devel libXi-devel texlive-scheme-basic latexmk cargo flatpak xautolock autofs emacs
+
+mv -f '~/.config/emacs' '~/.config/emacs_old'
+git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+~/.config/emacs/bin/doom install
+~/.config/emacs/bin/doom sync
+
+# rustup install for the shell
+sudo dnf -y copr enable atim/nushell 
+sudo dnf -y copr enable pennbauman/ports 
+sudo dnf -y copr enable atim/starship 
+sudo dnf -y copr enable peterwu/iosevka
+sudo dnf -y install nushell starship iosevka-fonts zellij lf
+
+# install xcape 
+git clone https://github.com/alols/xcape.git
+cd xcape
+make
+sudo make install
+rm -rif ../xcape
+
+# install xremap for remapping keys
+cargo install xremap --features x11
+
+# obsidian notes
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub md.obsidian.Obsidian
+
+# multimedia 
+sudo dnf -y install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
+sudo dnf -y install lame\* --exclude=lame-devel
+sudo dnf -y group upgrade --with-optional Multimedia

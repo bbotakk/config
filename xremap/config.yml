@@ -1,0 +1,36 @@
+# ATTENTION!!! this mapping scheme is using the dvorak layout and xremaps does not recognize that -> thus the keys seem random but they actually correspond to different keys eg.: qwerty: hjkl -> dvorak: dhtn
+
+virtual_modifiers:
+  - CapsLock # just another virtual key we can use as a custom modkey
+
+modmap:
+  - name: Global
+    remap:
+      CapsLock: backspace
+      Alt_L:  # single-press: esc; held-down: normal alt-key
+        alone:  Esc
+        held:   Alt_L
+        alone_timeout_millis: 500
+      Alt_R: # single press -> Escape; held-down: Mode_switch modifier (see for usage below)
+        alone:  Esc
+        held:   CapsLock
+        alone_timeout_millis: 500
+
+
+keymap:
+  - name: Global
+    remap:
+      CapsLock-c: Down     # j
+      CapsLock-v: Up       # k
+      CapsLock-j: Left     # h
+      CapsLock-p: Right    # l
+      CapsLock-f: PageUp   # u
+      CapsLock-h: PageDown # d
+      CapsLock-a: End      # a
+      CapsLock-g: Home     # i
+      CapsLock-b: Delete   # x
+      CapsLock-d: C-Right  # e
+      CapsLock-n: C-Left   # b
+      CapsLock-shift-h: [Home, Shift-End, Delete, backspace] # shift-d; deletes line
+      CapsLock-s: [End, Enter]            # o; inserts line below
+      CapsLock-shift-s: [Up, End, Enter]  # o; inserts line above
