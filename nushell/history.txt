@@ -4631,3 +4631,4 @@ git remote remove master
 git remote -v
 git remote add origin https://github.com/bbotakk/config
 git remote -v
+git commit -am 'sync'; git push
