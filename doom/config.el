@@ -434,7 +434,7 @@ Prompt for a choice."
          )
 
         ("N" "NOTE @work"
-         entry (file "~/Org/work_notes.org")
+         entry (file "~/Org/work_note.org")
          "* %? \n%U"
          :empty-lines 1
          )
