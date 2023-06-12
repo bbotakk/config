@@ -16,6 +16,7 @@
       scroll-preserve-screen-position t
       auto-save-default t
       company-idle-delay 0
+      company-show-numbers t
       evil-vsplit-window-right t
       evil-ex-substitute-global t
       evil-move-cursor-back t
@@ -37,7 +38,11 @@
       +global-word-wrap-mode t
       rainbow-mode t
       org-num-mode t
-      )
+      window-combination-resize t
+      x-stretch-cursor t
+      calc-angle-mode 'rad  ; radians are rad
+      calc-symbolic-mode t
+)
 
 (setq doom-leader-key "SPC"
       doom-localleader-key ",") ;; hit <spc> twice
@@ -84,7 +89,7 @@
   :nvi "M--" 'evil-window-decrease-width
   :nvi "M-/" '+default/search-project
   :nvi "M-;" 'counsel-M-x
-  :nvi "C-c" 'evil-force-normal-state ;; incase all else fails
+  :nvi "C-c" 'evil-force-normal-state ;; if all else fails (remap Alt_l: Esc)
   :nvi "C--" 'doom/decrease-font-size
   :nvi "C-=" 'doom/increase-font-size
   :nvi "C-0" 'doom/reset-font-size
@@ -261,7 +266,7 @@ Prompt for a choice."
     (org-indent-mode)
 
   (setq org-directory "~/Org"
-        org-archive-location "~/Archive/archive.org"
+        org-archive-location "~/Archive/Org"
         org-agenda-files '("~/Org")
         org-hide-leading-stars t
         org-appear-autoemphasis t
@@ -295,7 +300,7 @@ Prompt for a choice."
         org-startup-indented t
         org-list-allow-alphabetical t
         org-tags-column 0
-        org-fold-catch-invisible-edits 'show-and-error
+        org-fold-catch-invisible-edits 'smart
         org-log-done 'time
         org-log-into-drawer 'LOGBOOK
         org-clock-into-drawer t
@@ -324,7 +329,8 @@ Prompt for a choice."
         org-roam-directory "~/Notes"
         org-roam-dailies-directory "daily/" ;; relative to org roam-dir
         org-roam-completion-everywhere t
-        org-auto-align-tags nil
+        org-auto-align-tags 0
+        org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
         org-modern-star '("◉" "●" "○" "◈" "◆" "◇" )
         org-modern-table-vertical 1
         org-modern-table-horizontal 0.2
@@ -333,16 +339,19 @@ Prompt for a choice."
                         (?+ . "➤"))
         org-modern-block-name
         '((t . t)
-        ("src" ">>" ">>")
-        ("example" "->" "<-")
-        ("export" "->" "<-"))
+        ("src" "</>" "</>")
+        ("example" "example:" "===")
+        ("export" "export:" "===")
+        ("quote" ">" ">"))
         org-modern-todo nil
         org-modern-done nil
         org-modern-checkbox nil
         org-modern-timestamp nil
         org-modern-block-fringe nil
         org-modern-progress nil
-        org-modern-priority nil
+        org-modern-tag nil
+        ;; org-modern-priority nil
+        ;; org-modern-statistics nil
         ;; org-modern-horizontal-rule (make-string 36 ?─)
         )
   )
@@ -395,8 +404,8 @@ Prompt for a choice."
                            "|"
                            "DONE(d!)"
                            "CANC(C@)"
-                           "DELEGATED(D@)"
-                           "ASSIGNED(a@)"
+                           "DELEG(D@)"
+                           "ASSIGN(a@)"
                            )
                           )
       )
@@ -448,7 +457,7 @@ Prompt for a choice."
   '(("d" "default" entry
      (file "~/Notes/templates/daily_template.org")
      :target (file+head "%<%Y-%m-%d>.org"
-                        "#+title:\t%<%Y-%m-%d>\n#+\t"))))
+                        "#+title:\t%<%Y-%m-%d>\n#+author:\temil lenz\n#+date:\t%<%Y-%m-%d>"))))
 
 (setq doom-theme 'doom-solarized-light)
 

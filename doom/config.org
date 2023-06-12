@@ -26,6 +26,7 @@
       scroll-preserve-screen-position t
       auto-save-default t
       company-idle-delay 0
+      company-show-numbers t
       evil-vsplit-window-right t
       evil-ex-substitute-global t
       evil-move-cursor-back t
@@ -47,7 +48,11 @@
       +global-word-wrap-mode t
       rainbow-mode t
       org-num-mode t
-      )
+      window-combination-resize t
+      x-stretch-cursor t
+      calc-angle-mode 'rad  ; radians are rad
+      calc-symbolic-mode t
+)
 #+end_src
 
 
@@ -111,7 +116,7 @@ The map macro has the following states:
   :nvi "M--" 'evil-window-decrease-width
   :nvi "M-/" '+default/search-project
   :nvi "M-;" 'counsel-M-x
-  :nvi "C-c" 'evil-force-normal-state ;; incase all else fails
+  :nvi "C-c" 'evil-force-normal-state ;; if all else fails (remap Alt_l: Esc)
   :nvi "C--" 'doom/decrease-font-size
   :nvi "C-=" 'doom/increase-font-size
   :nvi "C-0" 'doom/reset-font-size
@@ -307,7 +312,7 @@ Unifies the minibuffer windows to the bottem of the screen and makes them like a
 
 * Org Mode
 ** Options & mostly Prettifying
-- I am generally against utf-symbols as they cannot be typed out with the keyboard -> thus create unneccessary mental overhead and abstraction, to be noted there are exceptions and it is useful to hide the boilerplate code with syntactic sugar in some cases, such as the org formatting with <#+> and the org bullets.
+- I hate icons, symbols and emoji's: only thing they do is create unneccessary mental overhead and abstraction while making sure you look cringe while using them. I use org-modern to hide "ugly" org syntax such as "#+begin_src" in order to improve readablity of the code.
 #+begin_src emacs-lisp
 (after! org
     (global-org-modern-mode)
@@ -315,7 +320,7 @@ Unifies the minibuffer windows to the bottem of the screen and makes them like a
     (org-indent-mode)
 
   (setq org-directory "~/Org"
-        org-archive-location "~/Archive/archive.org"
+        org-archive-location "~/Archive/Org"
         org-agenda-files '("~/Org")
         org-hide-leading-stars t
         org-appear-autoemphasis t
@@ -349,7 +354,7 @@ Unifies the minibuffer windows to the bottem of the screen and makes them like a
         org-startup-indented t
         org-list-allow-alphabetical t
         org-tags-column 0
-        org-fold-catch-invisible-edits 'show-and-error
+        org-fold-catch-invisible-edits 'smart
         org-log-done 'time
         org-log-into-drawer 'LOGBOOK
         org-clock-into-drawer t
@@ -378,7 +383,8 @@ Unifies the minibuffer windows to the bottem of the screen and makes them like a
         org-roam-directory "~/Notes"
         org-roam-dailies-directory "daily/" ;; relative to org roam-dir
         org-roam-completion-everywhere t
-        org-auto-align-tags nil
+        org-auto-align-tags 0
+        org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
         org-modern-star '("◉" "●" "○" "◈" "◆" "◇" )
         org-modern-table-vertical 1
         org-modern-table-horizontal 0.2
@@ -387,16 +393,19 @@ Unifies the minibuffer windows to the bottem of the screen and makes them like a
                         (?+ . "➤"))
         org-modern-block-name
         '((t . t)
-        ("src" ">>" ">>")
-        ("example" "->" "<-")
-        ("export" "->" "<-"))
+        ("src" "</>" "</>")
+        ("example" "example:" "===")
+        ("export" "export:" "===")
+        ("quote" ">" ">"))
         org-modern-todo nil
         org-modern-done nil
         org-modern-checkbox nil
         org-modern-timestamp nil
         org-modern-block-fringe nil
         org-modern-progress nil
-        org-modern-priority nil
+        org-modern-tag nil
+        ;; org-modern-priority nil
+        ;; org-modern-statistics nil
         ;; org-modern-horizontal-rule (make-string 36 ?─)
         )
   )
@@ -450,13 +459,16 @@ Unifies the minibuffer windows to the bottem of the screen and makes them like a
 #+end_src
 
 ** todo types
-TODO: it's an item that needs addressing
-PROG: is beeing worked on and maybe needs to wait on something else to finish
-DELEGATED: someone else is doing it and I need to follow up with them
-ASSIGNED: someone else has full, autonomous responsibility for it
-CANCELLED: it's no longer necessary to finish
-OPT: optional means can be done after most important stuff is finished/may becom obsolete
-DONE: it's complete
+| name  | Description                                                                          |
+|-------+--------------------------------------------------------------------------------------|
+| TODO  | it's an item that needs addressing                                                   |
+| PROG  | is beeing worked on and maybe needs to wait on something else to finish              |
+| DELEG | someone else is doing it and I need to follow up with them                           |
+| ASSIG | someone else has full, autonomous responsibility for it                              |
+| CANC  | it's no longer necessary to finish                                                   |
+| OPT   | optional means can be done after most important stuff is finished/may becom obsolete |
+| DONE  | it's complete                                                                        |
+
 #+begin_src emacs-lisp
 (after! org
 (setq org-todo-keywords '((type
@@ -468,8 +480,8 @@ DONE: it's complete
                            "|"
                            "DONE(d!)"
                            "CANC(C@)"
-                           "DELEGATED(D@)"
-                           "ASSIGNED(a@)"
+                           "DELEG(D@)"
+                           "ASSIGN(a@)"
                            )
                           )
       )
@@ -532,7 +544,7 @@ i like to journal daily to assess my progress, habits, goals and happiness. Thus
   '(("d" "default" entry
      (file "~/Notes/templates/daily_template.org")
      :target (file+head "%<%Y-%m-%d>.org"
-                        "#+title:\t%<%Y-%m-%d>\n#+\t"))))
+                        "#+title:\t%<%Y-%m-%d>\n#+author:\temil lenz\n#+date:\t%<%Y-%m-%d>"))))
 #+end_src
 
 * theme

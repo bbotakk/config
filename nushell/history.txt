@@ -4667,3 +4667,16 @@ pandoc -s -f html -t org input.html -o output.org
 bat output.org
 wget -O input.html https://www.polyphasic.net/adaptation
 pandoc -s -f html -t org input.html -o output.org
+calcurse
+dnfr calcurse
+syncthing
+dired
+emacsclient -c --eval '(delete frame)'
+emacsclient -c --eval '(delete-frame)'
+emacsclient -c 
+ls
+git status
+syncthing
+git status
+fd  'sync-conflict'
+fd  'sync-conflict' -x rm
