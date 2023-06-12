@@ -4632,3 +4632,10 @@ git remote -v
 git remote add origin https://github.com/bbotakk/config
 git remote -v
 git commit -am 'sync'; git push
+git commit -am 'sync'; git push --set-upstream origin master
+git remote add origin git@github.com:bbotakk/config.git
+git remote remove origin
+git remote add origin git@github.com:bbotakk/config.git
+git remote -v
+git status
+git git commit -am 'sync'; git push
