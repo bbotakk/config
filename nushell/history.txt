@@ -4646,3 +4646,14 @@ git push  -h | bat
 git commit -am 'sync'; git push --set-upstream origin master -f
 dnfs carpace
 git status
+dnfr qualculate-gtk
+dnfs qalculate-gtk
+dnfr qalculate-gtk
+nu
+keepassxc  --help
+man keepassxc 
+man 
+calcurse
+lf
+syncthing
+fd  'sync-conflict'

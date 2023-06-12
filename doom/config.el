@@ -260,7 +260,7 @@ Prompt for a choice."
 
   (setq org-directory "~/Org"
         org-archive-location "~/Archive/archive.org"
-        org-agenda-files '("~/Org/agenda")
+        org-agenda-files '("~/Org")
         org-hide-leading-stars t
         org-appear-autoemphasis t
         org-appear-autosubmarkers t
@@ -319,7 +319,7 @@ Prompt for a choice."
         org-auto-tangle-default t
         org-clock-out-when-done t
         org-clock-persist t ;; Save the running clock and all clock history when exiting Emacs, load it on startup
-        org-roam-directory "~/Org"
+        org-roam-directory "~/Notes"
         org-roam-dailies-directory "daily/" ;; relative to org roam-dir
         org-roam-completion-everywhere t
         org-auto-align-tags nil
@@ -410,7 +410,7 @@ Prompt for a choice."
          )
 
         ("e" "EVENT: personal"
-         entry (file+headline "~/Org/org/personal_agenda.org" "events")
+         entry (file+headline "~/Org/personal_agenda.org" "events")
          "* %? :EVENT: \nSCHEDULED: %^T \nLOCATION: \nMATERIAL:"
          :empty-lines 1
          )
@@ -428,13 +428,13 @@ Prompt for a choice."
          )
 
         ("E" "EVENT: work"
-         entry (file+headline "~/Org/org/work_agenda.org" "events")
+         entry (file+headline "~/Org/work_agenda.org" "events")
          "* %? :EVENT: \nSCHEDULED: %^T \nLOCATION: \nMATERIAL:"
          :empty-lines 1
          )
 
         ("N" "NOTE @work"
-         entry (file "~/Org/work/work_notes.org")
+         entry (file "~/Org/work_notes.org")
          "* %? \n%U"
          :empty-lines 1
          )
@@ -444,7 +444,7 @@ Prompt for a choice."
 
 (setq org-roam-dailies-capture-templates
   '(("d" "default" entry
-     (file "~/Org/templates/daily_template.org")
+     (file "~/Notes/templates/daily_template.org")
      :target (file+head "%<%Y-%m-%d>.org"
                         "#+title:\t%<%Y-%m-%d>\n#+\t"))))
 
