@@ -339,7 +339,7 @@ let-env config = {
 			modifier: alt
 			keycode: char_x
 			mode: [emacs, vi_normal, vi_insert] 
-			event: {send: executehostcommand, cmd: "lf"}
+			event: {send: executehostcommand, cmd: "emacs -c -nw --eval '(dired-jump)'"} # or use lf
 		}
 
 		{name: open_editor
