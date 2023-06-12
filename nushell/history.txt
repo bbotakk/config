@@ -4657,3 +4657,13 @@ calcurse
 lf
 syncthing
 fd  'sync-conflict'
+^emacs --daemon
+startup
+pandoc
+dnfi pandoc
+pandoc -s -f html -t org https://www.polyphasic.net/adaptation/strictness-of-sleep-times/ -o output.org
+wget -O input.html https://www.polyphasic.net/adaptation/strictness-of-sleep-times/
+pandoc -s -f html -t org input.html -o output.org
+bat output.org
+wget -O input.html https://www.polyphasic.net/adaptation
+pandoc -s -f html -t org input.html -o output.org

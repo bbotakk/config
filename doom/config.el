@@ -8,6 +8,7 @@
 (evil-snipe-override-mode t)
 (save-place-mode t)
 (+global-word-wrap-mode t)
+(all-the-icons-dired-mode nil) ;; icons make visibilty warse and are cringe to use.
 
 (setq global-auto-revert-non-file-buffers t
       hscroll-margin 1
@@ -251,7 +252,8 @@ Prompt for a choice."
 
 (setq dired-recursive-copies (quote always)
     dired-recursive-deletes (quote top)
-    global-auto-revert-non-file-buffers t)
+    global-auto-revert-non-file-buffers t
+    )
 
 (after! org
     (global-org-modern-mode)
@@ -334,14 +336,14 @@ Prompt for a choice."
         ("src" ">>" ">>")
         ("example" "->" "<-")
         ("export" "->" "<-"))
-        org-modern-block-fringe nil
         org-modern-todo nil
         org-modern-done nil
-        org-modern-done nil
         org-modern-checkbox nil
+        org-modern-timestamp nil
+        org-modern-block-fringe nil
+        org-modern-progress nil
+        org-modern-priority nil
         ;; org-modern-horizontal-rule (make-string 36 ?─)
-        ;; org-modern-progress nil
-        ;; org-modern-priority nil
         )
   )
 

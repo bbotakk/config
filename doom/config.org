@@ -14,6 +14,7 @@
 (evil-snipe-override-mode t)
 (save-place-mode t)
 (+global-word-wrap-mode t)
+(all-the-icons-dired-mode nil) ;; icons make visibilty warse and are cringe to use.
 #+end_src
 
 
@@ -299,13 +300,14 @@ Unifies the minibuffer windows to the bottem of the screen and makes them like a
 
 (setq dired-recursive-copies (quote always)
     dired-recursive-deletes (quote top)
-    global-auto-revert-non-file-buffers t)
+    global-auto-revert-non-file-buffers t
+    )
 #+end_src
 
 
 * Org Mode
 ** Options & mostly Prettifying
-- I am generally against utf-symbols as they cannot be typed out with the keyboard -> thus create unneccessary mental overhead and abstraction, to be noted there are exceptions and it is useful to hide the boilerplate code with syntactic sugar in some cases, such as the org formatting with <#+>.
+- I am generally against utf-symbols as they cannot be typed out with the keyboard -> thus create unneccessary mental overhead and abstraction, to be noted there are exceptions and it is useful to hide the boilerplate code with syntactic sugar in some cases, such as the org formatting with <#+> and the org bullets.
 #+begin_src emacs-lisp
 (after! org
     (global-org-modern-mode)
@@ -388,14 +390,14 @@ Unifies the minibuffer windows to the bottem of the screen and makes them like a
         ("src" ">>" ">>")
         ("example" "->" "<-")
         ("export" "->" "<-"))
-        org-modern-block-fringe nil
         org-modern-todo nil
         org-modern-done nil
-        org-modern-done nil
         org-modern-checkbox nil
+        org-modern-timestamp nil
+        org-modern-block-fringe nil
+        org-modern-progress nil
+        org-modern-priority nil
         ;; org-modern-horizontal-rule (make-string 36 ?─)
-        ;; org-modern-progress nil
-        ;; org-modern-priority nil
         )
   )
 #+end_src
