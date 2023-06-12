@@ -12,7 +12,7 @@ let progs = [
 
 for prog in $progs {
     if not (true in (ps -l | get command | str contains $prog )) { # running: true =>
-        $"($prog) &" | bash # workaround, since nu doesn't yet support async process launching
+        $"($prog) &>/dev/null &" | bash # workaround, since nu doesn't yet support async process launching
     }
 }
 

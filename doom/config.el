@@ -330,7 +330,7 @@ Prompt for a choice."
         org-roam-dailies-directory "daily/" ;; relative to org roam-dir
         org-roam-completion-everywhere t
         org-auto-align-tags 0
-        org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
+        org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a."))
         org-modern-star '("◉" "●" "○" "◈" "◆" "◇" )
         org-modern-table-vertical 1
         org-modern-table-horizontal 0.2

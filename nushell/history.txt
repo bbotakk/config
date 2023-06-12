@@ -4680,3 +4680,20 @@ syncthing
 git status
 fd  'sync-conflict'
 fd  'sync-conflict' -x rm
+git status
+emacs --debug-init
+^emacs --daemon
+^emacs --debug-init
+emacs
+^emacs
+vim .
+vi .
+^emacs --debug-init
+emacs --
+^emacs --debug-init
+dnfi vi
+nvim .
+^emacs --debug-init
+startup
+ps -l | get command
+ps -l | get command | find emacs

@@ -51,26 +51,43 @@ This config implements powerful keybindings to make the workflow maximally fast.
  - additionally it allows you to ssh into your machine from anywhere and attach to these running clients seamlessly and keep processes alive when done.
 
 
-* editor: neovim
- - the neovim setup aims to be easy to understand and extend/change in the future with more plugins.
+* editor: emacs (doom)
+- purely keyboard driven
+- focuses on text based workflow and data (-> org mode)
+- Enables one to complete tasks with a consistent, standard set of keybindings, GUI and editing methods — learn once, use everywhere
+- Reduced context-switching
+- Compressing the stages of a project — a more centralised workflow can progress with greater ease
+- Integration between tasks previously relegated to different applications, but with a common subject — e.g. linking to an email in a to-do list etc
+- Emacs can be thought of as a platform within which various elements of your workflow may settle, while being able to interlink them interactively.
+  #+begin_quote
+Today, many aspects of daily computer usage are split between different applications which act like islands, but this often doesn’t mirror how we actually use our computers. Emacs, if one goes down the rabbit hole, can give users the power to bridge this gap.
+-- Tecosaur
+#+end_quote
+
+** org-mode
+- In my opinion the most elegant markup language, all the while keeping the syntax opinionated and simple with only one way to do it (-> looking at you, Markdown).
+- One to rule them all, create websites, tables, journals, todolists, calendars and Programs, all with the same consistent elegant and formatted syntax.
+- Automate making entries into files and databases at specific places.
+- literally integrated into the editor
+- the best support for literate programming covering every language you can think of (yes you aren't limited to python-notebooks).
 
 * keybindings
 Using Alt inside Applications in order to minimize conflict with existing shortcuts.
 | mod +  | what                             |
 |--------+----------------------------------|
-| j/k    | tab/splits cylcling/navigation   |
-| =/-    | resize                           |
+| j, k   | tab/splits cylcling/navigation   |
+| =, -   | resize                           |
 | x      | filexplorer                      |
 | e      | editor                           |
 | t      | terminal                         |
 | f      | find                             |
-| slash  | search                           |
+| /      | search                           |
 | Return | run                              |
 | s      | split window                     |
 | q      | close split/tab/program          |
 | v      | viewer (document/reading/output) |
 | ;      | run command                      |
-| u/d    | scroll up/down (half page)       |
+| u, d   | scroll up/down (half page)       |
 | h      | help                             |
 | space  | leader-key system.               |
 
