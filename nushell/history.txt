@@ -4639,3 +4639,4 @@ git remote add origin git@github.com:bbotakk/config.git
 git remote -v
 git status
 git git commit -am 'sync'; git push
+git commit -am 'sync'; git push
