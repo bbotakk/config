@@ -70,8 +70,6 @@
          (inhibit-same-window . t)
          ;; (window-width . 0.5)
          (side . right)))
-      ;; split-width-threshold 999
-      ;; split-height-threshold nil
 )
 
 (setq doom-leader-key "SPC"
@@ -153,9 +151,13 @@
  :nvmo "n"     (lambda () (interactive) (evil- 1) (evil-scroll-line-to-center nil))
  :nvmo "N"     (lambda () (interactive) (evil-ex-search-previous 1) (evil-scroll-line-to-center nil))
  :nvmo "Q"     'evil-execute-last-recorded-macro
- ;; very opinionated but i find this kind of navigation incredibly fast and need it under my fingertips
  :nvmo "s"     'evilem-motion-find-char
  :nvmo "S"     'evilem-motion-find-char-backward
+ :nvmo "J"     'evilem-motion-next-line
+ :nvmo "K"     'evilem-motion-previous-line
+ :nvmo "L"     'evil-end-of-line
+ :nvmo "H"     'evil-first-non-blank
+ :nvmo  "+"    'evil-join ;; reassign
  )
 
 (map! :map dired-mode-map
@@ -192,9 +194,11 @@
 
 (map!
  :map evil-org-mode-map
- :prefix "g"
+ :nvmo "L"     'evil-org-end-of-line
+ :nvmo "H"     'evil-first-non-blank
+ (:prefix "g"
  :n "j" 'org-next-visible-heading
- :n "k" 'org-previous-visible-heading
+ :n "k" 'org-previous-visible-heading)
  )
 
 

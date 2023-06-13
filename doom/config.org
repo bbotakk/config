@@ -91,8 +91,6 @@ It is annoying to have help buffers or buffers with "*" popup on the bottom of m
          (inhibit-same-window . t)
          ;; (window-width . 0.5)
          (side . right)))
-      ;; split-width-threshold 999
-      ;; split-height-threshold nil
 )
 
 #+end_src
@@ -186,8 +184,10 @@ The map macro has the following states:
 #+end_src
 
 ** Vim editing
+- this might be very opinionated but i find this small superset to greatly enhance vim's functionality while not creating any conflicting bindings.
 - better orientation when jumping
 - add a search key to 's' and 'S', so no more relative line jumping and then 'f' or 't', instead just jump to the exact position you need to get to immediately without the mental overhead (of doing both steps).
+- stay on the home row more with 'JKHL'
 #+begin_src emacs-lisp
 (after! evil-snipe
   (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
@@ -201,9 +201,13 @@ The map macro has the following states:
  :nvmo "n"     (lambda () (interactive) (evil- 1) (evil-scroll-line-to-center nil))
  :nvmo "N"     (lambda () (interactive) (evil-ex-search-previous 1) (evil-scroll-line-to-center nil))
  :nvmo "Q"     'evil-execute-last-recorded-macro
- ;; very opinionated but i find this kind of navigation incredibly fast and need it under my fingertips
  :nvmo "s"     'evilem-motion-find-char
  :nvmo "S"     'evilem-motion-find-char-backward
+ :nvmo "J"     'evilem-motion-next-line
+ :nvmo "K"     'evilem-motion-previous-line
+ :nvmo "L"     'evil-end-of-line
+ :nvmo "H"     'evil-first-non-blank
+ :nvmo  "+"    'evil-join ;; reassign
  )
 #+end_src
 
@@ -246,9 +250,11 @@ The map macro has the following states:
 #+begin_src emacs-lisp
 (map!
  :map evil-org-mode-map
- :prefix "g"
+ :nvmo "L"     'evil-org-end-of-line
+ :nvmo "H"     'evil-first-non-blank
+ (:prefix "g"
  :n "j" 'org-next-visible-heading
- :n "k" 'org-previous-visible-heading
+ :n "k" 'org-previous-visible-heading)
  )
 #+end_src
 

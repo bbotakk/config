@@ -4732,3 +4732,4 @@ emacs
 ^emacs
 startup
 ^emacs
+syncthing
