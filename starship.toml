@@ -1,8 +1,8 @@
 add_newline = true
 
 [character]
-success_symbol = "[>>](bold green)"
-error_symbol = "[e>](bold red)"
+success_symbol = "[>>>](bold green)"
+error_symbol = "[er>](bold red)"
 # vimcmd_symbol = "[>>>](bold blue)"
 # vimcmd_visual_symbol = "[>>>](bold blue)"
 # vimcmd_replace_one_symbol = "[>>>](bold blue)"

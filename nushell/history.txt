@@ -4718,3 +4718,6 @@ emacs --debug-init
 ^emacs --debug-init
 ^emacs
 startup
+^emacs
+cargo run
+ls

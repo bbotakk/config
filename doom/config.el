@@ -1,3 +1,24 @@
+(setq doom-theme 'doom-solarized-light)
+
+(after! doom-themes
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t)
+  )
+
+(setq doom-font (font-spec :family "Iosevka Nerd Font" :size 10)
+      doom-big-font (font-spec :family "Iosevka Nerd Font" :size 16)
+      doom-variable-pitch-font (font-spec :family "Iosevka Nerd Font" :size 12)
+      doom-serif-font (font-spec :family "Iosevka Nerd Font" :size 12)
+      doom-font-increment 1
+      doom-big-font-increment 1
+      )
+
+(custom-set-faces!
+  '(font-lock-comment-face :slant italic)
+  '(font-lock-keyword-face :slant italic)
+  '(font-lock-variable-name-face :slant italic)
+  )
+
 (xterm-mouse-mode t) ;; enable mouse
 (beacon-mode t) ;; hl the cursor when jumping for better orientation
 (whitespace-mode t) ;; hl whitespace
@@ -96,33 +117,32 @@
   :nvimore "M-j" 'evil-window-prev
   :nvimore "M-k" 'evil-window-next
   :nvimore "M-s" 'evil-window-vsplit
-  :nvimore "M-q" 'user/window-quit
+  :nvimore "M-q" (lambda () (interactive) (evil-quit) (balance-windows))
   :nvimore "M-x" 'dired-jump
   :nvimore "M-f" 'counsel-fzf
   :nvimore "M-r" 'counsel-recentf
   :nvimore "M-h" '+lookup/documentation
   :nvimore "M-'" 'consult-bookmark
-  :nvimore "M-=" 'evil-window-increase-width
-  :nvimore "M--" 'evil-window-decrease-width
+  :nvimore "M-=" (lambda () (interactive) (evil-window-increase-width 10))
+  :nvimore "M--"  (lambda () (interactive) (evil-window-decrease-width 10))
   :nvimore "M-/" '+default/search-project
   :nvimore "M-;" 'counsel-M-x
   :nvimore "C-c" 'evil-force-normal-state ;; if all else fails (remap Alt_l: Esc)
-  :nvimore "C--" 'doom/decrease-font-size
+  :nvimore "C--"  'doom/decrease-font-size
   :nvimore "C-=" 'doom/increase-font-size
   :nvimore "C-0" 'doom/reset-font-size
  )
 
 (map!
-   :nvm "C-u"   'user/page-up
-   :nvm "C-d"   'user/page-down
-   :nvm "C-o"   'user/jump-backward
-   :nvm "C-i"   'user/jump-forward
-   :nvm "n"     'user/next-match
-   :nvm "N"     'user/prev-match
-   :nvm "Q"     'evil-execute-last-recorded-macro
-   :nvm "U"     'evil-redo
-
-  )
+ :nvm "C-u"   (lambda () (interactive) (evil-scroll-page-up 1) (evil-scroll-line-to-center nil))
+ :nvm "C-d"   (lambda () (interactive) (evil-scroll-page-down 1) (evil-scroll-line-to-center nil))
+ :nvm "C-o"   (lambda () (interactive) (evil-jump-backward 1) (evil-scroll-line-to-center nil))
+ :nvm "C-i"   (lambda () (interactive) (evil-jump-forward 1) (evil-scroll-line-to-center nil))
+ :nvm "n"     (lambda () (interactive) (evil-ex-search-next 1) (evil-scroll-line-to-center nil))
+ :nvm "N"     (lambda () (interactive) (evil-ex-search-previous 1) (evil-scroll-line-to-center nil))
+ :nvm "Q"     'evil-execute-last-recorded-macro
+ :nvm "U"     'evil-redo
+ )
 
 (map! :map dired-mode-map
       :n "RET" #'dired-open-file
@@ -185,42 +205,6 @@ Prompt for a choice."
      (t (error "logic error 09535" )))
     (dired-sort-other xarg )))
 
-(defun user/next-match ()
-  (interactive)
-  (evil-ex-search-next)
-  (evil-scroll-line-to-center nil)
-  )
-
-(defun user/previous-match ()
-  (interactive)
-  (evil-ex-search-previous)
-  (evil-scroll-line-to-center nil)
-  )
-
-(defun user/page-up ()
-  (interactive)
-  (evil-scroll-page-up 1)
-  (evil-scroll-line-to-center nil)
-  )
-
-(defun user/page-down ()
-  (interactive)
-  (evil-scroll-page-down 1)
-  (evil-scroll-line-to-center nil)
-  )
-
-(defun user/jump-backward ()
-  (interactive)
-  (evil-jump-backward 1)
-  (evil-scroll-line-to-center nil)
-  )
-
-(defun user/jump-forward ()
-  (interactive)
-  (evil-jump-forward 1)
-  (evil-scroll-line-to-center nil)
-  )
-
 (defun user/insert-any-date (date)
   "Insert DATE using the current locale."
   (interactive (list (calendar-read-date)))
@@ -233,24 +217,6 @@ Prompt for a choice."
                  ((equal prefix '(4)) "%m-%d-%Y")
                  ((equal prefix '(16)) "%Y-%m-%d"))))
     (insert (format-time-string format))))
-
-(defun user/window-quit ()
-  (interactive)
-  (evil-quit)
-  (balance-windows)
-  )
-
-(defun user/next-match ()
-  (interactive)
-  (evil-ex-search-next 1)
-  (evil-scroll-line-to-center nil)
-  )
-
-(defun user/prev-match ()
-  (interactive)
-  (evil-ex-search-previous 1)
-  (evil-scroll-line-to-center nil)
-  )
 
 (ivy-posframe-mode t)
 (setq ivy-posframe-display-functions-alist
@@ -269,34 +235,6 @@ Prompt for a choice."
       '((swiper . 50)
         (dmenu . 50)
         (t . 50)))
-
-(cl-defmacro lsp-org-babel-enable (lang)
-  "Support LANG in org source code block."
-  (cl-check-type lang stringp)
-  (let* ((edit-pre (intern (format "org-babel-edit-prep:%s" lang)))
-         (intern-pre (intern (format "lsp--%s" (symbol-name edit-pre)))))
-    `(progn
-       (defun ,intern-pre (info)
-         (let ((file-name (->> info caddr (alist-get :file))))
-           (unless file-name
-             (setq file-name (make-temp-file "babel-lsp-")))
-           (setq buffer-file-name file-name)
-           (lsp-deferred)))
-       (put ',intern-pre 'function-documentation
-            (format "Enable lsp-mode in the buffer of org source block (%s)."
-                    (upcase ,lang)))
-       (if (fboundp ',edit-pre)
-           (advice-add ',edit-pre :after ',intern-pre)
-         (progn
-           (defun ,edit-pre (info)
-             (,intern-pre info))
-           (put ',edit-pre 'function-documentation
-                (format "Prepare local buffer environment for org source block (%s)."
-                        (upcase ,lang))))))))
-(defvar org-babel-lang-list
-  '("go" "python" "ipython" "bash" "sh" "rust"))
-(dolist (lang org-babel-lang-list)
-  (eval `(lsp-org-babel-enable ,lang)))
 
 (setq dired-omit-files
       (rx (or (seq bol (? ".") "#")             ;; emacs autosave files
@@ -325,9 +263,9 @@ Prompt for a choice."
 (remove-hook 'dired-mode-hook #'all-the-icons-dired-mode) ;; icons are bad
 
 (after! org
-    (global-org-modern-mode)
-    (visual-line-mode)
-    (org-indent-mode)
+  (global-org-modern-mode)
+  (visual-line-mode)
+  (org-indent-mode)
 
   (setq org-directory "~/Org"
         org-archive-location "~/Archive/Org"
@@ -399,14 +337,14 @@ Prompt for a choice."
         org-modern-table-vertical 1
         org-modern-table-horizontal 0.2
         org-modern-list '((?* . "•")
-                        (?- . "•")
-                        (?+ . "➤"))
+                          (?- . "•")
+                          (?+ . "➤"))
         org-modern-block-name
         '((t . t)
-        ("src" "</>" "</>")
-        ("example" "example:" "===")
-        ("export" "export:" "===")
-        ("quote" ">" ">"))
+          ("src" ">>>" "<<<")
+          ("example" ">>> example" "<<<")
+          ("export" ">>> export" "<<<")
+          ("quote" ">>> quote" "<<<"))
         org-modern-todo nil
         org-modern-done nil
         org-modern-checkbox nil
@@ -522,21 +460,3 @@ Prompt for a choice."
      (file "~/Notes/templates/daily_template.org")
      :target (file+head "%<%Y-%m-%d>.org"
                         "#+title:\t%<%Y-%m-%d>\n#+author:\temil lenz\n#+date:\t%<%Y-%m-%d>"))))
-
-(setq doom-theme 'doom-solarized-light)
-
-(after! doom-themes
-  (setq doom-themes-enable-bold t
-        doom-themes-enable-italic t)
-  )
-
-(setq doom-font (font-spec :family "Iosevka Nerd Font" :size 10)
-      doom-big-font (font-spec :family "Iosevka Nerd Font" :size 16)
-      ;; doom-variable-pitch-font (font-spec :family "CMU Serif" :size 12)
-      )
-
-(custom-set-faces!
-  '(font-lock-comment-face :slant italic)
-  '(font-lock-keyword-face :slant italic)
-  '(font-lock-variable-name-face :slant italic)
-  )
