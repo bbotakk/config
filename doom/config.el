@@ -148,7 +148,7 @@
  :nvmo "C-d"   (lambda () (interactive) (evil-scroll-page-down 1) (evil-scroll-line-to-center nil))
  :nvmo "C-o"   (lambda () (interactive) (evil-jump-backward 1) (evil-scroll-line-to-center nil))
  :nvmo "C-i"   (lambda () (interactive) (evil-jump-forward 1) (evil-scroll-line-to-center nil))
- :nvmo "n"     (lambda () (interactive) (evil- 1) (evil-scroll-line-to-center nil))
+ :nvmo "n"     (lambda () (interactive) (evil-ex-search-next 1) (evil-scroll-line-to-center nil))
  :nvmo "N"     (lambda () (interactive) (evil-ex-search-previous 1) (evil-scroll-line-to-center nil))
  :nvmo "Q"     'evil-execute-last-recorded-macro
  :nvmo "s"     'evilem-motion-find-char

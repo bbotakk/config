@@ -4733,3 +4733,5 @@ emacs
 startup
 ^emacs
 syncthing
+cargo run  -h | bat
+cargo  -h | bat
