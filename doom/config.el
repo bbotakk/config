@@ -8,7 +8,6 @@
 (evil-snipe-override-mode t)
 (save-place-mode t)
 (+global-word-wrap-mode t)
-(all-the-icons-dired-mode nil) ;; icons make visibilty warse and are cringe to use.
 
 (setq global-auto-revert-non-file-buffers t
       hscroll-margin 1
@@ -44,6 +43,16 @@
       calc-symbolic-mode t
 )
 
+(setq display-buffer-alist
+      '(("\\*.*\\*"
+         (display-buffer-in-side-window)
+         (inhibit-same-window . t)
+         ;; (window-width . 0.5)
+         (side . right)))
+      split-width-threshold 999
+      split-height-threshold nil
+)
+
 (setq doom-leader-key "SPC"
       doom-localleader-key ",") ;; hit <spc> twice
 
@@ -74,26 +83,34 @@
       ":" nil
       )
 
+(setq general-override-states '(insert
+                                  emacs
+                                  hybrid
+                                  normal
+                                  visual
+                                  motion
+                                  operator
+                                  replace))
 (map!
-  :map  'override
-  :nvi "M-j" 'evil-window-prev
-  :nvi "M-k" 'evil-window-next
-  :nvi "M-s" 'evil-window-vsplit
-  :nvi "M-q" 'user/save-quit
-  :nvi "M-x" 'dired-jump
-  :nvi "M-f" 'counsel-fzf
-  :nvi "M-r" 'counsel-recentf
-  :nvi "M-h" '+lookup/documentation
-  :nvi "M-'" '+ivy/switch-buffer
-  :nvi "M-=" 'evil-window-increase-width
-  :nvi "M--" 'evil-window-decrease-width
-  :nvi "M-/" '+default/search-project
-  :nvi "M-;" 'counsel-M-x
-  :nvi "C-c" 'evil-force-normal-state ;; if all else fails (remap Alt_l: Esc)
-  :nvi "C--" 'doom/decrease-font-size
-  :nvi "C-=" 'doom/increase-font-size
-  :nvi "C-0" 'doom/reset-font-size
-  )
+ :map  'override
+  :nvimore "M-j" 'evil-window-prev
+  :nvimore "M-k" 'evil-window-next
+  :nvimore "M-s" 'evil-window-vsplit
+  :nvimore "M-q" 'user/window-quit
+  :nvimore "M-x" 'dired-jump
+  :nvimore "M-f" 'counsel-fzf
+  :nvimore "M-r" 'counsel-recentf
+  :nvimore "M-h" '+lookup/documentation
+  :nvimore "M-'" 'consult-bookmark
+  :nvimore "M-=" 'evil-window-increase-width
+  :nvimore "M--" 'evil-window-decrease-width
+  :nvimore "M-/" '+default/search-project
+  :nvimore "M-;" 'counsel-M-x
+  :nvimore "C-c" 'evil-force-normal-state ;; if all else fails (remap Alt_l: Esc)
+  :nvimore "C--" 'doom/decrease-font-size
+  :nvimore "C-=" 'doom/increase-font-size
+  :nvimore "C-0" 'doom/reset-font-size
+ )
 
 (map!
    :nvm "C-u"   'user/page-up
@@ -119,8 +136,6 @@
       :n "y" #'dired-do-copy
       :n "r" #'dired-do-rename
       :n "d" #'dired-do-delete
-      :n "F" #'dired-create-empty-file
-      :n "D" #'dired-create-directory
       :n "T" #'dired-do-touch
       :n "x" #'dired-do-chmod
       :n "w" #'dired-do-chown
@@ -129,13 +144,32 @@
       :n "z" #'dired-do-compress
       :n "." #'dired-omit-mode
       :n "o" #'user/dired-order
-      :n "s" #'dired-toggle-sudo)
+      :n "s" #'dired-toggle-sudo
+      (:prefix ("+" . "create")
+       :n "f" #'dired-create-file-here
+       :n "d" #'dired-create-directory
+       ))
 
 (map! :map peep-dired-mode-map
       :n "j" #'peep-dired-next-file
       :n "k" #'peep-dired-prev-file)
 
 (add-hook 'peep-dired-hook 'evil-normalize-keymaps)
+
+(map!
+ :map evil-org-mode-map
+ :prefix "g"
+ :n "j" 'org-next-visible-heading
+ :n "k" 'org-previous-visible-heading
+ )
+
+(map!
+:map evil-org-agenda-mode-MAP
+  :nvimore "M-j" 'evil-window-prev
+  :nvimore "M-k" 'evil-window-next
+  :nvimore "M-s" 'evil-window-vsplit
+  :nvimore "M-q" 'user/window-quit
+)
 
 (defun user/dired-order()
   "Sort dired dir listing in different ways.
@@ -200,9 +234,9 @@ Prompt for a choice."
                  ((equal prefix '(16)) "%Y-%m-%d"))))
     (insert (format-time-string format))))
 
-(defun user/save-quit ()
+(defun user/window-quit ()
   (interactive)
-  (evil-save-modified-and-close nil)
+  (evil-quit)
   (balance-windows)
   )
 
@@ -236,6 +270,34 @@ Prompt for a choice."
         (dmenu . 50)
         (t . 50)))
 
+(cl-defmacro lsp-org-babel-enable (lang)
+  "Support LANG in org source code block."
+  (cl-check-type lang stringp)
+  (let* ((edit-pre (intern (format "org-babel-edit-prep:%s" lang)))
+         (intern-pre (intern (format "lsp--%s" (symbol-name edit-pre)))))
+    `(progn
+       (defun ,intern-pre (info)
+         (let ((file-name (->> info caddr (alist-get :file))))
+           (unless file-name
+             (setq file-name (make-temp-file "babel-lsp-")))
+           (setq buffer-file-name file-name)
+           (lsp-deferred)))
+       (put ',intern-pre 'function-documentation
+            (format "Enable lsp-mode in the buffer of org source block (%s)."
+                    (upcase ,lang)))
+       (if (fboundp ',edit-pre)
+           (advice-add ',edit-pre :after ',intern-pre)
+         (progn
+           (defun ,edit-pre (info)
+             (,intern-pre info))
+           (put ',edit-pre 'function-documentation
+                (format "Prepare local buffer environment for org source block (%s)."
+                        (upcase ,lang))))))))
+(defvar org-babel-lang-list
+  '("go" "python" "ipython" "bash" "sh" "rust"))
+(dolist (lang org-babel-lang-list)
+  (eval `(lsp-org-babel-enable ,lang)))
+
 (setq dired-omit-files
       (rx (or (seq bol (? ".") "#")             ;; emacs autosave files
               (seq bol "." (not (any ".")))     ;; dot-files
@@ -256,9 +318,11 @@ Prompt for a choice."
                               ))
 
 (setq dired-recursive-copies (quote always)
-    dired-recursive-deletes (quote top)
-    global-auto-revert-non-file-buffers t
-    )
+      dired-recursive-deletes (quote top)
+      global-auto-revert-non-file-buffers t
+      )
+
+(remove-hook 'dired-mode-hook #'all-the-icons-dired-mode) ;; icons are bad
 
 (after! org
     (global-org-modern-mode)

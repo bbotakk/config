@@ -66,9 +66,9 @@
 (package! clippy)
 (package! org-appear)
 (package! org-roam)
-(package! all-the-icons)
 (package! doct)
 (package! dired-toggle-sudo)
 (package! nushell-mode :recipe (:host github :repo "mrkkrp/nushell-mode"))
 (package! rustic)
 (package! org-modern)
+;; (package! all-the-icons) ;; icons are cringe and create mental overhead

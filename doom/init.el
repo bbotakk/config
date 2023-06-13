@@ -27,7 +27,8 @@
        ;;ido               ; the other *other* search engine...
        ivy               ; a search engine for love and life
        (vertico           ; the search engine of the future
-         +icons)
+         ;; +icons
+         )
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -73,7 +74,8 @@
 
        :emacs
        (dired             ; making dired pretty [functional]
-         +icons)
+         ;; +icons
+         )
        electric          ; smarter, keyword-based electric-indent
        ;;ibuffer         ; interactive buffer management
        undo              ; persistent, smarter undo for your inevitable mistakes
@@ -83,7 +85,7 @@
        ;;eshell            ; the elisp shell that works everywhere
        ;;shell             ; simple shell REPL for Emacs
        ;;term              ; basic terminal emulator for Emacs
-       ;;vterm             ; the best terminal emulation in Emacs
+       ;; vterm             ; the best terminal emulation in Emacs
 
        :checkers
        syntax              ; tasing you for every semicolon you forget

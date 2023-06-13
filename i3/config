@@ -163,6 +163,7 @@ mode "$leader" {
 set $outputselect <outputselect> Arandr / 1 thinkpad_home
 mode "$outputselect" {
     bindsym t           exec "~/.screenlayout/thinkpad_home.sh; ~/.config/scripts/startup";      mode "default"
+    bindsym b           exec "~/.screenlayout/bib.sh; ~/.config/scripts/startup";      mode "default"
     bindsym a           exec "~/.config/scripts/focus gui Arandr arandr";                        mode "default"
     bindsym Escape      mode "default"
 }

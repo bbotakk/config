@@ -4698,29 +4698,23 @@ startup
 ps -l | get command
 ps -l | get command | find emacs
 syncthing
-emacsclient -c --eval '(dired-jump .)'
-emacsclient -c --eval '(dired-jump)'
-~/.config/scripts/focus tui 'emacsclient -c --eval (dired-jump)'
-~/.config/scripts/focus tui 'emacsclient -c --eval `(dired-jump)`'
-~/.config/scripts/focus tui 'emacsclient -c -nw --eval `(dired-jump)`'
-emacsclient -c -nw --eval `(dired-jump)`
-~/.config/scripts/focus tui explorer 'emacsclient -c --eval `(dired-jump)`'
-~/.config/scripts/focus tui explorer 'emacsclient -c -nw --eval `(dired-jump)`'
-~/.config/scripts/focus tui explorer 'emacsclient -c -nw --eval '(dired-jump)''
-~/.config/scripts/focus tui explorer emacsclient -c -nw --eval '(dired-jump)'
-~/.config/scripts/focus tui explorer -- emacsclient -c -nw --eval '(dired-jump)'
-~/.config/scripts/focus tui explorer --- emacsclient -c -nw --eval '(dired-jump)'
-~/.config/scripts/focus tui explorer 'emacsclient -c -nw --eval "(dired-jump)"'
-~/.config/scripts/focus tui explorer 'emacsclient -nw --eval "(dired-jump)"'
-~/.config/scripts/focus tui explorer 'emacs -nw --eval "(dired-jump)"'
-~/.config/scripts/focus tui explorer 'emacs -nw'
-~/.config/scripts/focus tui explorer 'emacs'
-~/.config/scripts/focus gui explorer 'emacsclient -c --eval '(dired-jump)''
-~/.config/scripts/focus gui explorer 'emacsclient -c --eval `(dired-jump)`'
-~/.config/scripts/focus gui explorer 'emacsclient -c --eval (dired-jump)'
-~/.config/scripts/focus gui explorer 'emacsclient -c --eval '(dired-jump)''
-emacsclient -c --eval '(dired-jump)' &
-emacsclient -c --eval '(dired-jump)'
-~/.config/scripts/focus gui explorer 'emacsc --eval '(dired-jump)''
-~/.config/scripts/focus gui explorer 'emacs --eval '(dired-jump)''
-~/.config/scripts/focus tui explorer 'emacsclient --eval '(dired-jump)''
+startup
+^emacs --daemon
+startup
+^emacs -nw
+startup
+emacs --debug-init
+^emacs --debug-init
+^emacs 
+dnfs rust-src
+dnfi rust-src
+syncthing
+dnfs vterm
+doom sync
+startup
+emacs
+^emacs
+emacs --debug-init
+^emacs --debug-init
+^emacs
+startup

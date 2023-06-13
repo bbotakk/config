@@ -16,6 +16,8 @@ set recolor-keephue true # keep original color
 # mappings
 map u scroll full-up
 map d scroll full-down
+map C-u scroll full-up
+map C-d scroll full-down
 map w adjust_window width
 map s toggle_page_mode
 map r reload

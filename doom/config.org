@@ -2,7 +2,8 @@
 #+date:     2022, Novemeber
 #+author:   botak
 
-* Activate Modes
+* General Options
+** Activate Modes
 #+begin_src emacs-lisp
 (xterm-mouse-mode t) ;; enable mouse
 (beacon-mode t) ;; hl the cursor when jumping for better orientation
@@ -14,11 +15,9 @@
 (evil-snipe-override-mode t)
 (save-place-mode t)
 (+global-word-wrap-mode t)
-(all-the-icons-dired-mode nil) ;; icons make visibilty warse and are cringe to use.
 #+end_src
 
-
-* General Options
+** set variables
 #+begin_src emacs-lisp
 (setq global-auto-revert-non-file-buffers t
       hscroll-margin 1
@@ -55,6 +54,21 @@
 )
 #+end_src
 
+** split all bufffers vertically
+It is annoying to have help buffers or buffers with "*" popup on the bottom of my current window. I need them to vsplit in all cases.
+#+begin_src emacs-lisp
+(setq display-buffer-alist
+      '(("\\*.*\\*"
+         (display-buffer-in-side-window)
+         (inhibit-same-window . t)
+         ;; (window-width . 0.5)
+         (side . right)))
+      split-width-threshold 999
+      split-height-threshold nil
+)
+
+#+end_src
+
 
 * Keybindings
 The map macro has the following states:
@@ -65,6 +79,8 @@ The map macro has the following states:
 | :o | (operator mode) |
 | :r | (replace mode)  |
 | :g | (global mode)   |
+
+- each binding must have its modes defined. (not just once at the top of the list) [exception: leader mappings]
 
 ** leader key
 #+begin_src emacs-lisp
@@ -100,27 +116,36 @@ The map macro has the following states:
 #+end_src
 
 ** Global navigation (consistent with other dotfiles)
+
 #+begin_src emacs-lisp
+(setq general-override-states '(insert
+                                  emacs
+                                  hybrid
+                                  normal
+                                  visual
+                                  motion
+                                  operator
+                                  replace))
 (map!
-  :map  'override
-  :nvi "M-j" 'evil-window-prev
-  :nvi "M-k" 'evil-window-next
-  :nvi "M-s" 'evil-window-vsplit
-  :nvi "M-q" 'user/save-quit
-  :nvi "M-x" 'dired-jump
-  :nvi "M-f" 'counsel-fzf
-  :nvi "M-r" 'counsel-recentf
-  :nvi "M-h" '+lookup/documentation
-  :nvi "M-'" '+ivy/switch-buffer
-  :nvi "M-=" 'evil-window-increase-width
-  :nvi "M--" 'evil-window-decrease-width
-  :nvi "M-/" '+default/search-project
-  :nvi "M-;" 'counsel-M-x
-  :nvi "C-c" 'evil-force-normal-state ;; if all else fails (remap Alt_l: Esc)
-  :nvi "C--" 'doom/decrease-font-size
-  :nvi "C-=" 'doom/increase-font-size
-  :nvi "C-0" 'doom/reset-font-size
-  )
+ :map  'override
+  :nvimore "M-j" 'evil-window-prev
+  :nvimore "M-k" 'evil-window-next
+  :nvimore "M-s" 'evil-window-vsplit
+  :nvimore "M-q" 'user/window-quit
+  :nvimore "M-x" 'dired-jump
+  :nvimore "M-f" 'counsel-fzf
+  :nvimore "M-r" 'counsel-recentf
+  :nvimore "M-h" '+lookup/documentation
+  :nvimore "M-'" 'consult-bookmark
+  :nvimore "M-=" 'evil-window-increase-width
+  :nvimore "M--" 'evil-window-decrease-width
+  :nvimore "M-/" '+default/search-project
+  :nvimore "M-;" 'counsel-M-x
+  :nvimore "C-c" 'evil-force-normal-state ;; if all else fails (remap Alt_l: Esc)
+  :nvimore "C--" 'doom/decrease-font-size
+  :nvimore "C-=" 'doom/increase-font-size
+  :nvimore "C-0" 'doom/reset-font-size
+ )
 #+end_src
 
 ** Vim editing
@@ -153,8 +178,6 @@ The map macro has the following states:
       :n "y" #'dired-do-copy
       :n "r" #'dired-do-rename
       :n "d" #'dired-do-delete
-      :n "F" #'dired-create-empty-file
-      :n "D" #'dired-create-directory
       :n "T" #'dired-do-touch
       :n "x" #'dired-do-chmod
       :n "w" #'dired-do-chown
@@ -163,7 +186,11 @@ The map macro has the following states:
       :n "z" #'dired-do-compress
       :n "." #'dired-omit-mode
       :n "o" #'user/dired-order
-      :n "s" #'dired-toggle-sudo)
+      :n "s" #'dired-toggle-sudo
+      (:prefix ("+" . "create")
+       :n "f" #'dired-create-file-here
+       :n "d" #'dired-create-directory
+       ))
 
 (map! :map peep-dired-mode-map
       :n "j" #'peep-dired-next-file
@@ -171,6 +198,27 @@ The map macro has the following states:
 
 (add-hook 'peep-dired-hook 'evil-normalize-keymaps)
 #+end_src
+
+** org-mode
+#+begin_src emacs-lisp
+(map!
+ :map evil-org-mode-map
+ :prefix "g"
+ :n "j" 'org-next-visible-heading
+ :n "k" 'org-previous-visible-heading
+ )
+#+end_src
+
+#+begin_src emacs-lisp
+(map!
+:map evil-org-agenda-mode-MAP
+  :nvimore "M-j" 'evil-window-prev
+  :nvimore "M-k" 'evil-window-next
+  :nvimore "M-s" 'evil-window-vsplit
+  :nvimore "M-q" 'user/window-quit
+)
+ #+end_src
+
 
 * custom functions
 #+begin_src emacs-lisp
@@ -237,9 +285,9 @@ Prompt for a choice."
                  ((equal prefix '(16)) "%Y-%m-%d"))))
     (insert (format-time-string format))))
 
-(defun user/save-quit ()
+(defun user/window-quit ()
   (interactive)
-  (evil-save-modified-and-close nil)
+  (evil-quit)
   (balance-windows)
   )
 
@@ -254,7 +302,10 @@ Prompt for a choice."
   (evil-ex-search-previous 1)
   (evil-scroll-line-to-center nil)
   )
+
 #+end_src
+
+#+RESULTS:
 
 
 * Tiling Minibuffer (instead of floating window)
@@ -280,6 +331,37 @@ Unifies the minibuffer windows to the bottem of the screen and makes them like a
         #+end_src
 
 
+** enable lsp support inside org-mode src blocks
+#+begin_src emacs-lisp
+(cl-defmacro lsp-org-babel-enable (lang)
+  "Support LANG in org source code block."
+  (cl-check-type lang stringp)
+  (let* ((edit-pre (intern (format "org-babel-edit-prep:%s" lang)))
+         (intern-pre (intern (format "lsp--%s" (symbol-name edit-pre)))))
+    `(progn
+       (defun ,intern-pre (info)
+         (let ((file-name (->> info caddr (alist-get :file))))
+           (unless file-name
+             (setq file-name (make-temp-file "babel-lsp-")))
+           (setq buffer-file-name file-name)
+           (lsp-deferred)))
+       (put ',intern-pre 'function-documentation
+            (format "Enable lsp-mode in the buffer of org source block (%s)."
+                    (upcase ,lang)))
+       (if (fboundp ',edit-pre)
+           (advice-add ',edit-pre :after ',intern-pre)
+         (progn
+           (defun ,edit-pre (info)
+             (,intern-pre info))
+           (put ',edit-pre 'function-documentation
+                (format "Prepare local buffer environment for org source block (%s)."
+                        (upcase ,lang))))))))
+(defvar org-babel-lang-list
+  '("go" "python" "ipython" "bash" "sh" "rust"))
+(dolist (lang org-babel-lang-list)
+  (eval `(lsp-org-babel-enable ,lang)))
+  #+end_src
+
 * Dired
 - add more files to "hidden files"
 - open files with external programs when they have a specific extension
@@ -304,10 +386,12 @@ Unifies the minibuffer windows to the bottem of the screen and makes them like a
                               ))
 
 (setq dired-recursive-copies (quote always)
-    dired-recursive-deletes (quote top)
-    global-auto-revert-non-file-buffers t
-    )
-#+end_src
+      dired-recursive-deletes (quote top)
+      global-auto-revert-non-file-buffers t
+      )
+
+(remove-hook 'dired-mode-hook #'all-the-icons-dired-mode) ;; icons are bad
+  #+end_src
 
 
 * Org Mode
