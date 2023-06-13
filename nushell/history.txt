@@ -4721,3 +4721,7 @@ startup
 ^emacs
 cargo run
 ls
+starutp
+startup
+syncthing
+git status
