@@ -4725,3 +4725,10 @@ starutp
 startup
 syncthing
 git status
+git commit -am 'sync'; git push
+dnfi rust-src
+keybindings list
+emacs
+^emacs
+startup
+^emacs

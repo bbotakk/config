@@ -26,7 +26,6 @@
 (display-battery-mode nil) ;; no battery info; that's what a statusbar is for
 (global-subword-mode t)
 (global-auto-revert-mode t)
-(evil-snipe-override-mode t)
 (save-place-mode t)
 (+global-word-wrap-mode t)
 
@@ -62,6 +61,7 @@
       x-stretch-cursor t
       calc-angle-mode 'rad  ; radians are rad
       calc-symbolic-mode t
+      evilem-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s) ;; dvorak keyboard layout
 )
 
 (setq display-buffer-alist
@@ -70,8 +70,8 @@
          (inhibit-same-window . t)
          ;; (window-width . 0.5)
          (side . right)))
-      split-width-threshold 999
-      split-height-threshold nil
+      ;; split-width-threshold 999
+      ;; split-height-threshold nil
 )
 
 (setq doom-leader-key "SPC"
@@ -134,18 +134,32 @@
  )
 
 (map!
- :nvm "C-u"   (lambda () (interactive) (evil-scroll-page-up 1) (evil-scroll-line-to-center nil))
- :nvm "C-d"   (lambda () (interactive) (evil-scroll-page-down 1) (evil-scroll-line-to-center nil))
- :nvm "C-o"   (lambda () (interactive) (evil-jump-backward 1) (evil-scroll-line-to-center nil))
- :nvm "C-i"   (lambda () (interactive) (evil-jump-forward 1) (evil-scroll-line-to-center nil))
- :nvm "n"     (lambda () (interactive) (evil-ex-search-next 1) (evil-scroll-line-to-center nil))
- :nvm "N"     (lambda () (interactive) (evil-ex-search-previous 1) (evil-scroll-line-to-center nil))
- :nvm "Q"     'evil-execute-last-recorded-macro
- :nvm "U"     'evil-redo
+:map evil-org-agenda-mode-MAP
+  :nvimore "M-j" 'evil-window-prev
+  :nvimore "M-k" 'evil-window-next
+  :nvimore "M-s" 'evil-window-vsplit
+  :nvimore "M-q" 'user/window-quit
+)
+
+(after! evil-snipe
+  (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
+  )
+
+(map!
+ :nvmo "C-u"   (lambda () (interactive) (evil-scroll-page-up 1) (evil-scroll-line-to-center nil))
+ :nvmo "C-d"   (lambda () (interactive) (evil-scroll-page-down 1) (evil-scroll-line-to-center nil))
+ :nvmo "C-o"   (lambda () (interactive) (evil-jump-backward 1) (evil-scroll-line-to-center nil))
+ :nvmo "C-i"   (lambda () (interactive) (evil-jump-forward 1) (evil-scroll-line-to-center nil))
+ :nvmo "n"     (lambda () (interactive) (evil- 1) (evil-scroll-line-to-center nil))
+ :nvmo "N"     (lambda () (interactive) (evil-ex-search-previous 1) (evil-scroll-line-to-center nil))
+ :nvmo "Q"     'evil-execute-last-recorded-macro
+ ;; very opinionated but i find this kind of navigation incredibly fast and need it under my fingertips
+ :nvmo "s"     'evilem-motion-find-char
+ :nvmo "S"     'evilem-motion-find-char-backward
  )
 
 (map! :map dired-mode-map
-      :n "RET" #'dired-open-file
+    :n "RET" #'dired-open-file
       :n "j" #'evil-next-line
       :n "k" #'evil-previous-line
       :n "h" #'dired-up-directory
@@ -166,7 +180,7 @@
       :n "o" #'user/dired-order
       :n "s" #'dired-toggle-sudo
       (:prefix ("+" . "create")
-       :n "f" #'dired-create-file-here
+       :n "f" #'dired-create-empty-file
        :n "d" #'dired-create-directory
        ))
 
@@ -183,13 +197,7 @@
  :n "k" 'org-previous-visible-heading
  )
 
-(map!
-:map evil-org-agenda-mode-MAP
-  :nvimore "M-j" 'evil-window-prev
-  :nvimore "M-k" 'evil-window-next
-  :nvimore "M-s" 'evil-window-vsplit
-  :nvimore "M-q" 'user/window-quit
-)
+
 
 (defun user/dired-order()
   "Sort dired dir listing in different ways.
