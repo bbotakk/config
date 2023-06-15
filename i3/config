@@ -1,0 +1,165 @@
+# [[file:config.org::*Startup automation][Startup automation:1]]
+exec --no-startup-id "~/.config/scripts/startup"
+# Startup automation:1 ends here
+
+# [[file:config.org::*Options][Options:1]]
+workspace_auto_back_and_forth no
+workspace_layout tabbed
+force_focus_wrapping no
+default_orientation horizontal
+default_border pixel 2
+hide_edge_borders smart
+title_align left
+font pango: Iosevka Nerd Font 8
+for_window [all] title_window_icon yes; move container to workspace 1; workspace 1
+for_window [urgent="latest"] focus
+# Options:1 ends here
+
+# [[file:config.org::*Modkey][Modkey:1]]
+set $mod Mod4
+floating_modifier $mod
+# Modkey:1 ends here
+
+# [[file:config.org::*System controls][System controls:1]]
+bindsym XF86MonBrightnessDown   exec "sudo light -U 2"
+bindsym XF86MonBrightnessUp     exec "sudo light -A 2"
+bindsym $mod+bracketright       exec "playerctl next"
+bindsym $mod+bracketleft        exec "playerctl previous"
+bindsym $mod+backslash          exec "playerctl play-pause"
+bindsym $mod+up                 exec "pactl set-sink-volume @DEFAULT_SINK@ +2%"
+bindsym $mod+down               exec "pactl set-sink-volume @DEFAULT_SINK@ -2%"
+bindsym XF86AudioPlay           exec "playerctl play"
+bindsym XF86AudioPause          exec "playerctl pause"
+bindsym XF86AudioNext           exec "playerctl next"
+bindsym XF86AudioPrev           exec "playerctl previous"
+bindsym XF86AudioRaiseVolume    exec "pactl set-sink-volume @DEFAULT_SINK@ +2%"
+bindsym XF86AudioLowerVolume    exec "pactl set-sink-volume @DEFAULT_SINK@ -2%"
+bindsym XF86AudioMute           exec "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+bindsym XF86Display             exec "i3lock -e --color F2E6CE; systemctl suspend"
+bindsym XF86Lock                exec "i3lock -e --color F2E6CE; systemctl suspend"
+bindsym Print                   exec "flameshot gui"
+bindsym $mod+shift+p            exec "flameshot gui"
+# System controls:1 ends here
+
+# [[file:config.org::*Workspace][Workspace:1]]
+bindsym $mod+Tab        move workspace to output next;
+bindsym $mod+1          move container to workspace 1; workspace 1
+bindsym $mod+2          move container to workspace 2; workspace 2
+bindsym $mod+3          move container to workspace 3; workspace 3
+# Workspace:1 ends here
+
+# [[file:config.org::*Core Navigation][Core Navigation:1]]
+bindsym $mod+j          focus prev
+bindsym $mod+shift+j    move left
+bindsym $mod+k          focus next
+bindsym $mod+shift+k    move right
+bindsym $mod+q          kill
+bindsym $mod+s          layout toggle splith tabbed
+bindsym $mod+equal      resize grow width 10 px
+bindsym $mod+minus      resize shrink width 10 px
+bindsym $mod+Return     exec "rofi -show drun"
+bindsym $mod+semicolon  exec "rofi -show run"
+bindsym $mod+f          exec "rofi -show window"
+# Core Navigation:1 ends here
+
+# [[file:config.org::*Core Programs][Core Programs:1]]
+bindsym $mod+t          exec "~/.config/scripts/focus -s tui terminal "
+bindsym $mod+v          exec "~/.config/scripts/focus gui zathura zathura"
+bindsym $mod+e          exec "~/.config/scripts/focus gui emacs 'emacsclient -c'"
+bindsym $mod+shift+e    exec "emacsclient --eval '(emacs-everywhere)'"
+bindsym $mod+x          exec "~/.config/scripts/focus gui emacs 'emacsclient -c'"
+bindsym $mod+shift+x    exec "~/.config/scripts/focus gui Thunar thunar"
+# bindsym $mod+x          exec "~/.config/scripts/focus tui lf lf"
+bindsym $mod+b          exec "~/.config/scripts/focus gui firefox firefox"
+# Core Programs:1 ends here
+
+# [[file:config.org::*Extra Programs][Extra Programs:1]]
+bindsym $mod+a          exec "~/.config/scripts/focus gui Clementine clementine"
+bindsym $mod+shift+a    exec "~/.config/scripts/focus tui pulsemixer alsamixer"
+bindsym $mod+m          exec "~/.config/scripts/focus gui mpv mpv"
+bindsym $mod+c          exec "~/.config/scripts/focus tui bc 'bc -l'"
+bindsym $mod+o          exec "~/.config/scripts/focus gui obs 'flatpak run com.obsproject.Studio'"
+bindsym $mod+p          exec "~/.config/scripts/focus tui htop htop"
+# Extra Programs:1 ends here
+
+# [[file:config.org::*Leader: Mod+Space][Leader: Mod+Space:1]]
+bindsym $mod+space mode "$leader"
+set $leader <leader> reBoot / Suspend / Lock / Poweroff / Exit / Restart-i3 / +Help / +Outputs / +Keyboard / +Timer
+mode "$leader" {
+    bindsym r           exec "i3-msg restart";                                  mode "default"
+    bindsym e           exec "i3-msg exit";                                     mode "default"
+    bindsym b           exec "systemctl reboot";                                mode "default"
+    bindsym s           exec "i3lock -e --color F2E6CE; systemctl suspend";     mode "default"
+    bindsym l           exec "i3lock -e --color F2E6CE; xset dpms force off";   mode "default"
+    bindsym p           exec "systemctl poweroff";                              mode "default"
+    bindsym o           mode "$outputselect"
+    bindsym h           mode "$help"
+    bindsym k           mode "$keyboard"
+    bindsym t           mode "$timer"
+    bindsym a           mode "$appearance"
+    bindsym Escape      mode "default"
+}
+# Leader: Mod+Space:1 ends here
+
+# [[file:config.org::*output][output:1]]
+set $outputselect <outputselect> Arandr / Thinkpad_home / Library
+mode "$outputselect" {
+    bindsym t           exec "~/.screenlayout/thinkpad_home.sh; ~/.config/scripts/startup"; mode "default"
+    bindsym l           exec "~/.screenlayout/bib.sh; ~/.config/scripts/startup"; mode "default"
+    bindsym a           exec "~/.config/scripts/focus gui Arandr arandr"; mode "default"
+    bindsym Escape      mode "default"
+}
+# output:1 ends here
+
+# [[file:config.org::*keyboard-layout][keyboard-layout:1]]
+set $keyboard <keyboard-layout> Dvorak / Ch / Us
+mode "$keyboard" {
+    bindsym d           exec "setxkbmap us dvorak"; mode "default"
+    bindsym c           exec "setxkbmap ch";        mode "default"
+    bindsym u           exec "setxkbmap us";        mode "default"
+    bindsym Escape      mode "default"
+}
+# keyboard-layout:1 ends here
+
+# [[file:config.org::*timer][timer:1]]
+set $timer <timer> stopWatch / Interval 60/5 / ^Interval 30/5 / [1] timer 15min / [2] timer 30 min / [3] timer 45min / [4] timer 1h / [5] timer 1.5h / [6] timer 2h / [7] timer 3h / [8] timer 4h / Stop
+mode "$timer" {
+    bindsym w           exec "~/.config/scripts/timer start stopwatch";             mode "default"
+    bindsym i           exec "~/.config/scripts/timer start interval 60min 5min";   mode "default"
+    bindsym shift+i     exec "~/.config/scripts/timer start interval 30min 5min";   mode "default"
+    bindsym 1           exec "~/.config/scripts/timer start timer 15min";           mode "default"
+    bindsym 2           exec "~/.config/scripts/timer start timer 30min";           mode "default"
+    bindsym 3           exec "~/.config/scripts/timer start timer 45min";           mode "default"
+    bindsym 4           exec "~/.config/scripts/timer start timer 1hr";             mode "default"
+    bindsym 5           exec "~/.config/scripts/timer start timer 1.5hr";           mode "default"
+    bindsym 6           exec "~/.config/scripts/timer start timer 2hr";             mode "default"
+    bindsym 7           exec "~/.config/scripts/timer start timer 3hr";             mode "default"
+    bindsym 8           exec "~/.config/scripts/timer start timer 4hr";             mode "default"
+    bindsym s           exec "~/.config/scripts/timer stop";                        mode "default"
+    bindsym Escape      mode "default"
+}
+# timer:1 ends here
+
+# [[file:config.org::*solarized light][solarized light:1]]
+set $backg  #F2E6CE
+set $foreg  #657b83
+set $main 	#268bd2
+set $gray 	#93a1a1
+set $yellow #b58900
+set $orange #cb4b16
+set $red 	#dc322f
+set $purple #6c71c4
+set $blue 	#268bd2
+set $cyan 	#2aa198
+set $green 	#859900
+# solarized light:1 ends here
+
+# [[file:config.org::*Set theme][Set theme:1]]
+# class                 border  backg   text    indicator child
+client.focused          $main   $main   $backg  $foreg    $main
+client.focused_inactive $gray   $gray   $backg  $backg    $backg
+client.unfocused        $backg  $backg  $foreg  $backg    $backg
+client.urgent           $red    $red    $backg  $backg    $backg
+client.placeholder      $backg  $backg  $foreg  $backg    $backg
+client.background       $backg
+# Set theme:1 ends here
