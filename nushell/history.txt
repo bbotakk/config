@@ -4735,3 +4735,104 @@ startup
 syncthing
 cargo run  -h | bat
 cargo  -h | bat
+^emacs --debug-init
+^emacs
+startup
+^emacs
+startup
+doom sync
+ls
+^emacs
+doom sync
+startup
+emacs  -h | bat
+^emacs  -h | bat
+^emacs  --help
+startup
+emacs -nw
+uptime
+dnfi pandoc
+dnfi rust-src
+^emacs --debug-init
+startup
+^emacs --debug-init
+emacs
+^emacs
+^emacs --debug-init
+nvim ~/.config/doom/config.el
+^emacs --debug-init
+cd .config/doom/
+bat packages.el
+nvim ~/.config/doom/config.el
+^emacs --debug-init
+nvim ~/.config/doom/config.el
+^emacs --debug-init
+nvim ~/.config/doom/config.org
+cd .config/doom/
+mv config.org ~
+^emacs 
+nvim config.el
+mv config.el ~
+^emacs 
+mv ~/config.org .
+mv config.org ~
+mv ~/config.el .
+^emacs --debug-init
+nvim config.el
+ls ~
+mv ~/config.org .
+nvim config.org
+emacs
+startup
+^emacs --debug-init
+^emacs
+bat config.el
+^emacs
+cd ~/Books/
+^emacs booklist.org
+startup
+^emacs booklist.org
+startup
+^emacs booklist.org
+^emacs
+^emacs booklist.orgc
+^emacs booklist.org
+^emacs --eval '(dired-jump)'
+^emacs 
+startup
+^emacs
+startup4
+startup
+emacsclient -c 
+startup
+emacsclient -c 
+^emacs
+doom sync
+^emacs
+doom sync
+^emacs
+ps -l | get command | find ema
+ps -l | get command | find emacs
+startup
+emacsclient -c 
+wmctrl emacs 
+wmctrl -xa emacs 
+sudo dnfs nuview
+dnfs nuview
+ls 
+ls | nuview
+^emacs
+ps 
+ps | find syncthing
+syncthing
+"syncthing &" 
+"syncthing &" | bash
+syncthing -h | bat
+man syncthing 
+startup
+starutp
+emacs --daemon
+startup
+setxkbmap us dvorak
+tsnahoeu
+startup
