@@ -31,7 +31,8 @@
       auto-save-default t)
 
 (setq company-idle-delay 0.1  ;; do not set to 0 -> massive performance issues
-      company-show-numbers t)
+      company-show-numbers t
+      company-minimum-prefix-length 1)
 
 (setq which-key-idle-delay 0.1 ;; do not set to 0 -> massive performance issues
       undo-limit 80000000
@@ -56,15 +57,10 @@
 (whitespace-mode t) ;; hl whitespace
 (global-subword-mode t)
 (+global-word-wrap-mode t)
-(global-visual-fill-column-mode t)
 
 (setq hscroll-margin 10
       scroll-margin 10
       display-line-numbers-type 'absolute)
-
-(setq visual-fill-column-width 120
-      visual-fill-column-center-text t
-      visual-fill-column-fringes-outside-margins t)
 
 (setq evil-ex-substitute-global t
       evil-move-cursor-back t
@@ -104,13 +100,14 @@
         (dmenu . 50)
         (t . 50)))
 
-(set-popup-rule! ;;rust
-  "\\*compilation"
+(set-popup-rules!
+  '(("\\*.*"
      :side right
      :width 0.33
      :vslot 1
      :quit nil
      )
+    ))
 ;; Windows & splits:1 ends here
 
 ;; [[file:config.org::*leader system][leader system:1]]
@@ -144,8 +141,8 @@
 ;; [[file:config.org::*Global navigation][Global navigation:1]]
 (map!
  :map  'override
- :nvimore "M-j" 'evil-window-previous
- :nvimore "M-k" 'evil-window-next
+ :nvimore "M-j" 'evil-window-left
+ :nvimore "M-k" 'evil-window-right
  :nvimore "M-s" 'evil-window-vsplit
  :nvimore "M-q" (lambda () (interactive) (evil-quit) (balance-windows-area))
  :nvimore "M-x" 'dired-jump
@@ -307,6 +304,7 @@
 (add-hook 'org-mode-hook 'org-superstar-mode)
 (add-hook 'org-mode-hook 'org-num-mode)
 (add-hook 'org-mode-hook 'org-appear-mode)
+(add-hook 'org-mode-hook 'visual-fill-column-mode)
 
   (setq org-directory "~/Org"
         org-archive-location "~/Archive/Org"
@@ -319,7 +317,11 @@
         org-export-headline-levels 5
         org-refile-use-outline-path 'file
         org-refile-allow-creating-parent-nodes 'confirm
-        org-use-sub-superscripts '{}))
+        org-use-sub-superscripts '{})
+(setq visual-fill-column-width 120
+      visual-fill-column-center-text nil
+      visual-fill-column-fringes-outside-margins t)
+)
 ;; general options:1 ends here
 
 (setq org-babel-default-header-args

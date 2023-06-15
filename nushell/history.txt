@@ -4900,3 +4900,10 @@ emacs  -h | bat
 man emacs 
 emacs --daemon
 ^emacs --daemon
+git status
+syncthing
+^emacs --daemon
+ls
+ls -la
+strartup
+startup
