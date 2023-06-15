@@ -31,6 +31,6 @@ keymap:
       CapsLock-b: Delete   # x
       CapsLock-d: C-Right  # e
       CapsLock-n: C-Left   # b
-      CapsLock-shift-h: [Home, Shift-End, Delete, backspace] # shift-d; deletes line
-      CapsLock-s: [End, Enter]            # o; inserts line below
-      CapsLock-shift-s: [Up, End, Enter]  # o; inserts line above
+      CapsLock-shift-h: [Home, Shift-End, Delete, backspace]  # shift-d; deletes line
+      CapsLock-s: [End, Enter]                                # o; inserts line below
+      CapsLock-shift-s: [Up, End, Enter]                      # o; inserts line above

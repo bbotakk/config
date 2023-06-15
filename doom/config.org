@@ -2,7 +2,6 @@
 #+date:     2022, Novemeber
 #+author:   botak
 
-
 * Emacs global
 ** Theme
 #+begin_src emacs-lisp :config.el :comments link
@@ -52,9 +51,6 @@
 (setq doom-scratch-initial-major-mode 'org-mode) ;; make scratch buffer be in org mode -> coding(with #+src) or notes
 #+end_src
 
-#+RESULTS:
-: t
-
 ** Modeline
 - no functionality that is already handeled by my os.
 #+begin_src emacs-lisp :config.el :comments link
@@ -71,11 +67,16 @@
 #+begin_src emacs-lisp :config.el :comments link
 (whitespace-mode t) ;; hl whitespace
 (global-subword-mode t)
+(+global-word-wrap-mode t)
+(global-visual-fill-column-mode t)
 
 (setq hscroll-margin 10
       scroll-margin 10
-      display-line-numbers-type 'absolute
-)
+      display-line-numbers-type 'absolute)
+
+(setq visual-fill-column-width 120
+      visual-fill-column-center-text t
+      visual-fill-column-fringes-outside-margins t)
 
 (setq evil-ex-substitute-global t
       evil-move-cursor-back t
@@ -87,23 +88,18 @@
 
 (setq calc-angle-mode 'rad
       calc-symbolic-mode t)
+
+(setq yas-triggers-in-field t)
+
 #+end_src
 
 ** Windows & splits
-- I want windows that contain text (info or editeable) to always consistently vsplit so i can navigate them without mental overhead. But for buffers such as whichkey or menu's, they can remain on the bottom for quick access.
 - Unifies the minibuffer windows to the bottem of the screen and makes them like a split and not floating in the middle of the screen.
 #+begin_src emacs-lisp :config.el :comments link
 (setq evil-vsplit-window-right t
       even-window-sizes 'width-only
       right-fringe-width 10
       window-combination-resize t)
-(set-popup-rules!
-  '(("\\*"
-     :side right
-     :width 0.33
-     :vslot 1
-     :quit nil
-     )))
 
 (ivy-posframe-mode t)
 (setq ivy-posframe-display-functions-alist
@@ -122,10 +118,18 @@
       '((swiper . 50)
         (dmenu . 50)
         (t . 50)))
+
+(set-popup-rule! ;;rust
+  "\\*compilation"
+     :side right
+     :width 0.33
+     :vslot 1
+     :quit nil
+     )
 #+end_src
 
-
 * Keybindings
+Each binding must have its modes explicitly defined. (not just once at the top of the list).
 The map macro has the following states:
 | symbol | name            | desc                                      |
 |--------+-----------------+-------------------------------------------|
@@ -135,9 +139,6 @@ The map macro has the following states:
 | :o     | (operator mode) | when manipulating text obj, such as 'dap' |
 | :r     | (replace mode)  | afeter pressing 'r'                       |
 | :g     | (global mode)   | will most likely be overridden            |
-
-- each binding must have its modes explicitly defined. (not just once at the top of the list).
-
 
 ** leader system
 #+begin_src emacs-lisp :config.el :comments link
@@ -172,8 +173,8 @@ The map macro has the following states:
 #+begin_src emacs-lisp :config.el :comments link
 (map!
  :map  'override
- :nvimore "M-j" 'evil-window-left
- :nvimore "M-k" 'evil-window-right
+ :nvimore "M-j" 'evil-window-previous
+ :nvimore "M-k" 'evil-window-next
  :nvimore "M-s" 'evil-window-vsplit
  :nvimore "M-q" (lambda () (interactive) (evil-quit) (balance-windows-area))
  :nvimore "M-x" 'dired-jump
@@ -205,7 +206,6 @@ The map macro has the following states:
 - better orientation when jumping
 - add a search key to 's' and 'S', so no more relative line jumping and then 'f' or 't' jumping inline. Instead just jump to the exact position you need to get to immediately without the mental overhead (of doing both steps).
 - stay on the home row more with evilemotions on 'JKHL'
-
 #+begin_src emacs-lisp :config.el :comments link
 (setq evilem-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s))
 (map!
@@ -228,7 +228,7 @@ The map macro has the following states:
  :map evil-snipe-local-mode-map
  :nm   "s"     'evilem-motion-find-char
  :nm   "S"     'evilem-motion-find-char-backward
- ;; no conflict with 'surround: s'
+ ;; in operator made no conflict with 'surround: s'
  :o    "z"     'evilem-motion-find-char
  :o    "Z"     'evilem-motion-find-char-backward)
 #+end_src
@@ -236,34 +236,35 @@ The map macro has the following states:
 ** dired
 #+begin_src emacs-lisp :config.el :comments link
 (map! :map dired-mode-map
-      :n "RET" #'dired-open-file
-      :n "j" #'evil-next-line
-      :n "k" #'evil-previous-line
-      :n "h" #'dired-up-directory
-      :n "l" #'dired-open-file
-      :n "m" #'dired-mark
-      :n "t" #'dired-toggle-marks
-      :n "u" #'dired-unmark
-      :n "y" #'dired-do-copy
-      :n "r" #'dired-do-rename
-      :n "d" #'dired-do-delete
-      :n "T" #'dired-do-touch
-      :n "x" #'dired-do-chmod
-      :n "w" #'dired-do-chown
-      :n "p" #'dired-do-print
-      :n "y" #'dired-copy-filenamecopy-filename-as-kill
-      :n "z" #'dired-do-compress
-      :n "." #'dired-omit-mode
-      :n "o" #'user-dired-order
-      :n "s" #'dired-toggle-sudo
+      :n "RET" 'dired-open-file
+      :n "j" 'evil-next-line
+      :n "k" 'evil-previous-line
+      :n "f" 'dired-goto-file
+      :n "h" 'dired-up-directory
+      :n "l" 'dired-open-file
+      :n "m" 'dired-mark
+      :n "t" 'dired-toggle-marks
+      :n "u" 'dired-unmark
+      :n "y" 'dired-do-copy
+      :n "r" 'dired-do-rename
+      :n "d" 'dired-do-delete
+      :n "T" 'dired-do-touch
+      :n "x" 'dired-do-chmod
+      :n "w" 'dired-do-chown
+      :n "p" 'dired-do-print
+      :n "y" 'dired-copy-filenamecopy-filename-as-kill
+      :n "z" 'dired-do-compress
+      :n "." 'dired-omit-mode
+      :n "o" 'user-dired-order
+      :n "s" 'dired-toggle-sudo
       (:prefix ("+" . "create")
-       :n "f" #'dired-create-empty-file
-       :n "d" #'dired-create-directory
+       :n "f" 'dired-create-empty-file
+       :n "d" 'dired-create-directory
        ))
 
 (map! :map peep-dired-mode-map
-      :n "j" #'peep-dired-next-file
-      :n "k" #'peep-dired-prev-file)
+      :n "j" 'peep-dired-next-file
+      :n "k" 'peep-dired-prev-file)
 
 (add-hook 'peep-dired-hook 'evil-normalize-keymaps)
 #+end_src
@@ -278,7 +279,6 @@ The map macro has the following states:
   :n "j" 'org-next-visible-heading
   :n "k" 'org-previous-visible-heading))
 #+end_src
-
 
 * User functions
 #+begin_src emacs-lisp :config.el :comments link
@@ -309,7 +309,6 @@ The map macro has the following states:
   (evil-scroll-line-to-center nil)
 )
 #+end_src
-
 
 * Dired
 - add more files to "hidden files"
@@ -342,9 +341,9 @@ The map macro has the following states:
 (remove-hook 'dired-mode-hook #'all-the-icons-dired-mode) ;; icons are bloat and create mental overhead
 #+end_src
 
-
 * Org Mode
 - I hate icons, symbols and emoji's: only thing they do is create unnecessary mental overhead and abstraction while making sure you look cringe while using them. I use org-modern to hide "ugly" org syntax such as "#+begin_src" in order to improve readeablity of the code.
+
 ** general options
 #+begin_src emacs-lisp :config.el :comments link
 (after! org
@@ -352,6 +351,7 @@ The map macro has the following states:
 (add-hook 'org-mode-hook 'org-indent-mode)
 (add-hook 'org-mode-hook 'org-superstar-mode)
 (add-hook 'org-mode-hook 'org-num-mode)
+(add-hook 'org-mode-hook 'org-appear-mode)
 
   (setq org-directory "~/Org"
         org-archive-location "~/Archive/Org"
@@ -364,9 +364,7 @@ The map macro has the following states:
         org-export-headline-levels 5
         org-refile-use-outline-path 'file
         org-refile-allow-creating-parent-nodes 'confirm
-        org-use-sub-superscripts '{}
-        )
-  )
+        org-use-sub-superscripts '{}))
 #+end_src
 
 ** org babel (literate programming)
@@ -380,9 +378,9 @@ The map macro has the following states:
         (:hlines . "no")
         (:tangle . "no")
         (:comments . "link"))
-        org-auto-tangle-default t)
+        org-auto-tangle-default t
+        org-src-window-setup 'current-window)
 #+end_src
-
 
 ** log
 #+begin_src emacs-lisp :config.el :comments link
@@ -467,9 +465,7 @@ The map macro has the following states:
           org-superstar-prettify-item-bullets t
           org-superstar-item-bullet-alist '((?* . "•")
                                             (?- . "•")
-                                            (?+ . "➤"))
-
-          org-modern-horizontal-rule (make-string 36 ?─)))
+                                            (?+ . "➤"))))
 #+end_src
 
 ** Header styling
@@ -597,4 +593,10 @@ agenda capture template is to capture all appointments centrally in your calenda
          (file "~/Notes/templates/daily_template.org")
          :target (file+head "%<%Y-%m-%d>.org"
                             "#+title:\t%<%Y-%m-%d>\n#+author:\temil lenz\n#+date:\t%<%Y-%m-%d>"))))
+#+end_src
+
+* Chatgpt
+- This is my personal key, you must generate your own and then paste here.
+#+begin_src emacs-lisp :config.el :comments link
+(setq! gptel-api-key "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")
 #+end_src

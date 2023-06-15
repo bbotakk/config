@@ -4836,3 +4836,67 @@ startup
 setxkbmap us dvorak
 tsnahoeu
 startup
+keepassxc  --help
+man keepass
+man keepassxc
+man keepassxc-cli
+startup
+emacsclient --eval '(emacs-everywhere)'
+xwininfo
+dnfi xwininfo
+dnfi xdotool
+dnfi xprop
+sudo dnf -y --allowerasing install tldr i3 i3status i3lock bc alacritty zathura zathura-pdf-mupdf arandr htop mpv curl libtool xset flameshot ripgrep fzf rofi light xclip xdg-utils xdotool wmctrl cmake sxiv fd-find npm bat unclutter firefox pavucontrol pamix pasystray polybar ffmpeg-free syncthing clementine playerctl keepassxc blueman lxappearance git gcc gcc-g++ make pkgconfig libX11-devel libXtst-devel libXi-devel texlive-scheme-basic latexmk cargo flatpak xautolock autofs emacs pandoc rust-src xwininfo xdotool xprop xclip<\n>
+dnfi xclip xdotool xprop xwininfo
+startup
+sudo xremap ~/.config/xremap/config.yml
+xremap ~/.config/xremap/config.yml
+sode xremap ~/.config/xremap/config.yml
+sudo xremap ~/.config/xremap/config.yml
+xremap ~/.config/xremap/config.yml
+sudo ~/.cargo/bin/xremap ~/.config/xremap/config.yml
+keepassxc  --help
+sudo ~/.cargo/bin/xremap ~/.config/xremap/config.yml
+vim .
+vi .
+sudo ~/.cargo/bin/xremap ~/.config/xremap/config.yml
+startup
+emacs -h | bat
+emacs -e '(emacs-everywhere)'
+dnfs xdotool
+dnfi xdotool
+dnfi xprop
+dnfi xwininfo
+'emacsclient -c --eval "(emacs-everywhere)"' | bash
+emacs --eval "(emacs-everywhere)"
+emacs -h
+emacsclient -h
+dnfs xbindkeys
+dnfi xbindkeys
+touch ~/.xbindkeysrc
+xbindkey
+xbindkeys
+xbindkeys -h | bat
+dnfr xbindkeys 
+startup
+doom sync
+ls
+git status
+git add i3
+syncthing
+syncthing  -h | bat
+man syncthing  
+syncthing -h | bat
+syncthing -h | bat cli  -h | bat
+syncthing cli  -h | bat
+syncthing-cli  -h | bat
+man syncthing cli 
+sycthing continue
+syncthing --paused
+date
+date now
+doom sync
+emacs  -h | bat
+man emacs 
+emacs --daemon
+^emacs --daemon

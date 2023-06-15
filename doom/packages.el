@@ -71,4 +71,4 @@
 (package! nushell-mode :recipe (:host github :repo "mrkkrp/nushell-mode"))
 (package! rustic)
 (package! org-superstar)
-;; (package! all-the-icons) ;; icons are cringe and create mental overhead
+(package! gptel)

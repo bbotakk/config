@@ -2,7 +2,7 @@
 #+author: bo
 #+date:   16.05.2023
 
-#+BEGIN_QUOTE
+#+begin_quote
 functional and efficiency focused computing workflow
 #+end_quote
 
@@ -73,7 +73,7 @@ Today, many aspects of daily computer usage are split between different applicat
 
 * keybindings
 Using Alt inside Applications in order to minimize conflict with existing shortcuts.
-| mod +  | what                             |
+| Mod +  | Action                           |
 |--------+----------------------------------|
 | j, k   | tab/splits cylcling/navigation   |
 | =, -   | resize                           |

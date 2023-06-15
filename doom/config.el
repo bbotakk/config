@@ -55,11 +55,16 @@
 ;; [[file:config.org::*editor options][editor options:1]]
 (whitespace-mode t) ;; hl whitespace
 (global-subword-mode t)
+(+global-word-wrap-mode t)
+(global-visual-fill-column-mode t)
 
 (setq hscroll-margin 10
       scroll-margin 10
-      display-line-numbers-type 'absolute
-)
+      display-line-numbers-type 'absolute)
+
+(setq visual-fill-column-width 120
+      visual-fill-column-center-text t
+      visual-fill-column-fringes-outside-margins t)
 
 (setq evil-ex-substitute-global t
       evil-move-cursor-back t
@@ -71,6 +76,8 @@
 
 (setq calc-angle-mode 'rad
       calc-symbolic-mode t)
+
+(setq yas-triggers-in-field t)
 ;; editor options:1 ends here
 
 ;; [[file:config.org::*Windows & splits][Windows & splits:1]]
@@ -78,13 +85,6 @@
       even-window-sizes 'width-only
       right-fringe-width 10
       window-combination-resize t)
-(set-popup-rules!
-  '(("\\*"
-     :side right
-     :width 0.33
-     :vslot 1
-     :quit nil
-     )))
 
 (ivy-posframe-mode t)
 (setq ivy-posframe-display-functions-alist
@@ -103,6 +103,14 @@
       '((swiper . 50)
         (dmenu . 50)
         (t . 50)))
+
+(set-popup-rule! ;;rust
+  "\\*compilation"
+     :side right
+     :width 0.33
+     :vslot 1
+     :quit nil
+     )
 ;; Windows & splits:1 ends here
 
 ;; [[file:config.org::*leader system][leader system:1]]
@@ -136,8 +144,8 @@
 ;; [[file:config.org::*Global navigation][Global navigation:1]]
 (map!
  :map  'override
- :nvimore "M-j" 'evil-window-left
- :nvimore "M-k" 'evil-window-right
+ :nvimore "M-j" 'evil-window-previous
+ :nvimore "M-k" 'evil-window-next
  :nvimore "M-s" 'evil-window-vsplit
  :nvimore "M-q" (lambda () (interactive) (evil-quit) (balance-windows-area))
  :nvimore "M-x" 'dired-jump
@@ -185,41 +193,42 @@
  :map evil-snipe-local-mode-map
  :nm   "s"     'evilem-motion-find-char
  :nm   "S"     'evilem-motion-find-char-backward
- ;; no conflict with 'surround: s'
+ ;; in operator made no conflict with 'surround: s'
  :o    "z"     'evilem-motion-find-char
  :o    "Z"     'evilem-motion-find-char-backward)
 ;; Vim editing:1 ends here
 
 ;; [[file:config.org::*dired][dired:1]]
 (map! :map dired-mode-map
-      :n "RET" #'dired-open-file
-      :n "j" #'evil-next-line
-      :n "k" #'evil-previous-line
-      :n "h" #'dired-up-directory
-      :n "l" #'dired-open-file
-      :n "m" #'dired-mark
-      :n "t" #'dired-toggle-marks
-      :n "u" #'dired-unmark
-      :n "y" #'dired-do-copy
-      :n "r" #'dired-do-rename
-      :n "d" #'dired-do-delete
-      :n "T" #'dired-do-touch
-      :n "x" #'dired-do-chmod
-      :n "w" #'dired-do-chown
-      :n "p" #'dired-do-print
-      :n "y" #'dired-copy-filenamecopy-filename-as-kill
-      :n "z" #'dired-do-compress
-      :n "." #'dired-omit-mode
-      :n "o" #'user-dired-order
-      :n "s" #'dired-toggle-sudo
+      :n "RET" 'dired-open-file
+      :n "j" 'evil-next-line
+      :n "k" 'evil-previous-line
+      :n "f" 'dired-goto-file
+      :n "h" 'dired-up-directory
+      :n "l" 'dired-open-file
+      :n "m" 'dired-mark
+      :n "t" 'dired-toggle-marks
+      :n "u" 'dired-unmark
+      :n "y" 'dired-do-copy
+      :n "r" 'dired-do-rename
+      :n "d" 'dired-do-delete
+      :n "T" 'dired-do-touch
+      :n "x" 'dired-do-chmod
+      :n "w" 'dired-do-chown
+      :n "p" 'dired-do-print
+      :n "y" 'dired-copy-filenamecopy-filename-as-kill
+      :n "z" 'dired-do-compress
+      :n "." 'dired-omit-mode
+      :n "o" 'user-dired-order
+      :n "s" 'dired-toggle-sudo
       (:prefix ("+" . "create")
-       :n "f" #'dired-create-empty-file
-       :n "d" #'dired-create-directory
+       :n "f" 'dired-create-empty-file
+       :n "d" 'dired-create-directory
        ))
 
 (map! :map peep-dired-mode-map
-      :n "j" #'peep-dired-next-file
-      :n "k" #'peep-dired-prev-file)
+      :n "j" 'peep-dired-next-file
+      :n "k" 'peep-dired-prev-file)
 
 (add-hook 'peep-dired-hook 'evil-normalize-keymaps)
 ;; dired:1 ends here
@@ -297,6 +306,7 @@
 (add-hook 'org-mode-hook 'org-indent-mode)
 (add-hook 'org-mode-hook 'org-superstar-mode)
 (add-hook 'org-mode-hook 'org-num-mode)
+(add-hook 'org-mode-hook 'org-appear-mode)
 
   (setq org-directory "~/Org"
         org-archive-location "~/Archive/Org"
@@ -309,9 +319,7 @@
         org-export-headline-levels 5
         org-refile-use-outline-path 'file
         org-refile-allow-creating-parent-nodes 'confirm
-        org-use-sub-superscripts '{}
-        )
-  )
+        org-use-sub-superscripts '{}))
 ;; general options:1 ends here
 
 (setq org-babel-default-header-args
@@ -323,7 +331,8 @@
         (:hlines . "no")
         (:tangle . "no")
         (:comments . "link"))
-        org-auto-tangle-default t)
+        org-auto-tangle-default t
+        org-src-window-setup 'current-window)
 
 ;; [[file:config.org::*log][log:1]]
 (after! org
@@ -402,9 +411,7 @@
           org-superstar-prettify-item-bullets t
           org-superstar-item-bullet-alist '((?* . "•")
                                             (?- . "•")
-                                            (?+ . "➤"))
-
-          org-modern-horizontal-rule (make-string 36 ?─)))
+                                            (?+ . "➤"))))
 ;; Format org-buffers & symbols:1 ends here
 
 ;; [[file:config.org::*Header styling][Header styling:1]]
@@ -512,3 +519,7 @@
          :target (file+head "%<%Y-%m-%d>.org"
                             "#+title:\t%<%Y-%m-%d>\n#+author:\temil lenz\n#+date:\t%<%Y-%m-%d>"))))
 ;; daily notes (journaling):1 ends here
+
+;; [[file:config.org::*Chatgpt][Chatgpt:1]]
+(setq! gptel-api-key "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")
+;; Chatgpt:1 ends here
