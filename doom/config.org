@@ -91,13 +91,21 @@
 #+end_src
 
 ** Windows & splits
-- Unify the minibuffer windows to the bottem of the screen and makes them like a split and not floating in the middle of the screen.
+- Unify the minibuffer windows to the bottom of the screen and makes them like a split and not floating in the middle of the screen.
+- center text in the buffer, always. And limit the horizontal width to optimal distance to still view the entire line at a glance.
 - constrain popup-buffers, that normally split horizontally to vsplit.
 #+begin_src emacs-lisp :config.el :comments link
 (setq evil-vsplit-window-right t
       even-window-sizes 'width-only
       right-fringe-width 10
       window-combination-resize t)
+
+
+(global-visual-fill-column-mode t)
+(setq visual-fill-column-width 120
+      visual-fill-column-center-text t
+      visual-fill-column-fringes-outside-margins t
+)
 
 (ivy-posframe-mode t)
 (setq ivy-posframe-display-functions-alist
@@ -121,11 +129,10 @@
 (set-popup-rules!
   '(("\\*.*"
      :side right
-     :width 0.33 ;;'+popup-shrink-to-fit
+     :width 0.33
      :quit nil)
     ))
 
-(global-visual-fill-column-mode t)
 #+end_src
 
 * Keybindings
@@ -365,11 +372,7 @@ The map macro has the following states:
         org-refile-use-outline-path 'file
         org-refile-allow-creating-parent-nodes 'confirm
         org-use-sub-superscripts '{})
-(setq visual-fill-column-width 120
-      visual-fill-column-center-text t
-      visual-fill-column-fringes-outside-margins t)
 )
-
 #+end_src
 
 ** org babel (literate programming)
