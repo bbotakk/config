@@ -93,6 +93,7 @@
 ** Windows & splits
 - Unify the minibuffer windows to the bottom of the screen and makes them like a split and not floating in the middle of the screen.
 - Limit the horizontal width to optimal distance to still view the entire line at a glance.
+- center the text of a window,always to reduce travel distance of the eye.
 - constrain popup-buffers, that normally split horizontally to vsplit.
 #+begin_src emacs-lisp :config.el :comments link
 (setq evil-vsplit-window-right t
@@ -103,7 +104,7 @@
       split-width-threshold 0
       )
 
-;; center all buffers, always
+;; center all buffers, always ->
 (add-hook 'visual-line-mode-hook #'visual-fill-column-mode)
 (setq visual-fill-column-width 120
       visual-fill-column-center-text t
