@@ -4970,3 +4970,4 @@ xprop
 startup
 setxkbmap us dvorak
 startup
+^emacs --daemon
