@@ -75,7 +75,7 @@ bindsym $mod+b          exec "~/.config/scripts/focus gui firefox firefox"
 
 # [[file:config.org::*Extra Programs][Extra Programs:1]]
 bindsym $mod+a          exec "~/.config/scripts/focus gui Clementine clementine"
-bindsym $mod+shift+a    exec "~/.config/scripts/focus tui pulsemixer alsamixer"
+bindsym $mod+shift+a    exec "~/.config/scripts/focus gui pavucontrol pavucontrol"
 bindsym $mod+m          exec "~/.config/scripts/focus gui mpv mpv"
 bindsym $mod+c          exec "~/.config/scripts/focus tui bc 'bc -l'"
 bindsym $mod+o          exec "~/.config/scripts/focus gui obs 'flatpak run com.obsproject.Studio'"
@@ -105,7 +105,7 @@ mode "$leader" {
 set $outputselect <outputselect> Arandr / Thinkpad_home / Library
 mode "$outputselect" {
     bindsym t           exec "~/.screenlayout/thinkpad_home.sh; ~/.config/scripts/startup"; mode "default"
-    bindsym l           exec "~/.screenlayout/bib.sh; ~/.config/scripts/startup"; mode "default"
+    bindsym l           exec "~/.screenlayout/lib.sh; ~/.config/scripts/startup"; mode "default"
     bindsym a           exec "~/.config/scripts/focus gui Arandr arandr"; mode "default"
     bindsym Escape      mode "default"
 }

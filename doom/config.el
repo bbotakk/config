@@ -85,7 +85,7 @@
       split-width-threshold 0
       )
 
-;; center all buffers, always ->
+;; center all buffers, always -> 
 (add-hook 'visual-line-mode-hook #'visual-fill-column-mode)
 (setq visual-fill-column-width 120
       visual-fill-column-center-text t

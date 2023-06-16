@@ -40,8 +40,6 @@ I currently do not have this configured, since this config runs on multiple mach
 workspace 1 output DP-1-1
 workspace 2 output DP-1-2
 workspace 3 output DP-1-3
-workspace 1 output DP-1
-workspace 2 output eDP-1
 #+end_src
 
 * Keybindings
@@ -147,7 +145,7 @@ bindsym $mod+b          exec "~/.config/scripts/focus gui firefox firefox"
 - these bindings just use mnemonics and can be exchanged. These are non-overlapping Programs and mostly gui's.
 #+begin_src conf :tangle "config" :commentss link
 bindsym $mod+a          exec "~/.config/scripts/focus gui Clementine clementine"
-bindsym $mod+shift+a    exec "~/.config/scripts/focus tui pulsemixer alsamixer"
+bindsym $mod+shift+a    exec "~/.config/scripts/focus gui pavucontrol pavucontrol"
 bindsym $mod+m          exec "~/.config/scripts/focus gui mpv mpv"
 bindsym $mod+c          exec "~/.config/scripts/focus tui bc 'bc -l'"
 bindsym $mod+o          exec "~/.config/scripts/focus gui obs 'flatpak run com.obsproject.Studio'"

@@ -4965,3 +4965,8 @@ sync_config
 ls
 ^emacs --daemon
 sync_config 
+^emacs --daemon
+xprop
+startup
+setxkbmap us dvorak
+startup
