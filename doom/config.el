@@ -85,7 +85,7 @@
       split-width-threshold 0
       )
 
-;; center all buffers, always -> 
+;; center all buffers, always ->
 (add-hook 'visual-line-mode-hook #'visual-fill-column-mode)
 (setq visual-fill-column-width 120
       visual-fill-column-center-text t
@@ -115,6 +115,7 @@
   '(("\\*.*"
      :side right
      :width 0.33 ;;'+popup-shrink-to-fit
+     :modeline t
      :quit nil)
     ))
 ;; Windows & splits:1 ends here
