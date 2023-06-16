@@ -85,10 +85,9 @@
       split-width-threshold 0
       )
 
-
-(add-hook 'visual-line-mode-hook #'visual-fill-column-mode)
+(global-visual-fill-column-mode t)
 (setq visual-fill-column-width 120
-      visual-fill-column-center-text t
+      visual-fill-column-center-text nil
       visual-fill-column-fringes-outside-margins t
       )
 
@@ -448,7 +447,7 @@
   '(org-level-7             :inherit outline-8 :height 1.0)
   '(org-level-8             :inherit outline-9 :height 1.0)
   '(markdown-header-face    :weight extra-bold :height 1.4)
-  '(markdown-header-face-1  :weight extra-bold :height 1.3)
+  '(markd own-header-face-1  :weight extra-bold :height 1.3)
   '(markdown-header-face-2  :weight bold       :height 1.2)
   '(markdown-header-face-3  :weight bold       :height 1.1)
   '(markdown-header-face-4  :weight semi-bold  :height 1.1)

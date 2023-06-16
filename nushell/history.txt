@@ -4961,3 +4961,6 @@ route
 route
 emacs --daemon
 ^emacs --daemon
+sync_config 
+ls
+^emacs --daemon
