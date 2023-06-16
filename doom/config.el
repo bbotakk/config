@@ -80,14 +80,17 @@
 (setq evil-vsplit-window-right t
       even-window-sizes 'width-only
       right-fringe-width 10
-      window-combination-resize t)
+      window-combination-resize t
+      split-height-threshold nil
+      split-width-threshold 0
+      )
 
 
-(global-visual-fill-column-mode t)
+(add-hook 'visual-line-mode-hook #'visual-fill-column-mode)
 (setq visual-fill-column-width 120
       visual-fill-column-center-text t
       visual-fill-column-fringes-outside-margins t
-)
+      )
 
 (ivy-posframe-mode t)
 (setq ivy-posframe-display-functions-alist
@@ -111,7 +114,7 @@
 (set-popup-rules!
   '(("\\*.*"
      :side right
-     :width 0.33
+     :width 0.33 ;;'+popup-shrink-to-fit
      :quit nil)
     ))
 ;; Windows & splits:1 ends here

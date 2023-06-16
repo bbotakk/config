@@ -4953,3 +4953,11 @@ ls
 git status
 git add snippets
 git status
+git commit -am 'sync'; git push
+syncthing
+ipa
+ip a
+route 
+route
+emacs --daemon
+^emacs --daemon
