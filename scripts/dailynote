@@ -7,12 +7,6 @@ def main [] {
     let todays_note = ($daily_notes | path join $today_title)
     let daily_template = "~/Notes/templates/daily_template.md"
 
-    if not ($todays_note | path exists) {
-        cp $daily_template $todays_note
-        $"alacritty --title "daily note" -e nvim ($todays_note) &" | bash
-    } else {
-        print "Daily note already exists!"
-        exit 1
-    }
-   daily_note
+    print (open $daily_template)
+    print $today_title
 }

@@ -7,20 +7,25 @@
 #     focus tui -s terminal
 #     focus gui Firefox firefox
 def main [
-    --session(-s) # run the TUI in a persistent zellij session...
-    type: string, # what type of program {gui | tui}
-    name: string, # define the <Window class> or session name of the terminal session
-    command: string = "" # The command that will launch the program. (default: cmd-line)
+    --session(-s)           # run the TUI in a persistent zellij session...
+    type: string,           # what type of program {gui | tui}
+    name: string,           # define the <Window class> or session name of the terminal session
+    command?: string = ""   # The command that will launch the program. (default: cmd-line)
     ] {
 
     match $type {
         "gui" => {try {wmctrl -xa $name} catch {$"($command) &" | bash}},
         "tui" => {
+        print "cmd:" $command
             try {wmctrl -xa $name} catch {
                 if $session {
                     sessionize $name $command
                 } else {
-                    alacritty --class $name --title $name -e $command
+                    if $command != "" {
+                        $"alacritty --class ($name) --title ($name) -e ($command) &" | bash
+                    } else {
+                        $"alacritty --class ($name) --title ($name)" | bash
+                    }
                 }
             }
         },

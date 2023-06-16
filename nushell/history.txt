@@ -4928,3 +4928,14 @@ sleep 5sec; print aaaa
 sync_config
 $env.PATH
 sync_config
+dnfi xournalpp
+dnfi libreoffice
+dnfs wacom
+dnfi xorg-x11-drv-wacom
+focus tui 'bc -l'
+starutp
+startup
+"" 
+"" == nothing
+"" == Nothing
+"" == null

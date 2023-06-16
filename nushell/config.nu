@@ -22,9 +22,9 @@ alias ip =      ip -color=auto
 alias bat =     bat
 alias ls =      ls -d # disk usage in human readable formate
 alias dnfs =    sudo dnf search
-alias dnfi =    sudo dnf install
-alias dnfu =    sudo dnf update
-alias dnfr =    sudo dnf remove
+alias dnfi =    sudo dnf -y install
+alias dnfu =    sudo dnf -y update
+alias dnfr =    sudo dnf -y remove
 
 let-env PATH = ($env.PATH | append ['~/Code/scripts', '~/.config/scripts', '~/.cargo/bin', "~/.config/emacs/bin"])
 
