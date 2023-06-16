@@ -131,7 +131,7 @@
 
 (setq +popup-defaults '(:side right :width 0.33 :quit nil :select ignore :ttl 5 :modeline t))
 (set-popup-rules!
-  '(("\\*.*"
+  '(("\\*.*(?!Agenda).*\\*"
      :side right
      :width 0.33 ;;'+popup-shrink-to-fit
      :modeline t

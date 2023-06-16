@@ -5001,3 +5001,7 @@ startup
 ls
 starutp
 startup
+sync_config 
+syncthing
+startup
+^emacs --daemon
