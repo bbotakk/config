@@ -4973,3 +4973,31 @@ startup
 ^emacs --daemon
 sync_config 
 ^emacs --daemon
+sync_config 
+killall syncthing
+syncthing
+pandoc  -h | bat
+tldr pandoc
+pandoc ~/.config/i3/config.org -o /tmp/config.html; firefox /tmp/config.html
+pandoc ~/.config/i3/config.org -o /tmp/config.pdf; firefox /tmp/config.html
+pandoc ~/.config/i3/config.org -o /tmp/config.pdf; firefox /tmp/config.pdf
+~/.config/i3/config | less
+open ~/.config/i3/config | less
+open ~/.config/i3/config.org | less
+open ~/.config/i3/config.org | bat
+tldr bat
+bat --list-languages
+open ~/.config/i3/config.org | bat  -h | bat
+open ~/.config/i3/config.org | bat  -l org
+tldr pandoc
+pandoc  -h | bat
+pandoc ~/.config/i3/config.org -o /tmp/config.pdf --toc; firefox /tmp/config.pdf
+pandoc ~/.config/i3/config.org -o /tmp/config.html --toc; firefox /tmp/config.html
+rm -f /tmp/config.html; pandoc ~/.config/i3/config.org -o /tmp/config.html --toc; firefox /tmp/config.html
+rm -f /tmp/config.html; pandoc ~/.config/i3/config.org -o --toc /tmp/config.html ; firefox /tmp/config.html
+rm -f /tmp/config.html; pandoc ~/.config/i3/config.org --toc -o /tmp/config.html ; firefox /tmp/config.html
+emacs ~/.config/i3/config.org
+startup
+ls
+starutp
+startup

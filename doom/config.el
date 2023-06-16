@@ -32,7 +32,7 @@
 
 (setq company-idle-delay 0.1  ;; do not set to 0 -> massive performance issues
       company-show-numbers t
-      company-minimum-prefix-length 1)
+      company-minimum-prefix-length 2)
 
 (setq which-key-idle-delay 0.1 ;; do not set to 0 -> massive performance issues
       undo-limit 80000000
