@@ -4907,3 +4907,24 @@ ls
 ls -la
 strartup
 startup
+cd doom/
+emacs config.org
+doom sync
+startup
+^emacs
+^emacs
+startup
+doom sync
+startup
+ps | find syncthing
+killall syncthing
+syncthing 
+ps | find syncthing
+kill -h | bat
+killall -h | bat
+man killall -h | bat
+sleep 5min; print aaaa
+sleep 5sec; print aaaa
+sync_config
+$env.PATH
+sync_config

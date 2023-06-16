@@ -100,13 +100,12 @@
         (dmenu . 50)
         (t . 50)))
 
+(setq +popup-defaults '(:side right :width 0.33 :quit nil :select ignore :ttl 5 :modeline t))
 (set-popup-rules!
   '(("\\*.*"
      :side right
-     :width 0.33
-     :vslot 1
-     :quit nil
-     )
+     :width 0.33 ;;'+popup-shrink-to-fit
+     :quit nil)
     ))
 ;; Windows & splits:1 ends here
 
@@ -144,7 +143,7 @@
  :nvimore "M-j" 'evil-window-left
  :nvimore "M-k" 'evil-window-right
  :nvimore "M-s" 'evil-window-vsplit
- :nvimore "M-q" (lambda () (interactive) (evil-quit) (balance-windows-area))
+ :nvimore "M-q" (lambda () (interactive) (evil-quit) (balance-windows))
  :nvimore "M-x" 'dired-jump
  :nvimore "M-f" 'counsel-fzf
  :nvimore "M-r" 'counsel-recentf
@@ -418,31 +417,39 @@
 
 ;; [[file:config.org::*Header styling][Header styling:1]]
 (custom-set-faces!
-  '(org-todo                :weight extra-bold :height 1.0 )
-  '(org-checkbox            :weight extra-bold :height 1.0 )
-  '(org-priority            :weight extra-bold :height 1.0 )
-  '(org-special-keyword     :weight normal     :height 1.0 )
-  '(org-drawer              :weight normal     :height 1.0 )
-  '(org-tag                 :weight normal     :height 1.0 )
-  '(org-date                :weight normal     :height 1.0 )
-  '(org-document-title      :weight ultra-bold :height 1.4 )
-  '(outline-1               :weight extra-bold :height 1.7 )
-  '(outline-2               :weight bold       :height 1.6 )
-  '(outline-3               :weight bold       :height 1.5 )
-  '(outline-4               :weight semi-bold  :height 1.4 )
-  '(outline-5               :weight semi-bold  :height 1.3 )
-  '(outline-6               :weight semi-bold  :height 1.2 )
-  '(outline-8               :weight semi-bold  :height 1.1 )
-  '(outline-9               :weight semi-bold  :height 1.0 )
-  '(markdown-header-face    :weight extra-bold :height 1.4 )
-  '(markdown-header-face-1  :weight extra-bold :height 1.3 )
-  '(markdown-header-face-2  :weight bold       :height 1.2 )
-  '(markdown-header-face-3  :weight bold       :height 1.1 )
-  '(markdown-header-face-4  :weight semi-bold  :height 1.1 )
-  '(markdown-header-face-5  :weight semi-bold  :height 1.1 )
-  '(markdown-header-face-6  :weight semi-bold  :height 1.1 )
-  '(markdown-header-face-7  :weight semi-bold  :height 1.1 )
-  '(markdown-header-face-8  :weight semi-bold  :height 1.1 )
+  '(org-todo                :weight extra-bold :height 1.0)
+  '(org-checkbox            :weight extra-bold :height 1.0)
+  '(org-priority            :weight extra-bold :height 1.0)
+  '(org-special-keyword     :weight normal     :height 1.0)
+  '(org-drawer              :weight normal     :height 1.0)
+  '(org-tag                 :weight normal     :height 1.0)
+  '(org-date                :weight normal     :height 1.0)
+  '(org-document-title      :weight ultra-bold :height 1.4)
+  '(outline-1               :weight extra-bold :height 1.7)
+  '(outline-2               :weight bold       :height 1.6)
+  '(outline-3               :weight bold       :height 1.5)
+  '(outline-4               :weight semi-bold  :height 1.4)
+  '(outline-5               :weight semi-bold  :height 1.3)
+  '(outline-6               :weight semi-bold  :height 1.2)
+  '(outline-8               :weight semi-bold  :height 1.1)
+  '(outline-9               :weight semi-bold  :height 1.0)
+  '(org-level-1             :inherit outline-1 :height 1.0)
+  '(org-level-2             :inherit outline-2 :height 1.0)
+  '(org-level-3             :inherit outline-3 :height 1.0)
+  '(org-level-4             :inherit outline-4 :height 1.0)
+  '(org-level-5             :inherit outline-5 :height 1.0)
+  '(org-level-6             :inherit outline-6 :height 1.0)
+  '(org-level-7             :inherit outline-8 :height 1.0)
+  '(org-level-8             :inherit outline-9 :height 1.0)
+  '(markdown-header-face    :weight extra-bold :height 1.4)
+  '(markdown-header-face-1  :weight extra-bold :height 1.3)
+  '(markdown-header-face-2  :weight bold       :height 1.2)
+  '(markdown-header-face-3  :weight bold       :height 1.1)
+  '(markdown-header-face-4  :weight semi-bold  :height 1.1)
+  '(markdown-header-face-5  :weight semi-bold  :height 1.1)
+  '(markdown-header-face-6  :weight semi-bold  :height 1.1)
+  '(markdown-header-face-7  :weight semi-bold  :height 1.1)
+  '(markdown-header-face-8  :weight semi-bold  :height 1.1)
   )
 ;; Header styling:1 ends here
 
@@ -521,7 +528,3 @@
          :target (file+head "%<%Y-%m-%d>.org"
                             "#+title:\t%<%Y-%m-%d>\n#+author:\temil lenz\n#+date:\t%<%Y-%m-%d>"))))
 ;; daily notes (journaling):1 ends here
-
-;; [[file:config.org::*Chatgpt][Chatgpt:1]]
-(setq! gptel-api-key "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")
-;; Chatgpt:1 ends here
