@@ -406,8 +406,8 @@
           '(("*" (bold))
             ("/" italic)
             ("_" underline)
-            ("=" redd)
-            ("~" code)
+            ("=" org-verbatim verbatim)
+            ("~" org-code verbatim)
             ("+" (:strike-through t)))
           org-fontify-quote-and-verse-blocks t
           org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a."))

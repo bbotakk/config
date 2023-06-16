@@ -4940,3 +4940,16 @@ startup
 "" == Nothing
 "" == null
 sync_config 
+syncthing
+killall syncthing
+killall emacs
+emacs --daemon
+^emacs --daemon
+doom sync
+git status=
+git status
+cd doom/
+ls
+git status
+git add snippets
+git status
