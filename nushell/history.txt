@@ -4964,3 +4964,4 @@ emacs --daemon
 sync_config 
 ls
 ^emacs --daemon
+sync_config 
