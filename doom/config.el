@@ -107,6 +107,8 @@
      :width 0.33 ;;'+popup-shrink-to-fit
      :quit nil)
     ))
+
+(global-visual-fill-column-mode t)
 ;; Windows & splits:1 ends here
 
 ;; [[file:config.org::*leader system][leader system:1]]
@@ -303,7 +305,6 @@
 (add-hook 'org-mode-hook 'org-superstar-mode)
 (add-hook 'org-mode-hook 'org-num-mode)
 (add-hook 'org-mode-hook 'org-appear-mode)
-(add-hook 'org-mode-hook 'visual-fill-column-mode)
 
   (setq org-directory "~/Org"
         org-archive-location "~/Archive/Org"
@@ -318,7 +319,7 @@
         org-refile-allow-creating-parent-nodes 'confirm
         org-use-sub-superscripts '{})
 (setq visual-fill-column-width 120
-      visual-fill-column-center-text nil
+      visual-fill-column-center-text t
       visual-fill-column-fringes-outside-margins t)
 )
 ;; general options:1 ends here
