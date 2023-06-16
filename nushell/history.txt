@@ -4972,3 +4972,4 @@ setxkbmap us dvorak
 startup
 ^emacs --daemon
 sync_config 
+^emacs --daemon
