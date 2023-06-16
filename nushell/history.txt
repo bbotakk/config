@@ -5005,3 +5005,6 @@ sync_config
 syncthing
 startup
 ^emacs --daemon
+git status
+sync_config 
+killall syncthing

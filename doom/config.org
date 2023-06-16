@@ -2,6 +2,11 @@
 #+date:     Friday, June 16, 2023
 #+author:   botak
 
+* Preface
+Professional, minimalist tools like Emacs have a high learning curve and require thought and time to initially set up. But once things are working and customized they will work for years at a stretch without needing to fiddle with the nobs. And once mastered you can eliminate the "modern" GUI bits -- tool bars, menus, scrollbars and fancy animations and the like and what is left is about as clean an interface as you can get stripping everything down to the bare metal where it gets out of your way and provides the most streamlined workflow. The difference is that something like emacs is a longterm investment, it requires you to get over the high entry barrier but then never annoys you with a more elongated, bloated workflow that in other, more beginner friendly applications is the norm and cannot be changed away from.
+
+The saying, "give 'em enough rope, and they'll likely hang themselves," holds true. Emacs provides the rope if you are not careful.
+
 * Emacs global
 ** Theme
 #+begin_src emacs-lisp :config.el :comments link
