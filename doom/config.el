@@ -79,16 +79,6 @@
     writeroom-width 120
     writeroom-mode-line nil
     )
-
-
-(add-hook 'org-mode-hook 'visual-fill-column-mode)
-(add-hook 'prog-mode-hook 'visual-fill-column-mode)
-(after! prog-mode
-  (setq truncate-lines nil)
-)
-(setq visual-fill-column-enable-sensible-window-split t
-      visual-fill-column-center-text t
-      visual-fill-column-width 120)
 ;; editor options:1 ends here
 
 ;; [[file:config.org::*Windows & splits][Windows & splits:1]]
@@ -131,7 +121,6 @@
                "e" 'counsel-load-theme
                "S" 'toggle-line-spacing
                "n" 'org-num-mode
-               "V" 'visual-fill-column-mode
                "d" 'peep-dired
                "D" 'dired-view-file)
       (:prefix "i"
