@@ -21,7 +21,7 @@ The saying, "give 'em enough rope, and they'll likely hang themselves," holds tr
 ** Fonts
 - italicising keywords is syntactic sugar and bloat, it leads to complexity and mental overhead -> we do not use it.
 #+begin_src emacs-lisp :config.el :comments link
-(setq doom-font (font-spec :family "Iosevka Nerd Font" :size 10)
+(setq doom-font (font-spec :family "Iosevka Nerd Font" :size 12)
       doom-big-font (font-spec :family "Iosevka Nerd Font" :size 16)
       doom-variable-pitch-font (font-spec :family "Iosevka Nerd Font" :size 12)
       doom-serif-font (font-spec :family "Iosevka Nerd Font" :size 12)

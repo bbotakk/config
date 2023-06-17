@@ -8,7 +8,7 @@
 ;; Theme:1 ends here
 
 ;; [[file:config.org::*Fonts][Fonts:1]]
-(setq doom-font (font-spec :family "Iosevka Nerd Font" :size 10)
+(setq doom-font (font-spec :family "Iosevka Nerd Font" :size 12)
       doom-big-font (font-spec :family "Iosevka Nerd Font" :size 16)
       doom-variable-pitch-font (font-spec :family "Iosevka Nerd Font" :size 12)
       doom-serif-font (font-spec :family "Iosevka Nerd Font" :size 12)
