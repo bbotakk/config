@@ -74,6 +74,18 @@
       calc-symbolic-mode t)
 
 (setq yas-triggers-in-field t)
+
+(setq +zen-text-scale 2
+    writeroom-width 120
+    writeroom-mode-line nil
+    )
+
+
+;; (add-hook 'org-mode-hook 'visual-fill-column-mode)
+;; (add-hook 'prog-mode-hook 'visual-fill-column-mode)
+;; (setq visual-fill-column-enable-sensible-window-split t
+;;       visual-fill-column-center-text t
+;;       visual-fill-column-width 120)
 ;; editor options:1 ends here
 
 ;; [[file:config.org::*Windows & splits][Windows & splits:1]]
@@ -103,20 +115,6 @@
     ))
 ;; Popup buffers:1 ends here
 
-;; [[file:config.org::*Buffer text][Buffer text:1]]
-(setq +zen-text-scale 2
-    writeroom-width 120
-    writeroom-mode-line nil
-    )
-
-(add-hook 'org-mode-hook 'visual-fill-column-mode)
-(add-hook 'prog-mode-hook 'visual-fill-column-mode)
-(setq visual-fill-column-enable-sensible-window-split t
-      visual-fill-column-center-text t
-      visual-fill-column-width 120
-      )
-;; Buffer text:1 ends here
-
 ;; [[file:config.org::*leader system][leader system:1]]
 (setq doom-leader-key "SPC"
       doom-localleader-key ",") ;; hit <spc> twice
@@ -130,6 +128,7 @@
                "e" 'counsel-load-theme
                "S" 'toggle-line-spacing
                "n" 'org-num-mode
+               "V" 'visual-fill-column-mode
                "d" 'peep-dired
                "D" 'dired-view-file)
       (:prefix "i"

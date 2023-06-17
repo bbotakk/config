@@ -5078,3 +5078,8 @@ killall emacsdaemon
 startup
 ^^emacs --daemon
 ^emacs --daemon
+ps -l 
+ps -l | get command | find firefox
+startup
+syncthing
+killall syncthing

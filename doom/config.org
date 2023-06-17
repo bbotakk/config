@@ -71,6 +71,8 @@ The saying, "give 'em enough rope, and they'll likely hang themselves," holds tr
 
 ** editor options
 - restrict text column width. then wrap words -> forces to not nest and keeps readability maximized
+- Limit the horizontal width to optimal distance to still view the entire line at a glance.
+- Center the text for better ergonomics.
 #+begin_src emacs-lisp :config.el :comments link
 (whitespace-mode t) ;; hl whitespace
 (global-subword-mode t)
@@ -92,6 +94,18 @@ The saying, "give 'em enough rope, and they'll likely hang themselves," holds tr
       calc-symbolic-mode t)
 
 (setq yas-triggers-in-field t)
+
+(setq +zen-text-scale 2
+    writeroom-width 120
+    writeroom-mode-line nil
+    )
+
+
+;; (add-hook 'org-mode-hook 'visual-fill-column-mode)
+;; (add-hook 'prog-mode-hook 'visual-fill-column-mode)
+;; (setq visual-fill-column-enable-sensible-window-split t
+;;       visual-fill-column-center-text t
+;;       visual-fill-column-width 120)
 #+end_src
 
 ** Windows & splits
@@ -126,23 +140,6 @@ Constrain popup buffers to also vsplit, and have a reasonable size.
     ))
 #+end_src
 
-*** Buffer text
-Limit the horizontal width to optimal distance to still view the entire line at a glance.
-Center the text for better ergonomics.
-#+begin_src emacs-lisp :config.el :comments link
-(setq +zen-text-scale 2
-    writeroom-width 120
-    writeroom-mode-line nil
-    )
-
-(add-hook 'org-mode-hook 'visual-fill-column-mode)
-(add-hook 'prog-mode-hook 'visual-fill-column-mode)
-(setq visual-fill-column-enable-sensible-window-split t
-      visual-fill-column-center-text t
-      visual-fill-column-width 120
-      )
-#+end_src
-
 * Keybindings
 Each binding must have its modes explicitly defined. (not just once at the top of the list).
 The map macro has the following states:
@@ -169,6 +166,7 @@ The map macro has the following states:
                "e" 'counsel-load-theme
                "S" 'toggle-line-spacing
                "n" 'org-num-mode
+               "V" 'visual-fill-column-mode
                "d" 'peep-dired
                "D" 'dired-view-file)
       (:prefix "i"
