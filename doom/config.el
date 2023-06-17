@@ -30,15 +30,13 @@
 (setq global-auto-revert-non-file-buffers t
       auto-save-default t)
 
-(setq company-idle-delay 0.1  ;; do not set to 0 -> massive performance issues
-      company-show-numbers t
-      company-minimum-prefix-length 2)
-
-(setq which-key-idle-delay 0.1 ;; do not set to 0 -> massive performance issues
-      undo-limit 80000000
-      browse-url-generic-program "firefox"
+(setq browse-url-generic-program "firefox"
       rainbow-mode t
       x-stretch-cursor t)
+
+(setq calc-angle-mode 'rad
+      calc-symbolic-mode t)
+
 
 (setq doom-scratch-initial-major-mode 'org-mode) ;; make scratch buffer be in org mode -> coding(with #+src) or notes
 ;; Emacs options:1 ends here
@@ -70,17 +68,27 @@
       evil-snipe-auto-scroll t
       evil-snipe-repeat-keys t)
 
-(setq calc-angle-mode 'rad
-      calc-symbolic-mode t)
-
 (setq yas-triggers-in-field t)
 
-(setq +zen-text-scale 2
-    writeroom-width 120
-    writeroom-mode-line nil
-    )
+(setq +zen-text-scale 1
+      writeroom-width 120
+      writeroom-mode-line nil
+      )
 
 (setq-default flycheck-indication-mode 'left-fringe)
+
+(add-hook 'text-mode-hook 'visual-fill-column-mode)
+(setq visual-fill-column-enable-sensible-window-split t
+      visual-fill-column-center-text nil
+      visual-fill-column-width 120
+      )
+
+(setq company-idle-delay 0.1  ;; do not set to 0 -> massive performance issues
+      company-show-numbers t
+      company-minimum-prefix-length 2)
+
+(setq which-key-idle-delay 0.1 ;; do not set to 0 -> massive performance issues
+      undo-limit 80000000)
 ;; editor options:1 ends here
 
 ;; [[file:config.org::*Windows & splits][Windows & splits:1]]
@@ -95,7 +103,7 @@
 
 ;; [[file:config.org::*Counsel & Ivy][Counsel & Ivy:1]]
 (ivy-posframe-mode t)
-(setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-bottom-left)))
+(setq ivy-posframe-display-functions-alist '((t . ivy-display-function-fallback)))
 (setq ivy-posframe-height-alist '((t . 20)))
 ;; Counsel & Ivy:1 ends here
 
@@ -334,8 +342,10 @@
         org-export-headline-levels 5
         org-refile-use-outline-path 'file
         org-refile-allow-creating-parent-nodes 'confirm
-        org-use-sub-superscripts '{})
-  )
+        org-use-sub-superscripts '{}
+        org-startup-with-inline-images t ; Display images by default.
+        org-startup-with-latex-preview t ; Display equations by default.
+        ))
 ;; general options:1 ends here
 
 (setq org-babel-default-header-args
@@ -484,16 +494,17 @@
 ;; [[file:config.org::*Todo states][Todo states:1]]
 (after! org
   (setq org-todo-keywords '((type
-                             "TODO(t)"
-                             "PROG(i)"
-                             "OPT(o)"
-                             "REVIEW(r)"
-                             "WAIT(w)"
+                             "TODO:(t)"
+                             "IPROG:(i)"
+                             "NEXT:(n)"
+                             "OPT:(o)"
+                             "REVIEW:(r)"
+                             "WAIT:(w)"
                              "|"
-                             "DONE(d!)"
-                             "CANC(c@)"
-                             "DELEG(d@)"
-                             "ASSIGN(a@)"))))
+                             "DONE!(d!)"
+                             "CANC!(c@)"
+                             "DELEG!(d@)"
+                             "ASSIGND!(a@)"))))
 ;; Todo states:1 ends here
 
 ;; [[file:config.org::*capture templates][capture templates:1]]
@@ -548,3 +559,5 @@
          :target (file+head "%<%Y-%m-%d>.org"
                             "#+title:\t%<%Y-%m-%d>\n #+author:\tbo\n #+date:\t%<%Y-%m-%d>")))))
 ;; daily notes (journaling):1 ends here
+
+

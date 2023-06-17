@@ -44,15 +44,13 @@ The saying, "give 'em enough rope, and they'll likely hang themselves," holds tr
 (setq global-auto-revert-non-file-buffers t
       auto-save-default t)
 
-(setq company-idle-delay 0.1  ;; do not set to 0 -> massive performance issues
-      company-show-numbers t
-      company-minimum-prefix-length 2)
-
-(setq which-key-idle-delay 0.1 ;; do not set to 0 -> massive performance issues
-      undo-limit 80000000
-      browse-url-generic-program "firefox"
+(setq browse-url-generic-program "firefox"
       rainbow-mode t
       x-stretch-cursor t)
+
+(setq calc-angle-mode 'rad
+      calc-symbolic-mode t)
+
 
 (setq doom-scratch-initial-major-mode 'org-mode) ;; make scratch buffer be in org mode -> coding(with #+src) or notes
 #+end_src
@@ -90,18 +88,32 @@ The saying, "give 'em enough rope, and they'll likely hang themselves," holds tr
       evil-snipe-auto-scroll t
       evil-snipe-repeat-keys t)
 
-(setq calc-angle-mode 'rad
-      calc-symbolic-mode t)
-
 (setq yas-triggers-in-field t)
 
-(setq +zen-text-scale 2
-    writeroom-width 120
-    writeroom-mode-line nil
-    )
+(setq +zen-text-scale 1
+      writeroom-width 120
+      writeroom-mode-line nil
+      )
 
 (setq-default flycheck-indication-mode 'left-fringe)
+
+(add-hook 'text-mode-hook 'visual-fill-column-mode)
+(setq visual-fill-column-enable-sensible-window-split t
+      visual-fill-column-center-text nil
+      visual-fill-column-width 120
+      )
+
+(setq company-idle-delay 0.1  ;; do not set to 0 -> massive performance issues
+      company-show-numbers t
+      company-minimum-prefix-length 2)
+
+(setq which-key-idle-delay 0.1 ;; do not set to 0 -> massive performance issues
+      undo-limit 80000000)
+
 #+end_src
+
+#+RESULTS:
+: left-fringe
 
 ** Windows & splits
 #+begin_src emacs-lisp :config.el :comments link
@@ -115,10 +127,10 @@ The saying, "give 'em enough rope, and they'll likely hang themselves," holds tr
 #+end_src
 
 *** Counsel & Ivy
-Nice and center, and show some more results.
+- fix the menus to the bottom bar where all the interactive action is supposed to happend and constrain the amount of results that are displayed.
 #+begin_src emacs-lisp :config.el :comments link
 (ivy-posframe-mode t)
-(setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-bottom-left)))
+(setq ivy-posframe-display-functions-alist '((t . ivy-display-function-fallback)))
 (setq ivy-posframe-height-alist '((t . 20)))
 #+end_src
 
@@ -398,8 +410,10 @@ it was at first done this way to emulate bold text. However globally the lowerca
         org-export-headline-levels 5
         org-refile-use-outline-path 'file
         org-refile-allow-creating-parent-nodes 'confirm
-        org-use-sub-superscripts '{})
-  )
+        org-use-sub-superscripts '{}
+        org-startup-with-inline-images t ; Display images by default.
+        org-startup-with-latex-preview t ; Display equations by default.
+        ))
 #+end_src
 
 ** org babel (literate programming)
@@ -571,19 +585,22 @@ it was at first done this way to emulate bold text. However globally the lowerca
 | OPT   | optional means can be done after most important stuff is finished/may becom obsolete |
 | DONE  | it's complete                                                                        |
 
+- ~@~ -> add a note when triggered
+- ~!~ -> log time when triggered
 #+begin_src emacs-lisp :config.el :comments link
 (after! org
   (setq org-todo-keywords '((type
-                             "TODO(t)"
-                             "PROG(i)"
-                             "OPT(o)"
-                             "REVIEW(r)"
-                             "WAIT(w)"
+                             "TODO:(t)"
+                             "IPROG:(i)"
+                             "NEXT:(n)"
+                             "OPT:(o)"
+                             "REVIEW:(r)"
+                             "WAIT:(w)"
                              "|"
-                             "DONE(d!)"
-                             "CANC(c@)"
-                             "DELEG(d@)"
-                             "ASSIGN(a@)"))))
+                             "DONE!(d!)"
+                             "CANC!(c@)"
+                             "DELEG!(d@)"
+                             "ASSIGND!(a@)"))))
 #+end_src
 
 ** capture templates
@@ -641,4 +658,8 @@ agenda capture template is to capture all appointments centrally in your calenda
          (file "~/Notes/templates/daily_template.org")
          :target (file+head "%<%Y-%m-%d>.org"
                             "#+title:\t%<%Y-%m-%d>\n #+author:\tbo\n #+date:\t%<%Y-%m-%d>")))))
+#+end_src
+
+** Latex equations
+#+begin_src emacs-lisp
 #+end_src
