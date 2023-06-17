@@ -83,6 +83,9 @@
 
 (add-hook 'org-mode-hook 'visual-fill-column-mode)
 (add-hook 'prog-mode-hook 'visual-fill-column-mode)
+(after! prog-mode
+  (setq truncate-lines nil)
+)
 (setq visual-fill-column-enable-sensible-window-split t
       visual-fill-column-center-text t
       visual-fill-column-width 120)

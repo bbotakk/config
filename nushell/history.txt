@@ -5083,3 +5083,4 @@ ps -l | get command | find firefox
 startup
 syncthing
 killall syncthing
+firefox google.com 
