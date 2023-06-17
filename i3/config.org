@@ -3,19 +3,25 @@
 #+date:     Thursday, June 15, 2023
 
 * Philosophy
- - Eliminate mental overhead and reduce computationnal steps to get to where you need to be.
+ - Eliminate mental overhead and reduce computational steps to get to where you need to be.
  - Finetuned to automate the workflow as much as possible.
- - Accessing a program is as efficient as possible and always consistent, no matter where in your desktop you are (different monitor/workspace/app order) You will not Alt+tab through apps to get to the one you are thinking of. Instead the app is always bound to the same mnemonical keybind.
+ - Accessing a program is as efficient as possible and always consistent, no matter where in your desktop you are (different monitor/workspace/app order) You will not Alt+tab through apps to get to the one you are thinking of. Instead the app is always bound to the same mnemonical keybinding.
  - Minimal keystrokes to get from where you are to the app you want to be.
  - Keyboard driven workflow only. (Vi-mnemonic bindings)
- - Strictly avoid multitasking -> Always work in Fullscreen to never have to resize a window.
+ - Strictly avoid multitasking -> Always work in fullscreen to never have to resize a window.
+
+   #+begin_note
+   src blocks that have ~tangle: no~ will not be exported into the config file.
+   #+end_note
 
 * Startup automation
 This script will launch the following:
 - bg-processes
 - statusbar (polybar)
 - remaps
-- programs
+- frequently used programs
+
+Launching the programs i use everytime i log in saves me time and work due to automating it.
 #+begin_src conf :tangle "config" :comments link
 exec --no-startup-id "~/.config/scripts/startup"
 #+end_src
@@ -36,7 +42,7 @@ for_window [urgent="latest"] focus
 
 * Assign: workspaces
 I currently do not have this configured, since this config runs on multiple machines in sync and thus would require different output configurations.
-#+begin_src conf
+#+begin_src conf :tangle no
 workspace 1 output DP-1-1
 workspace 2 output DP-1-2
 workspace 3 output DP-1-3
@@ -54,7 +60,7 @@ floating_modifier $mod
 #+end_src
 
 ** System controls
-- Enable controlling the system via inbuillt laptop keys but also with shortcuts on a external keyboard.
+- Enable controlling the system via inbuillt laptop keys.
 #+begin_src conf :tangle "config" :comments link
 bindsym XF86MonBrightnessDown   exec "sudo light -U 2"
 bindsym XF86MonBrightnessUp     exec "sudo light -A 2"
@@ -244,8 +250,7 @@ set $green 	#859900
 
 ** solarized dark
 - Not in use, but as in all other dotfiles, present as an alternative if preferred.
-
-#+begin_src conf
+#+begin_src conf :tangle no
 set $backg  #002b36
 set $foreg  #657b83
 set $main 	#268bd2
@@ -272,14 +277,14 @@ client.background       $backg
 #+end_src
 
 * Statusbar
-Using Polybar instead, but if Polybar is not wanted this can be used instead:
-#+begin_src conf
+Using Polybar instead, but if Polybar is not wanted this can be used instead as a more lightweight alternative:
+#+begin_src conf :tangle no
 bar {
 mode dock
 position bottom
-separator_symbol " | "
-# status_command i3status
-# tray_output primary
+separator_symbol " / "
+status_command i3status
+tray_output primary
 colors {
     background $backg
     statusline $foreg

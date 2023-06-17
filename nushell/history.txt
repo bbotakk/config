@@ -5008,3 +5008,71 @@ startup
 git status
 sync_config 
 killall syncthing
+syncthing
+6emacs --daemon
+^emacs --daemon
+doom sync
+dnfi xournalpp
+dnfi libreoffice
+dnfs obs
+sudo dnf install kmod-v4l2loopback
+flatpak search
+flatpak search --help
+flatpak search obs
+flatpak  -h | bat
+flatpak search open broadcast
+flatpak install flathub com.obsproject.Studio
+ps | find syncthing
+"syncthing &" | bash
+^emacs --daemon
+tree
+vi .
+vi booklist.org
+firefox -h | bat
+ps -l 
+firefox google.com
+ps -l | find google
+ps -l | find fier
+ps -l | find fire
+oracel
+oracle
+dnfs vm
+go install -v github.com/owasp-amass/amass/v3/...@master
+extract (fd --hidden -E 'Music/*' -E 'Videos/*' -E 'Pictures/*' -E 'Documents/*' | fzf)
+extract amass_Linux_amd64.zip
+ls
+bat readme.md
+bat README.md
+./amass
+cd amass_Linux_amd64/
+mv amass /usr/bin
+sudo mv amass /usr/bin
+ls /usr/bin
+ls /usr/bin _
+ls /usr/bin | find amass
+amass
+amass -h | bat
+man amass 
+amass -h
+syncthing
+^emacs --daemon
+syncthing
+ps | find syncthing=
+startup
+syncthing=
+syncthing
+startup
+^emacs --daemon
+emacs
+^\emacs
+^emacs
+^emacs --daemon
+emacs --debug-init
+^emacs --debug-init
+ps syncthing
+ps |find syncthing
+syncthing
+killall emacs
+killall emacsdaemon
+^emacs --daemon
+startup

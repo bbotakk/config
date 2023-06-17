@@ -92,14 +92,9 @@ The saying, "give 'em enough rope, and they'll likely hang themselves," holds tr
       calc-symbolic-mode t)
 
 (setq yas-triggers-in-field t)
-
 #+end_src
 
 ** Windows & splits
-- Unify the minibuffer windows to the bottom of the screen and makes them like a split and not floating in the middle of the screen.
-- Limit the horizontal width to optimal distance to still view the entire line at a glance.
-- center the text of a window,always to reduce travel distance of the eye.
-- constrain popup-buffers, that normally split horizontally to vsplit.
 #+begin_src emacs-lisp :config.el :comments link
 (setq evil-vsplit-window-right t
       even-window-sizes 'width-only
@@ -108,40 +103,44 @@ The saying, "give 'em enough rope, and they'll likely hang themselves," holds tr
       split-height-threshold nil
       split-width-threshold 0
       )
+#+end_src
 
-;; center all buffers, always ->
-(add-hook 'visual-line-mode-hook #'visual-fill-column-mode)
-(setq visual-fill-column-width 120
-      visual-fill-column-center-text t
-      visual-fill-column-fringes-outside-margins t
-      )
-
+*** Counsel & Ivy
+Nice and center, and show some more results.
+#+begin_src emacs-lisp :config.el :comments link
 (ivy-posframe-mode t)
-(setq ivy-posframe-display-functions-alist
-      '((swiper                     . ivy-posframe-display-at-point)
-        (complete-symbol            . ivy-posframe-display-at-point)
-        (counsel-M-x                . ivy-display-function-fallback)
-        (counsel-esh-history        . ivy-posframe-display-at-window-center)
-        (counsel-describe-function  . ivy-display-function-fallback)
-        (counsel-describe-variable  . ivy-display-function-fallback)
-        (counsel-find-file          . ivy-display-function-fallback)
-        (counsel-recentf            . ivy-display-function-fallback)
-        (counsel-register           . ivy-posframe-display-at-frame-bottom-window-center)
-        (dmenu                      . ivy-posframe-display-at-frame-bottom-center)
-        (nil                        . ivy-posframe-display))
-      ivy-posframe-height-alist
-      '((swiper . 50)
-        (dmenu . 50)
-        (t . 50)))
+(setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
+(setq ivy-posframe-height-alist '((t . 50)))
+#+end_src
 
+*** Popup buffers
+Constrain popup buffers to also vsplit, and have a reasonable size.
+#+begin_src emacs-lisp :config.el :comments link
 (setq +popup-defaults '(:side right :width 0.33 :quit nil :select ignore :ttl 5 :modeline t))
 (set-popup-rules!
-  '(("\\*.*(?!Agenda).*\\*"
+  '(("\\*.*(?!Agenda).*\\*" ;; match all * buffers except Agenda (breaks it)
      :side right
      :width 0.33 ;;'+popup-shrink-to-fit
      :modeline t
      :quit nil)
     ))
+#+end_src
+
+*** Buffer text
+Limit the horizontal width to optimal distance to still view the entire line at a glance.
+Center the text for better ergonomics.
+#+begin_src emacs-lisp :config.el :comments link
+(setq +zen-text-scale 2
+    writeroom-width 120
+    writeroom-mode-line nil
+    )
+
+(add-hook 'org-mode-hook 'visual-fill-column-mode)
+(add-hook 'prog-mode-hook 'visual-fill-column-mode)
+(setq visual-fill-column-enable-sensible-window-split t
+      visual-fill-column-center-text t
+      visual-fill-column-width 120
+      )
 #+end_src
 
 * Keybindings
@@ -297,6 +296,8 @@ The map macro has the following states:
 #+end_src
 
 * User functions
+** Insert date's
+- Insert dates using the calendar quickly for writing Notes & the ~#+date:~
 #+begin_src emacs-lisp :config.el :comments link
 (defun user-insert-any-date (date)
   "Insert DATE using the current locale."
@@ -310,7 +311,11 @@ The map macro has the following states:
                  ((equal prefix '(4)) "%m-%d-%Y")
                  ((equal prefix '(16)) "%Y-%m-%d"))))
     (insert (format-time-string format))))
+#+end_src
 
+** Better PgUp/PgDn
+- better scrolling
+#+begin_src emacs-lisp :config.el :comments link
 ;; no; i did not make a typo, it really scrolls down like this
 (defun user-scroll-half-dn ()
   (interactive)
@@ -324,6 +329,24 @@ The map macro has the following states:
   (scroll-down (/ (window-body-height) 2))
   (evil-scroll-line-to-center nil)
 )
+#+end_src
+
+** Org keywords lowercase
+it was at first done this way to emulate bold text. However globally the lowercase standard should be used -> thus convert mostly everything with this one off function.
+
+#+begin_src emacs-lisp :config.el :comments link
+(defun org-syntax-convert-keyword-case-to-lower ()
+  "Convert all #+KEYWORDS to #+keywords."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (let ((count 0)
+          (case-fold-search nil))
+      (while (re-search-forward "^[ \t]*#\\+[A-Z_]+" nil t)
+        (unless (s-matches-p "RESULTS" (match-string 0))
+          (replace-match (downcase (match-string 0)) t)
+          (setq count (1+ count))))
+      (message "Replaced %d occurances" count))))
 #+end_src
 
 * Dired
@@ -361,16 +384,19 @@ The map macro has the following states:
 - I hate icons, symbols and emoji's: only thing they do is create unnecessary mental overhead and abstraction while making sure you look cringe while using them. I use org-modern to hide "ugly" org syntax such as "#+begin_src" in order to improve readeablity of the code.
 
 ** general options
+- archive all things that were once written -> digital content cost's little to no space. And you will be grateful later in life to have recorded data what you were thinking etc...
+  + Each file gets its own entry in ~~/Archive/Org~ with a datetree.
 #+begin_src emacs-lisp :config.el :comments link
+(setq org-modules '(ol-bibtex org-habit org-inlinetask org-tempo org-checklist org-collector org-toc org-velocity))
 (after! org
-(add-hook 'org-mode-hook 'visual-line-mode)
-(add-hook 'org-mode-hook 'org-indent-mode)
-(add-hook 'org-mode-hook 'org-superstar-mode)
-(add-hook 'org-mode-hook 'org-num-mode)
-(add-hook 'org-mode-hook 'org-appear-mode)
+  (add-hook 'org-mode-hook 'visual-line-mode)
+  (add-hook 'org-mode-hook 'org-indent-mode)
+  (add-hook 'org-mode-hook 'org-superstar-mode)
+  (add-hook 'org-mode-hook 'org-num-mode)
+  (add-hook 'org-mode-hook 'org-appear-mode)
 
   (setq org-directory "~/Org"
-        org-archive-location "~/Archive/Org"
+        org-archive-location "~/Archive/Org/archive_%s::"
         org-use-property-inheritance t
         org-startup-with-inline-images t
         org-startup-indented t
@@ -381,7 +407,7 @@ The map macro has the following states:
         org-refile-use-outline-path 'file
         org-refile-allow-creating-parent-nodes 'confirm
         org-use-sub-superscripts '{})
-)
+  )
 #+end_src
 
 ** org babel (literate programming)
@@ -394,8 +420,9 @@ The map macro has the following states:
         (:noweb . "no")
         (:hlines . "no")
         (:tangle . "no")
-        (:comments . "link"))
-        org-auto-tangle-default t
+        (:comments . "link")))
+
+(setq   org-auto-tangle-default t
         org-src-window-setup 'current-window)
 #+end_src
 
@@ -404,7 +431,8 @@ The map macro has the following states:
 (after! org
   (setq   org-log-done 'time
           org-log-repeat 'time
-          org-log-into-drawer 'LOGBOOK))
+          org-log-into-drawer 'logbook)
+  )
 #+end_src
 
 ** priority
@@ -417,7 +445,8 @@ The map macro has the following states:
           (?2 . 'all-the-icons-orange)
           (?3 . 'all-the-icons-yellow)
           (?4 . 'all-the-icons-green)
-          (?5 . 'all-the-icons-blue))))
+          (?5 . 'all-the-icons-blue)))
+  )
 #+end_src
 
 ** org agenda
@@ -450,10 +479,11 @@ The map macro has the following states:
 ** org roam
 #+begin_src emacs-lisp :config.el :comments link
 (after! org
-  (setq   org-roam-directory "~/Notes"
-          org-roam-dailies-directory "daily/" ;; relative to org roam-dir
-          org-roam-completion-everywhere t
-          org-auto-align-tags 0))
+(setq   org-roam-directory "~/Notes"
+        org-roam-dailies-directory "daily/" ;; relative to org roam-dir
+        org-roam-completion-everywhere t
+        org-auto-align-tags 0)
+)
 #+end_src
 
 ** Format org-buffers & symbols
@@ -531,18 +561,18 @@ The map macro has the following states:
 - These are organized after activity, not project
 #+begin_src emacs-lisp :config.el :comments link
 (after! org
-  (setq org-tag-alist '(("EVENT" . ?e)
-                        ("HABIT" . ?h)
-                        ("WRITE" . ?w)
-                        ("READ" . ?r)
-                        ("STUDY" . ?s))))
+  (setq org-tag-alist '(("event" . ?e)
+                        ("habit" . ?h)
+                        ("write" . ?w)
+                        ("read" . ?r)
+                        ("study" . ?s))))
 #+end_src
 
 ** Todo states
 | state | Description                                                                          |
 |-------+--------------------------------------------------------------------------------------|
 | TODO  | it's an item that needs addressing                                                   |
-| PROG  | is being worked on and maybe needs to wait on something else to finish         |
+| PROG  | is being worked on and maybe needs to wait on something else to finish               |
 | DELEG | someone else is doing it and I need to follow up with them                           |
 | ASSIG | someone else has full, autonomous responsibility for it                              |
 | CANC  | it's no longer necessary to finish                                                   |
@@ -559,8 +589,8 @@ The map macro has the following states:
                              "WAIT(w)"
                              "|"
                              "DONE(d!)"
-                             "CANC(C@)"
-                             "DELEG(D@)"
+                             "CANC(c@)"
+                             "DELEG(d@)"
                              "ASSIGN(a@)"))))
 #+end_src
 
@@ -577,12 +607,12 @@ agenda capture template is to capture all appointments centrally in your calenda
 
           ("e" "EVENT: personal"
            entry (file+headline "~/Org/personal_agenda.org" "events")
-           "* %? :EVENT: \nSCHEDULED: %^T \nLOCATION: \nMATERIAL:"
+           "* %? :EVENT: \nscheduled: %^T \n"
            :empty-lines 1)
 
           ("r" "EVENT(repeat): personal"
            entry (file+headline "~/Org/personal_agenda.org" "repeating")
-           "* %? :EVENT: \nSCHEDULED: %^T \nLOCATION: \nMATERIAL:"
+           "* %? :EVENT: \nscheduled: %^T \n"
            :empty-lines 1)
 
           ("n" "NOTE: personal"
@@ -597,12 +627,12 @@ agenda capture template is to capture all appointments centrally in your calenda
 
           ("E" "EVENT: work"
            entry (file+headline "~/Org/work_agenda.org" "events")
-           "* %? :EVENT: \nSCHEDULED: %^T \nLOCATION: \nMATERIAL:"
+           "* %? :EVENT: \nscheduled: %^T \n"
            :empty-lines 1)
 
           ("R" "EVENT(repeat): work"
            entry (file+headline "~/Org/work_agenda.org" "repeating")
-           "* %? :EVENT: \nSCHEDULED: %^T \nLOCATION: \nMATERIAL:"
+           "* %? :EVENT: \nscheduled: %^T \n"
            :empty-lines 1)
 
           ("N" "NOTE @work"
@@ -613,9 +643,10 @@ agenda capture template is to capture all appointments centrally in your calenda
 
 ** daily notes (journaling)
 #+begin_src emacs-lisp :config.el :comments link
+(after! org
 (setq org-roam-dailies-capture-templates
       '(("d" "default" entry
          (file "~/Notes/templates/daily_template.org")
          :target (file+head "%<%Y-%m-%d>.org"
-                            "#+title:\t%<%Y-%m-%d>\n#+author:\temil lenz\n#+date:\t%<%Y-%m-%d>"))))
+                            "#+title:\t%<%Y-%m-%d>\n #+author:\tbo\n #+date:\t%<%Y-%m-%d>")))))
 #+end_src

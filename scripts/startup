@@ -1,20 +1,24 @@
 #! /usr/bin/env nu
 
-let progs = [
-    "flameshot",     # screeshot
-    "nm-applet",     # internet
-    "playerctld",   # global media control daemon via hotkeys
-    "emacs --daemon"
-    "unclutter", # hides mousecursor
-    "xautolock -time 30 -locker 'i3lock -e --color F2E6CE && systemctl suspend'", # lock the screen after 30min
-    "sudo ~/.cargo/bin/xremap ~/.config/xremap/config.yml " # dvorak remappings (obviously)
-]
+# this program will startup all applications and processes that are used in pretty much every computing session
+def main [] {
+    let progs = [
+        "flameshot",        # screeshot
+        "nm-applet",        # internet
+        "playerctld",       # global media control daemon via hotkeys
+        "emacs --daemon"
+        "unclutter", # hides mousecursor
+        "xautolock -time 30 -locker 'i3lock -e --color F2E6CE && systemctl suspend'", # lock the screen after 30min
+        "sudo ~/.cargo/bin/xremap ~/.config/xremap/config.yml " # dvorak remappings (obviously)
+        "keepassxc"
+    ]
 
-for prog in $progs {
-    if not (true in (ps -l | get command | str contains $prog )) { # running: true =>
-        $"($prog) &>/dev/null &" | bash # workaround, since nu doesn't yet support async process launching
+    for prog in $progs {
+        if not (true in (ps -l | get command | str contains $prog )) { # running: true =>
+            $"($prog) &>/dev/null &" | bash # workaround, since nu doesn't yet support async process launching
+        }
     }
-}
 
-xset r rate 300 70 # key repeat rate speedup
-~/.config/scripts/polybar_launcher # polybar on all displays. reload everytime startup is called to update bars to all monitors
+    xset r rate 300 70 # key repeat rate speedup
+    ~/.config/scripts/polybar_launcher # polybar on all displays. reload everytime startup is called to update bars to all monitors
+}

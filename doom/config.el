@@ -84,41 +84,38 @@
       split-height-threshold nil
       split-width-threshold 0
       )
+;; Windows & splits:1 ends here
 
-;; center all buffers, always ->
-(add-hook 'visual-line-mode-hook #'visual-fill-column-mode)
-(setq visual-fill-column-width 120
-      visual-fill-column-center-text t
-      visual-fill-column-fringes-outside-margins t
-      )
-
+;; [[file:config.org::*Counsel & Ivy][Counsel & Ivy:1]]
 (ivy-posframe-mode t)
-(setq ivy-posframe-display-functions-alist
-      '((swiper                     . ivy-posframe-display-at-point)
-        (complete-symbol            . ivy-posframe-display-at-point)
-        (counsel-M-x                . ivy-display-function-fallback)
-        (counsel-esh-history        . ivy-posframe-display-at-window-center)
-        (counsel-describe-function  . ivy-display-function-fallback)
-        (counsel-describe-variable  . ivy-display-function-fallback)
-        (counsel-find-file          . ivy-display-function-fallback)
-        (counsel-recentf            . ivy-display-function-fallback)
-        (counsel-register           . ivy-posframe-display-at-frame-bottom-window-center)
-        (dmenu                      . ivy-posframe-display-at-frame-bottom-center)
-        (nil                        . ivy-posframe-display))
-      ivy-posframe-height-alist
-      '((swiper . 50)
-        (dmenu . 50)
-        (t . 50)))
+(setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
+(setq ivy-posframe-height-alist '((t . 50)))
+;; Counsel & Ivy:1 ends here
 
+;; [[file:config.org::*Popup buffers][Popup buffers:1]]
 (setq +popup-defaults '(:side right :width 0.33 :quit nil :select ignore :ttl 5 :modeline t))
 (set-popup-rules!
-  '(("\\*.*(?!Agenda).*\\*"
+  '(("\\*.*(?!Agenda).*\\*" ;; match all * buffers except Agenda (breaks it)
      :side right
      :width 0.33 ;;'+popup-shrink-to-fit
      :modeline t
      :quit nil)
     ))
-;; Windows & splits:1 ends here
+;; Popup buffers:1 ends here
+
+;; [[file:config.org::*Buffer text][Buffer text:1]]
+(setq +zen-text-scale 2
+    writeroom-width 120
+    writeroom-mode-line nil
+    )
+
+(add-hook 'org-mode-hook 'visual-fill-column-mode)
+(add-hook 'prog-mode-hook 'visual-fill-column-mode)
+(setq visual-fill-column-enable-sensible-window-split t
+      visual-fill-column-center-text t
+      visual-fill-column-width 120
+      )
+;; Buffer text:1 ends here
 
 ;; [[file:config.org::*leader system][leader system:1]]
 (setq doom-leader-key "SPC"
@@ -250,7 +247,7 @@
   :n "k" 'org-previous-visible-heading))
 ;; org-mode:1 ends here
 
-;; [[file:config.org::*User functions][User functions:1]]
+;; [[file:config.org::*Insert date's][Insert date's:1]]
 (defun user-insert-any-date (date)
   "Insert DATE using the current locale."
   (interactive (list (calendar-read-date)))
@@ -263,7 +260,9 @@
                  ((equal prefix '(4)) "%m-%d-%Y")
                  ((equal prefix '(16)) "%Y-%m-%d"))))
     (insert (format-time-string format))))
+;; Insert date's:1 ends here
 
+;; [[file:config.org::*Better PgUp/PgDn][Better PgUp/PgDn:1]]
 ;; no; i did not make a typo, it really scrolls down like this
 (defun user-scroll-half-dn ()
   (interactive)
@@ -277,7 +276,22 @@
   (scroll-down (/ (window-body-height) 2))
   (evil-scroll-line-to-center nil)
 )
-;; User functions:1 ends here
+;; Better PgUp/PgDn:1 ends here
+
+;; [[file:config.org::*Org keywords lowercase][Org keywords lowercase:1]]
+(defun org-syntax-convert-keyword-case-to-lower ()
+  "Convert all #+KEYWORDS to #+keywords."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (let ((count 0)
+          (case-fold-search nil))
+      (while (re-search-forward "^[ \t]*#\\+[A-Z_]+" nil t)
+        (unless (s-matches-p "RESULTS" (match-string 0))
+          (replace-match (downcase (match-string 0)) t)
+          (setq count (1+ count))))
+      (message "Replaced %d occurances" count))))
+;; Org keywords lowercase:1 ends here
 
 ;; [[file:config.org::*Dired][Dired:1]]
 (setq dired-omit-files
@@ -308,15 +322,16 @@
 ;; Dired:1 ends here
 
 ;; [[file:config.org::*general options][general options:1]]
+(setq org-modules '(ol-bibtex org-habit org-inlinetask org-tempo org-checklist org-collector org-toc org-velocity))
 (after! org
-(add-hook 'org-mode-hook 'visual-line-mode)
-(add-hook 'org-mode-hook 'org-indent-mode)
-(add-hook 'org-mode-hook 'org-superstar-mode)
-(add-hook 'org-mode-hook 'org-num-mode)
-(add-hook 'org-mode-hook 'org-appear-mode)
+  (add-hook 'org-mode-hook 'visual-line-mode)
+  (add-hook 'org-mode-hook 'org-indent-mode)
+  (add-hook 'org-mode-hook 'org-superstar-mode)
+  (add-hook 'org-mode-hook 'org-num-mode)
+  (add-hook 'org-mode-hook 'org-appear-mode)
 
   (setq org-directory "~/Org"
-        org-archive-location "~/Archive/Org"
+        org-archive-location "~/Archive/Org/archive_%s::"
         org-use-property-inheritance t
         org-startup-with-inline-images t
         org-startup-indented t
@@ -327,7 +342,7 @@
         org-refile-use-outline-path 'file
         org-refile-allow-creating-parent-nodes 'confirm
         org-use-sub-superscripts '{})
-)
+  )
 ;; general options:1 ends here
 
 (setq org-babel-default-header-args
@@ -338,15 +353,17 @@
         (:noweb . "no")
         (:hlines . "no")
         (:tangle . "no")
-        (:comments . "link"))
-        org-auto-tangle-default t
+        (:comments . "link")))
+
+(setq   org-auto-tangle-default t
         org-src-window-setup 'current-window)
 
 ;; [[file:config.org::*log][log:1]]
 (after! org
   (setq   org-log-done 'time
           org-log-repeat 'time
-          org-log-into-drawer 'LOGBOOK))
+          org-log-into-drawer 'logbook)
+  )
 ;; log:1 ends here
 
 ;; [[file:config.org::*priority][priority:1]]
@@ -358,7 +375,8 @@
           (?2 . 'all-the-icons-orange)
           (?3 . 'all-the-icons-yellow)
           (?4 . 'all-the-icons-green)
-          (?5 . 'all-the-icons-blue))))
+          (?5 . 'all-the-icons-blue)))
+  )
 ;; priority:1 ends here
 
 ;; [[file:config.org::*org agenda][org agenda:1]]
@@ -388,10 +406,11 @@
 
 ;; [[file:config.org::*org roam][org roam:1]]
 (after! org
-  (setq   org-roam-directory "~/Notes"
-          org-roam-dailies-directory "daily/" ;; relative to org roam-dir
-          org-roam-completion-everywhere t
-          org-auto-align-tags 0))
+(setq   org-roam-directory "~/Notes"
+        org-roam-dailies-directory "daily/" ;; relative to org roam-dir
+        org-roam-completion-everywhere t
+        org-auto-align-tags 0)
+)
 ;; org roam:1 ends here
 
 ;; [[file:config.org::*Format org-buffers & symbols][Format org-buffers & symbols:1]]
@@ -462,11 +481,11 @@
 
 ;; [[file:config.org::*Tags][Tags:1]]
 (after! org
-  (setq org-tag-alist '(("EVENT" . ?e)
-                        ("HABIT" . ?h)
-                        ("WRITE" . ?w)
-                        ("READ" . ?r)
-                        ("STUDY" . ?s))))
+  (setq org-tag-alist '(("event" . ?e)
+                        ("habit" . ?h)
+                        ("write" . ?w)
+                        ("read" . ?r)
+                        ("study" . ?s))))
 ;; Tags:1 ends here
 
 ;; [[file:config.org::*Todo states][Todo states:1]]
@@ -479,8 +498,8 @@
                              "WAIT(w)"
                              "|"
                              "DONE(d!)"
-                             "CANC(C@)"
-                             "DELEG(D@)"
+                             "CANC(c@)"
+                             "DELEG(d@)"
                              "ASSIGN(a@)"))))
 ;; Todo states:1 ends here
 
@@ -494,12 +513,12 @@
 
           ("e" "EVENT: personal"
            entry (file+headline "~/Org/personal_agenda.org" "events")
-           "* %? :EVENT: \nSCHEDULED: %^T \nLOCATION: \nMATERIAL:"
+           "* %? :EVENT: \nscheduled: %^T \n"
            :empty-lines 1)
 
           ("r" "EVENT(repeat): personal"
            entry (file+headline "~/Org/personal_agenda.org" "repeating")
-           "* %? :EVENT: \nSCHEDULED: %^T \nLOCATION: \nMATERIAL:"
+           "* %? :EVENT: \nscheduled: %^T \n"
            :empty-lines 1)
 
           ("n" "NOTE: personal"
@@ -514,12 +533,12 @@
 
           ("E" "EVENT: work"
            entry (file+headline "~/Org/work_agenda.org" "events")
-           "* %? :EVENT: \nSCHEDULED: %^T \nLOCATION: \nMATERIAL:"
+           "* %? :EVENT: \nscheduled: %^T \n"
            :empty-lines 1)
 
           ("R" "EVENT(repeat): work"
            entry (file+headline "~/Org/work_agenda.org" "repeating")
-           "* %? :EVENT: \nSCHEDULED: %^T \nLOCATION: \nMATERIAL:"
+           "* %? :EVENT: \nscheduled: %^T \n"
            :empty-lines 1)
 
           ("N" "NOTE @work"
@@ -529,9 +548,10 @@
 ;; capture templates:1 ends here
 
 ;; [[file:config.org::*daily notes (journaling)][daily notes (journaling):1]]
+(after! org
 (setq org-roam-dailies-capture-templates
       '(("d" "default" entry
          (file "~/Notes/templates/daily_template.org")
          :target (file+head "%<%Y-%m-%d>.org"
-                            "#+title:\t%<%Y-%m-%d>\n#+author:\temil lenz\n#+date:\t%<%Y-%m-%d>"))))
+                            "#+title:\t%<%Y-%m-%d>\n #+author:\tbo\n #+date:\t%<%Y-%m-%d>")))))
 ;; daily notes (journaling):1 ends here
