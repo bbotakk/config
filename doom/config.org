@@ -101,11 +101,11 @@ The saying, "give 'em enough rope, and they'll likely hang themselves," holds tr
     )
 
 
-;; (add-hook 'org-mode-hook 'visual-fill-column-mode)
-;; (add-hook 'prog-mode-hook 'visual-fill-column-mode)
-;; (setq visual-fill-column-enable-sensible-window-split t
-;;       visual-fill-column-center-text t
-;;       visual-fill-column-width 120)
+(add-hook 'org-mode-hook 'visual-fill-column-mode)
+(add-hook 'prog-mode-hook 'visual-fill-column-mode)
+(setq visual-fill-column-enable-sensible-window-split t
+      visual-fill-column-center-text t
+      visual-fill-column-width 120)
 #+end_src
 
 ** Windows & splits

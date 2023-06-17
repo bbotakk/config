@@ -81,11 +81,11 @@
     )
 
 
-;; (add-hook 'org-mode-hook 'visual-fill-column-mode)
-;; (add-hook 'prog-mode-hook 'visual-fill-column-mode)
-;; (setq visual-fill-column-enable-sensible-window-split t
-;;       visual-fill-column-center-text t
-;;       visual-fill-column-width 120)
+(add-hook 'org-mode-hook 'visual-fill-column-mode)
+(add-hook 'prog-mode-hook 'visual-fill-column-mode)
+(setq visual-fill-column-enable-sensible-window-split t
+      visual-fill-column-center-text t
+      visual-fill-column-width 120)
 ;; editor options:1 ends here
 
 ;; [[file:config.org::*Windows & splits][Windows & splits:1]]
