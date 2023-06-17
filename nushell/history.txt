@@ -5084,3 +5084,4 @@ startup
 syncthing
 killall syncthing
 firefox google.com 
+syncthing

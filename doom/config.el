@@ -79,6 +79,8 @@
     writeroom-width 120
     writeroom-mode-line nil
     )
+
+(setq-default flycheck-indication-mode 'left-fringe)
 ;; editor options:1 ends here
 
 ;; [[file:config.org::*Windows & splits][Windows & splits:1]]
@@ -93,8 +95,8 @@
 
 ;; [[file:config.org::*Counsel & Ivy][Counsel & Ivy:1]]
 (ivy-posframe-mode t)
-(setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
-(setq ivy-posframe-height-alist '((t . 50)))
+(setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-bottom-left)))
+(setq ivy-posframe-height-alist '((t . 20)))
 ;; Counsel & Ivy:1 ends here
 
 ;; [[file:config.org::*Popup buffers][Popup buffers:1]]

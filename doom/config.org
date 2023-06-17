@@ -99,6 +99,8 @@ The saying, "give 'em enough rope, and they'll likely hang themselves," holds tr
     writeroom-width 120
     writeroom-mode-line nil
     )
+
+(setq-default flycheck-indication-mode 'left-fringe)
 #+end_src
 
 ** Windows & splits
@@ -116,8 +118,8 @@ The saying, "give 'em enough rope, and they'll likely hang themselves," holds tr
 Nice and center, and show some more results.
 #+begin_src emacs-lisp :config.el :comments link
 (ivy-posframe-mode t)
-(setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
-(setq ivy-posframe-height-alist '((t . 50)))
+(setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-bottom-left)))
+(setq ivy-posframe-height-alist '((t . 20)))
 #+end_src
 
 *** Popup buffers
