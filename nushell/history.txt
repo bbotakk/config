@@ -5076,3 +5076,5 @@ killall emacs
 killall emacsdaemon
 ^emacs --daemon
 startup
+^^emacs --daemon
+^emacs --daemon
