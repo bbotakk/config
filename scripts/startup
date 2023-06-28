@@ -6,9 +6,9 @@ def main [] {
         "flameshot",        # screeshot
         "nm-applet",        # internet
         "playerctld",       # global media control daemon via hotkeys
-        "emacs --daemon && emacsclient -c" # starting editor daemon & afterwards emacs
-        "unclutter", # hides mousecursor
-        "xautolock -time 30 -locker 'i3lock -e --color F2E6CE && systemctl suspend'", # lock the screen after 30min
+        "emacs --daemon"    # starting editor daemon
+        "unclutter",        # hides mousecursor
+        "xautolock -time 60 -locker 'i3lock -e --color F2E6CE && systemctl suspend'", # lock the screen after 60min of inactivity
         "sudo ~/.cargo/bin/xremap ~/.config/xremap/config.yml " # dvorak remappings (obviously)
         "keepassxc"
     ]

@@ -8,9 +8,7 @@ use wa.nu
 use std
 
 # better programs:
-# find -> fd 
-# grep -> rg 
-# cat -> bat 
+# cat -> bat
 alias x =       chmod +x
 alias e =       emacsclient  -c
 alias emacs =   emacsclient  -c # attach emacs to daemon that is running in background
@@ -28,8 +26,8 @@ alias dnfr =    sudo dnf -y remove
 
 let-env PATH = ($env.PATH | append ['~/Code/scripts', '~/.config/scripts', '~/.cargo/bin', "~/.config/emacs/bin"])
 
-let-env EDITOR = 'emacsclient -c'
-let-env VISUAL = 'emacsclient -c'
+let-env EDITOR = 'emacs -nw' # emacs in the terminal
+let-env VISUAL = 'emacsclient -c' # gui emacs
 let-env BROWSER = 'firefox'
 let-env MANPAGER = 'bat'
 let-env PAGER = "bat"
@@ -287,7 +285,7 @@ let-env config = {
 			keycode: char_f
 			mode: [emacs, vi_normal, vi_insert]
 			event: [
-				{edit: InsertString, value: "(fd --hidden -E 'Music/*' -E 'Videos/*' -E 'Pictures/*' -E 'Documents/*' | fzf)"}
+				{edit: InsertString, value: "ls **/* | where type == file | find -v 'Music' 'Pictures' 'Videos' 'Documents' 'Books' | get name | to text | fzf"}
 				{send: Enter}
 			 ]
 		}
@@ -296,7 +294,7 @@ let-env config = {
 			modifier: alt
 			keycode: char_g
 			mode: [emacs, vi_normal, vi_insert] 
-			event: {send: executehostcommand, cmd: "cd (fd --hidden -td | fzf )"}
+			event: {send: executehostcommand, cmd: "cd (ls **/* | where type == dir | find -v 'Music' 'Pictures' 'Videos' 'Documents' 'Books' | get name | to text | fzf )"}
 		}
 
 		{name: listcontents

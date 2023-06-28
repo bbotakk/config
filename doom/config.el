@@ -79,7 +79,7 @@
 
 (add-hook 'text-mode-hook 'visual-fill-column-mode)
 (setq visual-fill-column-enable-sensible-window-split t
-      visual-fill-column-center-text nil
+      visual-fill-column-center-text t
       visual-fill-column-width 120
       )
 
@@ -108,7 +108,14 @@
 ;; Counsel & Ivy:1 ends here
 
 ;; [[file:config.org::*Popup buffers][Popup buffers:1]]
-(setq +popup-defaults '(:side right :width 0.33 :quit nil :select ignore :ttl 5 :modeline t))
+;; modify defaults
+(plist-put +popup-defaults :side 'right)
+(plist-put +popup-defaults :width 0.33)
+(plist-put +popup-defaults :select 'ignore)
+(plist-put +popup-defaults :quit nil)
+(plist-put +popup-defaults :ttl 5)
+(plist-put +popup-defaults :modeline t)
+
 (set-popup-rules!
   '(("\\*.*(?!Agenda).*\\*" ;; match all * buffers except Agenda (breaks it)
      :side right
@@ -187,6 +194,8 @@
  :nvmo "N"     (lambda () (interactive) (evil-ex-search-previous 1) (evil-scroll-line-to-center nil))
  :nvmo "U"     'evil-redo
  :nvmo "Q"     'evil-execute-last-recorded-macro
+ :nvmo "j"     'evil-next-visual-line
+ :nvmo "k"     'evil-previous-visual-line
  :nvmo "J"     'evilem-motion-next-line
  :nvmo "K"     'evilem-motion-previous-line
  :nvmo "L"     'evil-end-of-line
@@ -343,7 +352,7 @@
         org-refile-use-outline-path 'file
         org-refile-allow-creating-parent-nodes 'confirm
         org-use-sub-superscripts '{}
-        org-startup-with-inline-images t ; Display images by default.
+        org-startup-with-inline-images t ; Display images  default.
         org-startup-with-latex-preview t ; Display equations by default.
         ))
 ;; general options:1 ends here
@@ -494,17 +503,17 @@
 ;; [[file:config.org::*Todo states][Todo states:1]]
 (after! org
   (setq org-todo-keywords '((type
-                             "TODO:(t)"
-                             "IPROG:(i)"
-                             "NEXT:(n)"
-                             "OPT:(o)"
-                             "REVIEW:(r)"
-                             "WAIT:(w)"
+                             "TODO(t)"
+                             "IPROG(i)"
+                             "NEXT(n)"
+                             "OPT(o)"
+                             "REVIEW(r)"
+                             "WAIT(w)"
                              "|"
-                             "DONE!(d!)"
-                             "CANC!(c@)"
-                             "DELEG!(d@)"
-                             "ASSIGND!(a@)"))))
+                             "DONE(d!)"
+                             "CANC(c@)"
+                             "DELEG(d@)"
+                             "ASSIGND(a@)"))))
 ;; Todo states:1 ends here
 
 ;; [[file:config.org::*capture templates][capture templates:1]]
@@ -559,5 +568,3 @@
          :target (file+head "%<%Y-%m-%d>.org"
                             "#+title:\t%<%Y-%m-%d>\n #+author:\tbo\n #+date:\t%<%Y-%m-%d>")))))
 ;; daily notes (journaling):1 ends here
-
-

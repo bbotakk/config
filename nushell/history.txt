@@ -5089,3 +5089,722 @@ startup
 starutp
 startup
 syncthing
+tre
+ls
+cd bo
+dnfs oracle vm
+dnfs whatweb
+dnfi whatweb
+whatweb rust.com
+whatweb https://rust.com
+whatweb https://www.rust.com
+whatweb https://www.google.com
+whatweb https://www.tesla.com
+whatweb http://www.tesla.com
+whatweb http://tesla.com
+oraclevm
+dnfs oraclevm
+dnfs vmware
+dnfs virtualbox
+git clone https://github.com/sudodus/tarballs.git
+cd tarballs && tar -xf dus.tar.xz
+cd ..
+ls
+cd dus-tmp/
+dus
+sudo dus
+sudo ./dus
+./dus
+dnfs mkusb
+dnfs do usb
+cd ..
+bot README.md
+bat README.md
+ls
+cd ..
+ls
+rm -r org tarballs
+git clone https://github.com/sudodus/tarballs.git
+ls
+./dus-installer
+./dus-installer i
+dnfs mkusb
+cd ..
+ls
+./dus-installer i
+sudo ./dus-installer i
+dnfs xterm
+dnfi xterm
+dnfs pv
+dnfi pv
+dnfs dialog
+sudo ./dus-installer i
+dnfs xdialog
+dnfs dialog
+dnfd dialog
+dnfi dialog
+sudo ./dus-installer i
+dus
+ip a
+dnfs usb-pack
+git clone https://github.com/andreyv/usb-pack-efi.git<\n>
+sudo dnf install livecd-tools liveusb-creator<\n>
+sudo fdisk -l
+^ls
+sudo livecd-iso-to-disk --overlay-size-mb 15000 ./Parrot-security-5.3_amd.iso /dev/sdb<\n>
+sudo livecd-iso-to-disk --overlay-size-mb 15000 ./Parrot-security-5.3_amd64.iso /dev/sdb<\n>
+sudo livecd-iso-to-disk --overlay-size-mb 15000 ./Parrot-security-5.3_amd64.iso /dev/sdb1
+sudo fdisk -l
+sudo umount /dev/sdX
+sudo umount /dev/sdb
+sudo mkfs.fat -F32 /dev/sdb
+sudo fdisk -l
+lsblk -a
+sudo mkfs.fat -F32 /dev/sdb1
+sudo fdisk /dev/sdb
+sudo fdisk -l
+sudo mkfs.fat -F32 /dev/sdb1
+sudo fdisk /dev/sdX
+sudo fdisk /dev/sdb
+sudo mkfs.fat -F32 /dev/sdb1
+sudo livecd-iso-to-disk --overlay-size-mb 15000 ./Parrot-security-5.3_amd64.iso /dev/sdb1
+sudo livecd-iso-to-disk --overlay-size-mb 4096 ./Parrot-security-5.3_amd64.iso /dev/sdb1
+sudo livecd-iso-to-disk --overlay-size-mb 4096 Parrot-security-5.3_amd64.iso /dev/sdb1
+./dus-installer i
+sudo ./dus-installer i
+sudo fdisk -l
+dnfs nmap
+nmap
+dnfi nmap
+man nmap 
+man nmap | less
+startup
+man man nmap
+man nmap
+dd if=kali-linux-2023.2-live-amd64.iso of=/dev/sdb1 conv=fsync bs=4M status=progress
+ls
+sudo dd if=kali-linux-2023.2-live-amd64.iso of=/dev/sdb1 conv=fsync bs=4M status=progress
+tldr nmap
+ip a
+ls
+ip a
+man nmap
+nmap -h | bat
+nmap -sL
+man nmap
+nmap -sn 192.168.1.108
+nmap -sn 192.168.1.108/21
+ip a
+nmap -sn 192.168.1.108/24
+nmap -h | bat
+tldr nmap
+man nmap
+man nmap 
+man nmap | less
+nmap -v -p- 192.168.1.108/24
+nmap -v -p- -sU 192.168.1.108/24
+sudo nmap -v -p- -sU 192.168.1.108/24
+sudo nmap -v -p -sU 192.168.1.108/24
+nmap  -h | bat
+man nmap
+bash -c sudo su
+sudo nmap -v --top-ports 1000 -sU 192.168.1.108/24
+sudo nmap -v -sT 192.168.1.108/24
+sudo nmap -sT 192.168.1.108/24
+let data = (sudo nmap -sT 192.168.1.108/24)
+ls
+$data
+$data 
+$data | where str starts-with "\d"
+$data | where str starts-with '\d'
+let mut data = (data |lines)
+let mut data = ($data |lines)
+mut data = ($data |lines)
+$data
+$data | where str starts-with '\d'
+$data | where { str starts-with '\d'} 
+$data | where { str starts-with "\d" } 
+$data | where { str starts-with "8" } 
+$data
+$data
+str contains  -h | bat
+$data | where  -h | bat
+$data | where {|x| $x =~ "^\d.*"}
+$data | where {|x| $x =~ "^.*"}
+$data | where {|x| $x =~ "^2.*"}
+$data | where {|x| $x =~ "^.*"}
+$data | where str starts-with "PORT"
+str starts-with  -h | bat
+where -h | bat
+$data | where {$in str starts-with "PORT"}
+$data | where {$in | str starts-with "PORT"}
+$data 
+$data | str starts-with "2"
+$data 
+$data | find -h | bat
+$data | find -r "^2"
+$data | find -r "^\d"
+$data | find -r "^\\d"
+$data | find -r "^\\d" | parse
+$data | find -r "^\\d" | parse "{port} {state} {type}"
+parse -h | bat
+columns -h | bat
+$data | find -r "^\\d" | split column
+$data | find -r "^\\d" | split column '\s'
+$data | find -r "^\\d" | split column "\s"
+$data | find -r "^\\d" | split column "\\s"
+$data | find -r "^\\d" | split words
+$data | find -r "^\\d" | split column -c ' '
+$data | find -r "^\\d" | split column -c '   '
+$data | find -r "^\\d" | split column -c ' '
+parse  -h | bat
+head -h | bat
+header -h | bat
+columns -h | bat
+$data | find -r "^\\d" | split column -c ' ' | get column1 
+$data
+$data | find -r "^\\d" | split column -c ' ' 
+$data | find -r "^\\d" 
+$data | find -r "^\\d" | parse -r "{port}\\s{state}\\s{type}"
+$data | find -r "^\\d" | parse -r "{port}\s{state} {type}"
+$data | find -r "^\\d" | parse -r "{port}{state} {type}"
+$data | find -r "^\\d" | parse -r "{port} {state} {type}"
+$data | find -r "^\\d" | parse "{port} {state} {type}"
+$data | find -r "^\\d" | parse "(.*)\s(.*)\s(.*)"
+$data | find -r "^\\d" | parse "(.*)\s*(.*)\s*(.*)"
+$data | find -r "^\\d" | parse '(.*)\s*(.*)\s*(.*)'
+$data | find -r "^\\d" | parse '{a}\s*'
+$data | find -r "^\\d" | parse -'{a}\s*'
+$data | find -r "^\\d" | parse -r '{a}\s*'
+$data | find -r "^\\d" | parse '{a}'
+$data | find -r "^\\d" | parse -r '{a}'
+$data | find -r "^\\d" | parse -r '.*'
+$data | find -r "^\\d" | parse -regex '.*'
+$data | find -r "^\\d" | parse --regex '.*'
+$data | find -r "^\\d" | parse --regex '(.*)'
+$data | find -r "^\\d" | parse --regex '(.*)\s (.*)'
+$data | find -r "^\\d" | parse --regex '(.*)\s(.*)'
+$data | find -r "^\\d" | parse --regex '(.*)\s(.*)\s(.*)'
+$data | find -r "^\\d" | parse --regex '(.*)\s*(.*)\s*(.*)'
+$data | find -r "^\\d" | parse --regex '(.*)\s(.*)\s(.*)'
+$data | find -r "^\\d" | split column -c ' ' 
+$data | find -r "^\\d" | split column -c ' '
+$data | find -r "^\\d" | detect columns 
+$data | find -r "^\\d" 
+let data_raw = (sudo nmap -sT 192.168.1.108/24)
+$data_raw
+parse  -h | bat
+$data_raw | find -rm "^\\d"
+$data_raw | find -mr "^\\d"
+$data_raw | find -mr "^\d"
+$data_raw | find -mr "^22"
+$data_raw | lines | find -mr "^22"
+$data_raw | lines | find -mr "^"
+$data_raw | lines | find -mr "^\\d"
+$data_raw | lines | find -mr "^\\d" | split column -c ' '
+find -h | bat
+split  -h | bat
+$data_raw | lines | find -mr "^\\d" | split column -c ' ' | each {column1 | split column -c '/'}
+$data_raw | lines | find -mr "^\\d" | split column -c ' ' | each {$in.column1 | split column -c '/'}
+ls
+ls | update  -h | bat
+$data_raw | lines | find -mr "^\\d" | split column -c ' ' 
+split column  -h | bat
+rename
+rename -h | bat
+insert
+insert -h | bat
+str substring  -h | bat
+str -h | bat
+str trim  -h | bat
+spilt  -h | bat
+split -h | bat
+$data_raw | lines | find -mr "^\\d" | split column -c ' ' | insert protocol {|| split column -c '/' | get column2}
+$data_raw | lines | find -mr "^\\d" | split column -c ' ' | insert protocol {|| split column -c '/' }
+$data_raw | lines | find -mr "^\\d" | split column -c ' ' | insert protocol {|x| $x.column1 | split column -c '/' }
+$data_raw | lines | find -mr "^\\d" | split column -c ' ' | insert protocol {|x| $x.column1 | split column -c '/' | get column2}
+$data_raw | lines | find -mr "^\\d" | split column -c ' ' | insert protocol {|x| $x.column1 | split column -c '/' | get column2 | flatten}
+$data_raw | lines | find -mr "^\\d" | split column -c ' ' | insert protocol {|x| $x.column1 | split column -c '/' | get column2.0}
+str replace  -h | bat
+path -h | bat
+$data_raw | lines | find -mr "^\\d" | split column -c ' ' | insert protocol {|x| $x.column1 | path basename}
+update  -h | bat
+$data_raw | lines | find -mr "^\\d" | split column -c ' ' | insert protocol {|x| $x.column1 | path basename} | update column1 {path dirname}
+$data_raw 
+$data_raw | lines | find -mr "^\\d" | split column -c ' ' | insert protocol {|x| $x.column1 | path basename} | update column1 {path dirname} 
+$data_raw | lines | find -mr "^\\d" | split column -c ' ' | insert protocol {|x| $x.column1 | path basename} | update column1 {path dirname} | rename port state service protocel\
+$data_raw | lines | find -mr "^\\d" | split column -c ' ' | insert protocol {|x| $x.column1 | path basename} | update column1 {path dirname} | rename port state service protocol\
+$data_raw | lines | find -mr "^\\d" | split column -c ' ' | insert protocol {|x| $x.column1 | path basename} | update column1 {path dirname} | rename port state service protocol
+(nmap -p -sT (ip a)) | lines | find -mr "^\\d" | split column -c ' ' | insert protocol {|x| $x.column1 | path basename} | update column1 {path dirname} | rename port state service protocol
+(nmap -sT (ip a)) | lines | find -mr "^\\d" | split column -c ' ' | insert protocol {|x| $x.column1 | path basename} | update column1 {path dirname} | rename port state service protocol
+ip a
+ipaddr
+ip addr
+ip  -h | bat
+ip address-
+ip address
+ip -h
+ip a -h
+ip -h a
+ip -h a | line
+ip -h a | lines
+ip -h a | lines | get 8 | split words | get 2
+ip -h a | lines | get 8 | split words
+ip -h a | lines | get 8 
+ip -h a | lines | get 8 | split words
+ip -h a | lines | get 8 | split column
+ip -h a | lines | get 8 | split column ' '
+ip -h a | lines | get 8 | split column -c ' '
+ip -h a | lines | get 8 | split column  -h | bat
+ip -h a | lines | get 8 | split column -c ' '
+str trim
+str trim -h | bat
+(nmap -p -sT (ip a | lines | get 8 | split column -c ' ' | get column2 | str trim)) | lines | find -mr "^\\d" | split column -c ' ' | insert protocol {|x| $x.column1 | path basename} | update column1 {path dirname} | rename port state service protocol
+(nmap -sT (ip a | lines | get 8 | split column -c ' ' | get column2 | str trim)) | lines | find -mr "^\\d" | split column -c ' ' | insert protocol {|x| $x.column1 | path basename} | update column1 {path dirname} | rename port state service protocol
+(nmap -sT (ip a | lines | get 8 | split column -c ' ' | get column2 | str trim)) | lines | find -mr "^\\d" | split column -c ' ' | insert protocol {|x| $x.column1 | path basename} | update column1 {path dirname} | rename port state service protocol | save scanned.txt
+let $table = ((nmap -sT (ip a | lines | get 8 | split column -c ' ' | get column2 | str trim)) | lines | find -mr "^\\d" | split column -c ' ' | insert protocol {|x| $x.column1 | path basename} | update column1 {path dirname} | rename port state service protocol )
+dnfs vbox
+dnfs oracle
+dnfi VirtualBox-7.0.8_156879_fedora36-1.x86_64.rpm
+ls
+dnfi VirtualBox-7.0-7.0.8_156879_fedora36-1.x86_64.rpm
+sudo /sbin/vboxconfig
+dnfi kernel-devel kernel-devel-6.3.6-200.fc38.x86_6
+dnfs devel
+sudo dnf -y install @development-tools
+sudo dnf install kernel-headers kernel-devel dkms  -y
+/sbin/vboxconfig
+sudo /sbin/vboxconfig
+sudo dnf install kernel-devel
+sudo /sbin/vboxconfig
+sudo dnf install kernel-devel kernel-devel-6.3.6-200.fc38.x86_64
+uname -r
+sudo dnf install kernel-devel kernel-devel-6.3.6-200.fc38.x86_64
+sudo dnf update
+arp-scan -l
+dnfs arp-scan
+dnfi arp-scan
+sudo /sbin/vboxconfig
+dnfi kernel-devel
+dnfi kernel-devel-6.3.6-200.fc38.x86_64
+dnfs kernel-devel
+dnfs kernel-devel-matched
+dnfi kernel-devel-matched
+sudo dnf install kernel-headers
+sudo /sbin/vboxconfig
+sudo dnf install @development-tools
+sudo dnf install kernel-headers kernel-devel dkms
+"[virtualbox]<\n>name=Fedora $releasever - $basearch - VirtualBox<\n>baseurl=http://download.virtualbox.org/virtualbox/rpm/fedora/$releasever/$basearch<\n>enabled=1<\n>gpgcheck=1<\n>repo_gpgcheck=1<\n>gpgkey=https://www.virtualbox.org/download/oracle_vbox_2016.asc!" | save /etc/yum.repos.d/virtualbox.repo
+sudo "[virtualbox]<\n>name=Fedora $releasever - $basearch - VirtualBox<\n>baseurl=http://download.virtualbox.org/virtualbox/rpm/fedora/$releasever/$basearch<\n>enabled=1<\n>gpgcheck=1<\n>repo_gpgcheck=1<\n>gpgkey=https://www.virtualbox.org/download/oracle_vbox_2016.asc!" | save /etc/yum.repos.d/virtualbox.repo
+"[virtualbox]<\n>name=Fedora $releasever - $basearch - VirtualBox<\n>baseurl=http://download.virtualbox.org/virtualbox/rpm/fedora/$releasever/$basearch<\n>enabled=1<\n>gpgcheck=1<\n>repo_gpgcheck=1<\n>gpgkey=https://www.virtualbox.org/download/oracle_vbox_2016.asc!" | sud osave /etc/yum.repos.d/virtualbox.repo
+"[virtualbox]<\n>name=Fedora $releasever - $basearch - VirtualBox<\n>baseurl=http://download.virtualbox.org/virtualbox/rpm/fedora/$releasever/$basearch<\n>enabled=1<\n>gpgcheck=1<\n>repo_gpgcheck=1<\n>gpgkey=https://www.virtualbox.org/download/oracle_vbox_2016.asc!" | sudo save /etc/yum.repos.d/virtualbox.repo
+sudo su
+dnfi VirtualBox-7.0.8_156879_fedora36-1.x86_64.rpm
+dnfr VirtualBox-7.0-7.0.8_156879_fedora36-1.x86_64.rpm
+dnfr VirtualBox
+dnfs Virtualbox
+dnfr VirtualBox-7.0.x86_64
+dnfr VirtualBox-7.0-7.0.8_156879_fedora36-1.x86_64
+dnfs VirtualBox
+dnfi VirtualBox-7.0.x86_64
+dnfr VirtualBox-7.0-7.0.8_156879_fedora36-1.x86_64
+dnfr -f VirtualBox-7.0-7.0.8_156879_fedora36-1.x86_64
+dnfr -y VirtualBox-7.0-7.0.8_156879_fedora36-1.x86_64
+dnfi netdiscover
+dnfs netdiscover
+netdiscover
+dnfs kernel header
+dnfs kernel-headers
+dnfi kernel-headers
+sudo dnf upgrade
+sudo dnf update
+sudo dnf upgrade --refresh
+sudo dnf install kernel-headers
+sudo vmware
+dnfi kernel-headers
+sudo dnfi dkms
+do dnfi dkms
+dnfi dkms
+sudo dnf install gcc kernel-devel kernel-headers make<\n>
+ls
+bsash
+ls
+dnfs oracle
+dnfs VirtualBox
+dnfi VirtualBox-7.0.x86_64
+dnfr VirtualBox-7.0.x86_64
+dnfi VirtualBox-7.0.x86_64
+arp-scan -l
+sudo arp-scan -l
+ls
+arp-scan -l
+ls
+sudo arp-scan -l
+dnfs arp-scan
+dnfs nikto
+dnfi nikto
+sudo arp-scan -l
+sudo arp-scan -l | lines
+let data = (sudo arp-scan -l | lines)
+mut data = ($data |lines)
+mut d = ($data |lines)
+$data
+mut data = (sudo arp-scan -l |lines)
+$data
+$data | drop 1
+$data | range 2..9
+$data | range 2..8
+$data 
+$data range 2..8
+$data | range 2..8
+$data | range 2..8 | parse "{c1} {c2} {c3}"
+$data | range 2..8 | parse "{c1}(.*){c2}(.*){c3}"
+$data | range 2..8 | split column ' '
+$data | range 2..8 | split column -c ' '
+$data | range 2..8 | split words
+$data | range 2..8
+$data | range 2..8 | split column -c "\s"
+$data | range 2..8 | split column -c "\\s"
+$data | range 2..8 | split column  -h | bat
+$data | range 2..8 | split column  -r "\\s*"
+$data | range 2..8 | split column  -r "\\s"
+$data | range 2..8 | split column  " "
+$data | range 2..8 | split column  -r "\\s"
+data = ($data | range 2..8 | split column  -r "\\s" )
+$data = ($data | range 2..8 | split column  -r "\\s" )
+$data 
+for x in $data.column1 { nikto -h $in}
+let d = $data
+for x in $d {print $in}
+$d
+for x in $d.colummn1 {nikto -h $x}
+for x in $d.column1 {nikto -h $x}
+nikto -h 192.168.1.112
+nikto -h https://192.168.1.112
+nikto -h http://192.168.1.112
+nikto -h http://192.168.1.10
+nikto -h https://192.168.1.10
+nikto -h https://192.168.1.102
+nikto -h https://192.168.1.103
+nikto -h https://192.168.1.124
+sudo arp-scan -l | lines
+nmap
+nmap -sT
+dnfs dirbuster
+dnfs gobuster
+dnfi gobuster
+ip a
+netwdiscover -h
+netdiscover -h
+nmap -sT 192.168.1.108/24
+dnfs netdiscover
+ls
+extract kali-linux-2023.2-vmware-amd64.7z
+extract kali-linux-2023.2-virtualbox-amd64(1).7z
+dnfs 7z
+dnfs p7z
+dnfi p7zip
+extract kali-linux-2023.2-virtualbox-amd64.7z
+extract kali-linux-2023.2-virtualbox-amd64(1).7z
+dnfs p7z
+dnfi p7zip-gui 
+tldr 7z
+7z x kali-linux-2023.2-virtualbox-amd64(1).7z\
+arp a
+arg -h | bat
+arp -h | bat
+arp
+arp | parse "{aaa} {b}"
+arp | lines |parse "{aaa} {b}"
+arp | lines |parse "{aaa} {b} {c} {d}"
+arp | lines |parse "{aaa} {b} {c} "
+arp | lines |parse "{aaa} {b} {c}"
+arp | lines | parse -r "\\s*(.*)\\s*(.*)"
+arp | lines | parse -r "\\s*(.*)"
+arp | lines | parse -r "(.*)"
+arp | lines | parse -r "(.*)(.*)"
+arp | lines | parse -r "(.*) (.*)"
+arp | lines | parse -r "(.*) (.*) (.*)"
+arp | lines | parse -r "(.*)\\s*(.*) (.*)"
+arp | lines | parse -r "(.*)\\s*(.*)\\s*(.*)"
+arp | detect columns
+arp | detect columns | drop Mask
+arp | detect columns 
+arp | detect columns | drop Mask
+arp | detect columns | drop "Mask"\
+arp | detect columns | drop 6
+arp | detect columns | drop column Mask
+arp | detect columns | drop column 6
+arp | detect columns | drop column  -h | bat
+arp | detect columns | reject Masks
+arp | detect columns | reject Mask
+$d
+$data
+ip a
+arp a
+arg
+arp
+sudo arp-scan -l
+nmap -h | bat
+ip a
+nmap -sn 192.168.1.108/24
+gobuster
+tldr gobuster
+gobuster https://www.google.com
+gobuster dir "https://www.google.com"
+man gobuster 
+gobuster --help
+rustup
+dnfs rustup
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+ls
+setxkbmap us dvorak
+startup
+sudo light -S 20
+startup
+ls
+ls | skip 3 | drop 2
+ps 
+sudo fdisk -l\
+sudo fdisk -l
+sudo fdisk -l | lines
+sudo fdisk -l | lines | drop 7 | skip  -h | bat
+sudo fdisk -l | lines | enumerate
+drop -h | bat
+get  -h | bat
+sudo fdisk -l | lines | get 8..11
+sudo fdisk -l | lines | get 8.11
+sudo fdisk -l | lines | range 7.. 12
+sudo fdisk -l | lines | range 7..12
+sudo fdisk -l | lines 
+sudo fdisk -l | lines | range 8..11
+split
+split -h | bat
+sudo fdisk -l | lines | range 8..11 | split column
+sudo fdisk -l | lines | range 8..11 | split column ' '
+sudo fdisk -l | lines | range 8..11 | split column -c' '
+sudo fdisk -l | lines | range 8..11 | split column -c ' '
+sudo fdisk -l | lines | range 8..11 | split words
+sudo fdisk -l | lines | range 8..11 | split row
+sudo fdisk -l | lines | range 8..11 | split row ' '
+sudo fdisk -l | lines | range 8..11 | split list
+sudo fdisk -l | lines | range 8..11 | split list ' '
+sudo fdisk -l | lines | range 8..11 | split column -cr "\s*"
+sudo fdisk -l | lines | range 8..11 | split column -cr "\\s*"
+sudo fdisk -l | lines | range 8..11 | split column -cr "\\s"
+sudo fdisk -l | lines | range 8..11 | split column -c "\\s"
+sudo fdisk -l | lines | range 8..11 | split column -c " "
+sudo fdisk -l | lines | range 8..11 | parse
+sudo fdisk -l | lines | range 8..11 | detect columns
+sudo fdisk -l | lines | range 8..11 | str join
+sudo fdisk -l | lines | range 8..11 | str join "\n"
+sudo fdisk -l | lines | range 8..11 | str join "\n" | detect columns
+sudo fdisk -l | lines | range 8..11 | split column " "
+sudo fdisk -l | lines | range 8..11 | split column -c " "
+sudo fdisk -l | lines | range 8..11 
+table -h | bat
+sudo fdisk -l | lines | range 8..11 | table
+sudo fdisk -l | lines | range 8..11 
+column 
+column  -h | bat
+sudo fdisk -l | lines | range 8..11 | column 
+sudo fdisk -l | lines | range 8..11 | column -t
+sudo fdisk -l | lines | range 8..11 | columns
+sudo fdisk -l | lines | range 8..11 | headers
+"a b c | 1 2 3" | split row "|"
+"a b c |<\n>1 2 3" | split row "|"
+"a b c |1 2 3" | split row "|"
+"a b c |1 2 3" | split row "|" | split column 
+"a b c |1 2 3" | split row "|" | split column " "
+"a b c |1 2 3" | split row "|" | split column -c  " "
+"a b c |1 2 3" | split row "|" | split column -c " "
+"a b c |1 2 3" | split row "|" | split column -c " " | header
+"a b c |1 2 3" | split row "|" | split column -c " " | headers
+sudo fdisk -l | lines | range 8..11 
+sudo fdisk -l | lines | range 8..11 | split column -c " "
+sudo fdisk -l | lines | range 8..11 | split column -c " " |headers
+sudo fdisk -l
+sudo fdisk -l |lines 
+sudo fdisk -l |lines | range 8..1
+sudo fdisk -l |lines | range 8..11
+sudo fdisk -l |lines | range 8..11 | split column -c " "
+sudo fdisk -l |lines | range 8..11 | split column -c " " | headers
+dnfs vmware
+vmware-uninstall
+vmware-uninstall -l
+vmware-installer -l
+dnfr vmware-player
+vmware-uninstall vmware-player
+vmware-installer -u vmware-player
+sudo vmware-installer -u vmware-player
+killall emacs
+^emacs --daemon
+dnfs virtualbox
+dnfs oracle vm
+sudo dnf -y install @development-tools<\n>sudo dnf -y install kernel-headers kernel-devel dkms elfutils-libelf-devel qt5-qtx11extras
+wget -q https://www.virtualbox.org/download/oracle_vbox.asc<\n>sudo rpm --import oracle_vbox.asc
+sudo vi /etc/yum.repos.d/virtualbox.repo
+sudo dnf -y install VirtualBox-6.1
+sudo dnf -y install VirtualBox
+dnfs virtualbox
+sudo vi /etc/yum.repos.d/virtualbox.repo
+sudo rm /etc/yum.repos.d/virtualbox.repo
+ls
+dnfs virtualbox
+sudo dnf install VirtualBox-7.0
+yum install VirtualBox-6.1
+sudo yum install VirtualBox-6.1
+sudo rpm --import oracle_vbox_2016.asc
+wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | rpm --import -
+wget https://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
+sudo mv virtualbox.repo /etc/yum.repos.d/
+sudo dnf update
+dnfs virtualbox
+dnfi virtualbox-7.0
+dnfi virtualbox-7.0.x86_64
+dnfi VirtualBox-7.0
+dnfu
+ls
+alias
+ps 
+sudo fdisk -l 
+startup
+sudo fdisk -l 
+sudo fdisk -l | linus
+sudo fdisk -l | lines
+sudo fdisk -l | lines | range 8..14
+sudo fdisk -l | lines | range 8..14|headers
+sudo fdisk -l | lines | range 8..14 | split column -c ' '
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | hearder
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | hearders
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | headers
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | headers | where Size > 1
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | headers | get size
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | headers | get size | into filesize 
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | headers | get size | into filesize | where $in > 1GB
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | headers | get size | into filesize | where {|x| $x > 1GB}
+update  -h | bat
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | headers<\n>
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | headers | update size {|x| $x | into filesize }
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | headers | update Size {|x| $x | into filesize }
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | headers | update Size {|x| $x.Size | into filesize }
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | headers | update {|x| $x.Size | into filesize }
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | headers | update Size { into filesize }
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | headers 
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | headers | update Size {|| into filesize }
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | headers | update Size {|| into filesize } | update Device {|| into bool }
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | headers | update Size {|| into filesize } 
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | headers | update Size {|| into filesize } | where Size < 1GB
+sudo fdisk -l | lines | range 8..14 | split column  ' ' | headers | update Size {|| into filesize } | where Size < 1GB
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | headers | update Size {|| into filesize } | where Size < 1GB
+ps 
+sudo fdisk -l
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | headers | update Size { into filesize } | where Size < 1GB
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | headers 
+sudo fdisk -l | lines | range 8..14 | split column -c ' ' | headers | where Type == Linux
+ls
+sudo fdisk -l
+sudo fdisk -l | find '/dev'
+sudo fdisk -l | find '^/dev'
+sudo fdisk -l | find -r '^/dev'
+sudo fdisk -l | find -r  "^/dev"
+sudo fdisk -l | find -r  "^\/dev"
+sudo fdisk -l | find -r  "/dev"
+sudo fdisk -l | find -rm  "^/dev"
+sudo fdisk -l | find -mr  "^/dev"
+sudo fdisk -l | find -mr  "^/dev.*"
+sudo fdisk -l | find -m "^/dev"
+sudo fdisk -l | find -m "^\/dev"
+sudo fdisk -l | find -rm "^\/dev"
+sudo fdisk -l | find -mr "^\/dev"
+sudo fdisk -l | find -m "^/dev"
+sudo fdisk -l | find -m "^"
+sudo fdisk -l | find -m ""
+sudo fdisk -l | find -m "s"
+sudo fdisk -l | find -m "\^"
+sudo fdisk -l | find -mr "^"
+sudo fdisk -l | find -mr "^$"
+^skip -h | bat
+skip -h | bat
+wc
+"hasa oeu anoesu as" | wc -l
+"hasa oeu anoesu as" | wc 
+^ls | wc
+^ls | wc -l
+^ls 
+wc -h | bat
+man wc
+^ls | wc -w
+^ls | lines
+ls | lines
+ls 
+ls | get name
+ls | sort -h | bat
+ls | sort-by -h | bat
+ls | sort-by name
+ls | sort-by size
+ls | sort-by -r  size
+syncthing
+startup
+ls 
+ls | where $in =~ "BYOB"
+ls | where name =~ "BYOB"
+ls | where name =~ "BYOB" | get name
+ls | where name =~ "BYOB" | get name 
+ls | where name =~ "BYOB" | get name | str trim  -h | bat
+ls | where name =~ "BYOB" | get name | str trim -l "BYOB_"
+ls | where name =~ "BYOB" | get name | str trim -l "BYOB"
+ls | where name =~ "BYOB" | get name | each {str trim -l "BYOB_"}
+str -h | bat
+str substring 
+str substring  -h | bat
+ls | where name =~ "BYOB" | get name | each {str substring 6..}
+ls | where name =~ "BYOB" | get name | each {str substring 5..}
+ls | where name =~ "BYOB" | get name | each {|x| mv $x ($x | str substring 5..)}
+ls
+syncthing
+startup
+syncthing
+find -h
+^find  -h | bat
+^find  --help | bat
+sudo dnf search fd
+sudo dnf search fd-find
+grep -h | bat
+grep --help
+rg  -h | bat
+man find
+tldr find
+find --help
+^find --help
+find -not 
+^find -not 
+ls **/*
+ls **/* | where type == file | find -v /Music /Videos /Pictures | fzf
+ls **/* | where type == file | find -v /Music /Videos /Pictures | get name | fzf
+^ls **/* | where type == file | find -v /Music /Videos /Pictures | get name | fzf
+ls **/* | where type == file | find -v /Music /Videos /Pictures | get name | to text | fzf
+ls **/* | where type == file | find -v "/Music" | get name | to text | fzf
+ls **/* | where type == file | find -v "/Music" | get name | to text 
+ls **/* | where type == file | find -v "/Music" | get name 
+find  -h | bat
+ls
+ls | find -v Pictures
+ls **/* | where type == file | find -v "Music" | get name | to text
+ls **/* | where type == file | find -v "Music" "Pictures" | get name | to text
+ls **/* | where type == file | find -v "Music" "Pictures" "Videos" | get name | to text
+ls **/* | where type == file | find -v "Music" "Pictures" "Videos" "Documents" | get name | to text
+ls **/* | where type == dir
+ls
+ls **/* | where type == file | find -v 'Music' 'Pictures' 'Videos' 'Documents' | get name | to text | fzf
+ls **/* | where type == file | find -v 'Music' 'Pictures' 'Videos' 'Documents' 'Books' | get name | to text | fzf
+cd ~
+dnfs gimp
+dnfi gimp
+startupk
+startup
+ps -l 
+ps -l | find emacs
+startup
+xset  -h | bat
+tldr xset
