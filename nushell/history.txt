@@ -5898,3 +5898,15 @@ ls
 ls | get name | where {|x| $x =~ " "} | each {|x| mv -f $x ($x | str replace " " "")}
 latexmk
 startup
+syncthing
+dnfs ibm mono
+dnfs ibm-plex-mono-fonts
+dnfi ibm-plex-mono-fonts
+ls
+dnfs rust-src
+dnfi rust-src
+dnfs rust-anal
+dnfi rust-analyzer
+cargo clippy
+cargo --list
+^emacs --daemon

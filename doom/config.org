@@ -112,13 +112,14 @@ The saying, "give 'em enough rope, and they'll likely hang themselves," holds tr
       undo-limit 80000000)
 
 (setq standard-indent 8
-      tab-width 8)
+      tab-width 8
+      evil-shift-width 8
+      indent-tabs-mode nil
+)
 (after! rustic
-      rustic-indent-offset 8) ;; configure for other languages if others used
+      rustic-indent-offset 8
+      ) ;; configure for other languages if others used
 #+end_src
-
-#+RESULTS:
-: left-fringe
 
 ** Windows & splits
 #+begin_src emacs-lisp :config.el :comments link
@@ -143,17 +144,18 @@ The saying, "give 'em enough rope, and they'll likely hang themselves," holds tr
 Constrain popup buffers to also vsplit, and have a reasonable size.
 #+begin_src emacs-lisp :config.el :comments link
 ;; modify defaults
-(plist-put +popup-defaults :side 'right)
-(plist-put +popup-defaults :width 0.33)
-(plist-put +popup-defaults :select 'ignore)
-(plist-put +popup-defaults :quit nil)
-(plist-put +popup-defaults :ttl 5)
-(plist-put +popup-defaults :modeline t)
+(setq-default +popup-defaults
+              '(:side 'right
+                :width 0.25
+                :select 'ignore
+                :quit nil
+                :ttl 5
+                :modeline t))
 
 (set-popup-rules!
   '(("\\*.*(?!Agenda).*\\*" ;; match all * buffers except Agenda (breaks it)
      :side right
-     :width 0.33 ;;'+popup-shrink-to-fit
+     :width 0.25 ;;'+popup-shrink-to-fit
      :modeline t
      :quit nil)
     ))
@@ -238,11 +240,12 @@ The map macro has the following states:
 - add a search key to 's' and 'S', so no more relative line jumping and then =f= or =t= jumping inline. Instead just jump to the exact position you need to get to immediately without the mental overhead (of doing both steps).
 - stay on the home row more with evilemotions on =JKHL=
 - move lines up and down visually with =jk=
+- override evil-snipe's =s= key with precise jumping
 #+begin_src emacs-lisp :config.el :comments link
-(setq evilem-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s))
+(setq evilem-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)) ;; !! using dvorak keyboard layout.
 (map!
- :nvmo "C-u"   'user-scroll-half-up
- :nvmo "C-d"   'user-scroll-half-dn
+ :nvmo "C-u"   'user-scroll-down-up-page
+ :nvmo "C-d"   'user-scroll-down-half-page
  :nvmo "C-o"   (lambda () (interactive) (evil-jump-backward 1) (evil-scroll-line-to-center nil))
  :nvmo "C-i"   (lambda () (interactive) (evil-jump-forward 1) (evil-scroll-line-to-center nil))
  :nvmo "n"     (lambda () (interactive) (evil-ex-search-next 1) (evil-scroll-line-to-center nil))
@@ -251,13 +254,12 @@ The map macro has the following states:
  :nvmo "Q"     'evil-execute-last-recorded-macro
  :nvmo "j"     'evil-next-visual-line
  :nvmo "k"     'evil-previous-visual-line
- :nvmo "J"     'evilem-motion-next-line
- :nvmo "K"     'evilem-motion-previous-line
+ :nvmo "J"     'evilem-motion-next-line ;; evil-join -> "+"
+ :nvmo "K"     'evilem-motion-previous-line ;; help under keyword -> Alt+h
  :nvmo "L"     'evil-end-of-line
  :nvmo "H"     'evil-first-non-blank
  :nvmo "+"     'evil-join)
 
-;; override evil-snipe's 's' key with something better
 (map!
  :map evil-snipe-local-mode-map
  :nm   "s"     'evilem-motion-find-char
@@ -335,19 +337,27 @@ The map macro has the following states:
 ** Better PgUp/PgDn
 - better scrolling
 #+begin_src emacs-lisp :config.el :comments link
-;; no; i did not make a typo, it really scrolls down like this
-(defun user-scroll-half-dn ()
+(defun user-scroll-down-half-page ()
+  "scroll down half a page while keeping the cursor centered"
   (interactive)
-  (scroll-up (/ (window-body-height) 2))
-  (evil-scroll-line-to-center nil)
-)
+  (let ((ln (line-number-at-pos (point)))
+    (lmax (line-number-at-pos (point-max))))
+    (cond ((= ln 1) (move-to-window-line nil))
+      ((= ln lmax) (recenter (window-end)))
+      (t (progn
+           (move-to-window-line -1)
+           (recenter))))))
 
-;; no; i did not make a typo, it really scrolls down like this
-(defun user-scroll-half-up ()
+(defun user-scroll-up-half-page ()
+  "scroll up half a page while keeping the cursor centered"
   (interactive)
-  (scroll-down (/ (window-body-height) 2))
-  (evil-scroll-line-to-center nil)
-)
+  (let ((ln (line-number-at-pos (point)))
+    (lmax (line-number-at-pos (point-max))))
+    (cond ((= ln 1) nil)
+      ((= ln lmax) (move-to-window-line nil))
+      (t (progn
+           (move-to-window-line 0)
+           (recenter))))))
 #+end_src
 
 ** Org keywords lowercase

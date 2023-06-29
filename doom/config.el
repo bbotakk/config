@@ -89,9 +89,13 @@
       undo-limit 80000000)
 
 (setq standard-indent 8
-      tab-width 8)
+      tab-width 8
+      evil-shift-width 8
+      indent-tabs-mode nil
+)
 (after! rustic
-      rustic-indent-offset 8) ;; configure for other languages if others used
+      rustic-indent-offset 8
+      ) ;; configure for other languages if others used
 ;; editor options:1 ends here
 
 ;; [[file:config.org::*Windows & splits][Windows & splits:1]]
@@ -112,17 +116,18 @@
 
 ;; [[file:config.org::*Popup buffers][Popup buffers:1]]
 ;; modify defaults
-(plist-put +popup-defaults :side 'right)
-(plist-put +popup-defaults :width 0.33)
-(plist-put +popup-defaults :select 'ignore)
-(plist-put +popup-defaults :quit nil)
-(plist-put +popup-defaults :ttl 5)
-(plist-put +popup-defaults :modeline t)
+(setq-default +popup-defaults
+              '(:side 'right
+                :width 0.25
+                :select 'ignore
+                :quit nil
+                :ttl 5
+                :modeline t))
 
 (set-popup-rules!
   '(("\\*.*(?!Agenda).*\\*" ;; match all * buffers except Agenda (breaks it)
      :side right
-     :width 0.33 ;;'+popup-shrink-to-fit
+     :width 0.25 ;;'+popup-shrink-to-fit
      :modeline t
      :quit nil)
     ))
@@ -187,10 +192,10 @@
 ;; Global navigation:1 ends here
 
 ;; [[file:config.org::*Vim editing][Vim editing:1]]
-(setq evilem-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s))
+(setq evilem-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)) ;; !! using dvorak keyboard layout.
 (map!
- :nvmo "C-u"   'user-scroll-half-up
- :nvmo "C-d"   'user-scroll-half-dn
+ :nvmo "C-u"   'user-scroll-down-up-page
+ :nvmo "C-d"   'user-scroll-down-half-page
  :nvmo "C-o"   (lambda () (interactive) (evil-jump-backward 1) (evil-scroll-line-to-center nil))
  :nvmo "C-i"   (lambda () (interactive) (evil-jump-forward 1) (evil-scroll-line-to-center nil))
  :nvmo "n"     (lambda () (interactive) (evil-ex-search-next 1) (evil-scroll-line-to-center nil))
@@ -199,13 +204,12 @@
  :nvmo "Q"     'evil-execute-last-recorded-macro
  :nvmo "j"     'evil-next-visual-line
  :nvmo "k"     'evil-previous-visual-line
- :nvmo "J"     'evilem-motion-next-line
- :nvmo "K"     'evilem-motion-previous-line
+ :nvmo "J"     'evilem-motion-next-line ;; evil-join -> "+"
+ :nvmo "K"     'evilem-motion-previous-line ;; help under keyword -> Alt+h
  :nvmo "L"     'evil-end-of-line
  :nvmo "H"     'evil-first-non-blank
  :nvmo "+"     'evil-join)
 
-;; override evil-snipe's 's' key with something better
 (map!
  :map evil-snipe-local-mode-map
  :nm   "s"     'evilem-motion-find-char
@@ -276,19 +280,27 @@
 ;; Insert date's:1 ends here
 
 ;; [[file:config.org::*Better PgUp/PgDn][Better PgUp/PgDn:1]]
-;; no; i did not make a typo, it really scrolls down like this
-(defun user-scroll-half-dn ()
+(defun user-scroll-down-half-page ()
+  "scroll down half a page while keeping the cursor centered"
   (interactive)
-  (scroll-up (/ (window-body-height) 2))
-  (evil-scroll-line-to-center nil)
-)
+  (let ((ln (line-number-at-pos (point)))
+    (lmax (line-number-at-pos (point-max))))
+    (cond ((= ln 1) (move-to-window-line nil))
+      ((= ln lmax) (recenter (window-end)))
+      (t (progn
+           (move-to-window-line -1)
+           (recenter))))))
 
-;; no; i did not make a typo, it really scrolls down like this
-(defun user-scroll-half-up ()
+(defun user-scroll-up-half-page ()
+  "scroll up half a page while keeping the cursor centered"
   (interactive)
-  (scroll-down (/ (window-body-height) 2))
-  (evil-scroll-line-to-center nil)
-)
+  (let ((ln (line-number-at-pos (point)))
+    (lmax (line-number-at-pos (point-max))))
+    (cond ((= ln 1) nil)
+      ((= ln lmax) (move-to-window-line nil))
+      (t (progn
+           (move-to-window-line 0)
+           (recenter))))))
 ;; Better PgUp/PgDn:1 ends here
 
 ;; [[file:config.org::*Org keywords lowercase][Org keywords lowercase:1]]
