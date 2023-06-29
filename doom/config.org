@@ -51,6 +51,7 @@ The saying, "give 'em enough rope, and they'll likely hang themselves," holds tr
 (setq calc-angle-mode 'rad
       calc-symbolic-mode t)
 
+(setq confirm-kill-emacs nil)
 
 (setq doom-scratch-initial-major-mode 'org-mode) ;; make scratch buffer be in org mode -> coding(with #+src) or notes
 #+end_src
@@ -69,8 +70,11 @@ The saying, "give 'em enough rope, and they'll likely hang themselves," holds tr
 
 ** editor options
 - restrict text column width. then wrap words -> forces to not nest and keeps readability maximized
-- Limit the horizontal width to optimal distance to still view the entire line at a glance.
-- Center the text for better ergonomics.
+- Limit the horizontal width to optimal distance (120) to still view the entire line at a glance.
+- Center buffers for better ergonomics.
+- 8 Space indents
+  + It will naturally constrain and enforce that the code is not nested more than 3 times. When that point is reached it should be broken up into functions. Which optimizes the readability of the code and makes the code easier for modularity and reusability, while reducing mental overhead.
+
 #+begin_src emacs-lisp :config.el :comments link
 (whitespace-mode t) ;; hl whitespace
 (global-subword-mode t)
@@ -90,10 +94,7 @@ The saying, "give 'em enough rope, and they'll likely hang themselves," holds tr
 
 (setq yas-triggers-in-field t)
 
-(setq +zen-text-scale 1
-      writeroom-width 120
-      writeroom-mode-line nil
-      )
+(setq +zen-text-scale 1)
 
 (setq-default flycheck-indication-mode 'left-fringe)
 
@@ -110,6 +111,10 @@ The saying, "give 'em enough rope, and they'll likely hang themselves," holds tr
 (setq which-key-idle-delay 0.1 ;; do not set to 0 -> massive performance issues
       undo-limit 80000000)
 
+(setq standard-indent 8
+      tab-width 8)
+(after! rustic
+      rustic-indent-offset 8) ;; configure for other languages if others used
 #+end_src
 
 #+RESULTS:

@@ -18,29 +18,23 @@ alias ga =      git add
 alias diff =    diff --color=auto
 alias ip =      ip -color=auto
 alias bat =     bat
-alias ls =      ls -d # disk usage in human readable formate
 alias dnfs =    sudo dnf search
 alias dnfi =    sudo dnf -y install
 alias dnfu =    sudo dnf -y update
 alias dnfr =    sudo dnf -y remove
 
-let-env PATH = ($env.PATH | append ['~/Code/scripts', '~/.config/scripts', '~/.cargo/bin', "~/.config/emacs/bin"])
+let-env PATH = ($env.PATH | append ["~/Code/scripts", "~/.config/scripts", "~/.cargo/bin", "~/.config/emacs/bin" "~/.config/carapace/bin"])
 
-let-env EDITOR = 'emacs -nw' # emacs in the terminal
-let-env VISUAL = 'emacsclient -c' # gui emacs
-let-env BROWSER = 'firefox'
-let-env MANPAGER = 'bat'
+let-env EDITOR = "emacsclient -c -t --alternate-editor='emacs -t'" # emacs in the terminal
+let-env VISUAL = "emacsclient -c --alternate-editor=emacs" # gui emacs
+let-env BROWSER = "firefox"
+let-env MANPAGER = "bat"
 let-env PAGER = "bat"
 let-env BAT_THEME = "Solarized (light)"
 
-
-# get juicy custom completions from fish shell into nushell until it supports it natively
-let fish_completer = {|spans|
-    fish --command $'complete "--do-complete=($spans | str join " ")"'
-    | str trim
-    | split row "\n"
-    | each { |line| $line | split column "\t" value description }
-    | flatten
+# External completer for commands that are not nushell (eg. git or ip)
+let carapace_completer = {|spans|
+	 carapace $spans.0 nushell $spans | from json
 }
 
 # The default config record. This is where much of your global configuration is setup.
@@ -118,8 +112,8 @@ let-env config = {
 		algorithm: "prefix"  # prefix or fuzzy
 		external: {
 			enable: true # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up my be very slow
-			max_results: 100 # setting it lower can improve completion performance at the cost of omitting some options
-			completer: $fish_completer # check 'carapace_completer' above as an example
+			max_results: 30 # setting it lower can improve completion performance at the cost of omitting some options
+			completer: $carapace_completer
 		}
 	}
 
@@ -337,7 +331,7 @@ let-env config = {
 			modifier: alt
 			keycode: char_x
 			mode: [emacs, vi_normal, vi_insert] 
-			event: {send: executehostcommand, cmd: "emacs -c -nw --eval '(dired-jump)'"} # or use lf
+			event: {send: executehostcommand, cmd: "emacs -c -t --alternate-editor=emacs --eval '(dired-jump)'"} # or use lf
 		}
 
 		{name: open_editor
@@ -441,8 +435,3 @@ def solarized [] { return {
     foreground: "#93a1a1"
     cursor: "#93a1a1"
 }}
-
-# External completer example
-# let carapace_completer = {|spans|
-#	 carapace $spans.0 nushell $spans | from json
-# }

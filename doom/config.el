@@ -37,6 +37,7 @@
 (setq calc-angle-mode 'rad
       calc-symbolic-mode t)
 
+(setq confirm-kill-emacs nil)
 
 (setq doom-scratch-initial-major-mode 'org-mode) ;; make scratch buffer be in org mode -> coding(with #+src) or notes
 ;; Emacs options:1 ends here
@@ -70,10 +71,7 @@
 
 (setq yas-triggers-in-field t)
 
-(setq +zen-text-scale 1
-      writeroom-width 120
-      writeroom-mode-line nil
-      )
+(setq +zen-text-scale 1)
 
 (setq-default flycheck-indication-mode 'left-fringe)
 
@@ -89,6 +87,11 @@
 
 (setq which-key-idle-delay 0.1 ;; do not set to 0 -> massive performance issues
       undo-limit 80000000)
+
+(setq standard-indent 8
+      tab-width 8)
+(after! rustic
+      rustic-indent-offset 8) ;; configure for other languages if others used
 ;; editor options:1 ends here
 
 ;; [[file:config.org::*Windows & splits][Windows & splits:1]]

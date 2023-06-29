@@ -5808,3 +5808,93 @@ ps -l | find emacs
 startup
 xset  -h | bat
 tldr xset
+ls **/* | where type == file | find -v 'Music' 'Pictures' 'Videos' 'Documents' 'Books' | get name | to text | fzf
+cargo run
+emacs --nw
+ls
+emacsclient  -h | bat
+ls
+dnfs carapace
+cd ~
+ls
+ls **/* | where type == file | find -v 'Music' 'Pictures' 'Videos' 'Documents' 'Books' | get name | to text | fzf
+cd =
+cd 
+cd /
+ls
+cd ~
+ls **/* | where type == file | find -v 'Music' 'Pictures' 'Videos' 'Documents' 'Books' | get name | to text | fzf
+ls
+dnfi carapace-bin_0.25.0_linux_386.rpm
+ls
+carapace
+carapace _carapace nushell
+$env.config
+dnfu
+ls
+http get  -h | bat
+mkdir test
+md testing
+http get https://github.com/rsteube/carapace-bin/releases/download/v0.25.0/carapace-bin_0.25.0_linux_386.rpm
+curl  -h | bat
+wget  -h | bat
+curl -h
+curl -O -h
+curl -O https://github.com/rsteube/carapace-bin/releases/download/v0.25.0/carapace-bin_0.25.0_linux_386.rpm
+curl -h
+http get  -h | bat
+curl -h
+wget -h
+man wget
+man curl
+tldr curl
+http get https://github.com/rsteube/carapace-bin/releases/download/v0.25.0/carapace-bin_0.25.0_linux_386.rpm | save carapace.rpm
+fetch  -h | bat
+tldr wget
+wget  -h | bat
+wget https://github.com/rsteube/carapace-bin/releases/download/v0.25.0/carapace-bin_0.25.0_linux_386.rpm
+cd 
+cargo run
+ls
+cd src
+l
+ls
+cargo run
+lsof  -h | bat
+man lsof
+sudo lsof -i :7878<\n>
+sudo lsof -i :7878
+ls
+cargo run=
+cargo run
+rustdco
+rustdoc
+tldr rustdoc
+syncthing
+startup
+ls 
+ls | get name 
+str downcase  -h | bat 
+ls | get name | each {|x| mv $x ($x | str downcase)}
+mv -h | bat
+ls
+ls | find averse
+ls | get name | each {|x| mv -f $x ($x | str downcase)}
+ls
+ls
+mkdir test
+cp * test
+cp ./* test
+tldr cp
+cp * test
+cp * test/
+cp *.* test/
+ls
+ls *
+ls | get name | each {|x| mv -f $x ($x | str replace "byob_" " ")}
+ls | get name | where $in =~ byob | each {|x| mv -f $x ($x | str replace "byob_" " ")}
+ls | get name | where {|x| $x =~ byob} | each {|x| mv -f $x ($x | str replace "byob_" " ")}
+ls
+ls | get name | where {|x| $x =~ " "} | each {|x| mv -f $x ($x | str replace " " "")}
+latexmk
+startup
